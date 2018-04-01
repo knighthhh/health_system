@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/souye.css"/>
+	    <script src="../js/souye.js" type="text/javascript" charset="utf-8"></script>
+	    <style type="text/css">
+			.person-detail {
+				text-indent: 2em;
+			}
+			.headline{
+				color: #78E067;
+				font-size: medium;
+				font-family: "microsoft yahei";
+			}
+			.doc_detail{
+				color: #6C6C6C;
+			}
+			
+	    </style>
+	</head>
+	
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">个人主页</h1>
+		</header>
+		
+		<div class="mui-content">
+			<!--轮播图-->
+		<div id="slider" class="mui-slider" >
+		  <div class="mui-slider-group mui-slider-loop">
+		    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+		    <div class="mui-slider-item mui-slider-item-duplicate">
+		      <a href="#">
+		        <img src="../img/jiankang2.jpeg">
+		      </a>
+		    </div>
+		    <!-- 第一张 -->
+		    <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="../img/jiankang2.jpeg">
+		      </a>
+		    </div>
+		    <!-- 第二张 -->
+		    <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="../img/jiankang.jpeg">
+		      </a>
+		    </div>
+		    <!-- 第三张 -->
+		    <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="../img/test.jpg">
+		      </a>
+		    </div>
+		    <!-- 第四张 -->
+		    <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="../img/jiankang2.jpeg">
+		      </a>
+		    </div>
+		    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+		    <div class="mui-slider-item mui-slider-item-duplicate">
+		      <a href="#">
+		        <img src="../img/jiankang.jpeg">
+		      </a>
+		    </div>
+		  </div>
+		  <div class="mui-slider-indicator">
+		    <div class="mui-indicator mui-active"></div>
+		    <div class="mui-indicator"></div>
+		    <div class="mui-indicator"></div>
+		    <div class="mui-indicator"></div>
+		  </div>
+		</div>
+		
+	<!--轮播图-->
+			<div class="person_info">
+				
+					<ul class="mui-table-view">
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-pull-left" src="../img/inquiry.jpg">
+					            <div class="mui-media-body">
+					              		<span class="name">张三丰</span> 
+					              	<hr style="border:1px dashed #CCCCCC ">
+					                <p class='mui-ellipsis'>性别：<span>男</span></p>
+					                <p class='mui-ellipsis'>本人电话：<span>15768651511</span></p>
+					                <p class='mui-ellipsis'>出生日期：<span>2010-10-10</span></p>
+					                
+					            </div>
+					        </a>
+					    </li> 
+					</ul>
+				
+			</div>
+
+				<div class="doc_detail">
+					  <ul class="mui-table-view">
+						<li class="mui-table-view-cell headcolor">
+				           <p class="headline">个人介绍</p>      
+				        </li>
+				        <ul class="mui-table-view mui-table-view-chevron">
+						        <li class="mui-table-view-cell">
+						           <p class="person-detail">记录肯德基阿拉山口简单了喀什角动量喀什</p>
+						        </li>   
+						       
+				       		</ul>
+				    </ul>
+				    <ul class="mui-table-view">
+						<li class="mui-table-view-cell headcolor">
+				           <p class="headline">医生信息</p>      
+				        </li>
+				        <ul class="mui-table-view mui-table-view-chevron">
+						        <li class="mui-table-view-cell">
+						           <span id="">
+						           	所属科室：
+						           </span>
+						           <span id="">
+						           	。。。
+						           </span>
+						           
+						           
+						        </li>
+						        
+						         <li class="mui-table-view-cell">
+						           
+							           <span id="">
+							           	职业点：
+							           </span>
+							           <span id="">
+							           	。。
+						           	   </span>
+						           
+						           
+						        </li>
+						         <li class="mui-table-view-cell">
+							           	<span id="">
+							           	职务：
+							           </span>
+							           <span id="">
+							           	主任医生
+							           </span>
+						             
+						        </li>
+						        <li class="mui-table-view-cell">			        	
+						        	   <span id="">
+							           擅长：
+							           </span>
+							           <span id="">
+							           	。
+							           </span>       
+						        </li>
+						         <li class="mui-table-view-cell">			        	
+						        	   <span id="">
+							           咨询设置：
+							           </span>
+							           <span id="">
+							           	免费/15元/小时
+							           </span>       
+						        </li>
+						       
+						      
+				       		</ul>
+				    </ul>
+				</div>
+				<button type="button" class="mui-btn mui-btn-success mui-btn-block">修改我的资料</button>	
+		</div>
+		
+		
+		
+		
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+	    	mui.init();
+			mui.plusReady(function() {
+					var edit_health= document.getElementById('edit_health');	
+					var edit_live= document.getElementById('edit_live');	
+					var edit_person= document.getElementById('edit_person');
+					
+					edit_health.addEventListener('tap',function(event){
+						mui.openWindow({
+							url: 'myfile_health_edit.html',
+							id: 'myfile_health_edit',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},false);
+					
+					edit_live.addEventListener('tap',function(event){
+						mui.openWindow({
+							url: 'myfile_live_edit.html',
+							id: 'myfile_live_edit',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},false);
+					
+					edit_person.addEventListener('tap',function(event){
+						mui.openWindow({
+							url: 'myfile_person_edit.html',
+							id: 'myfile_person_edit',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},false);
+					
+				});
+
+	</script>
+	</body>
+
+</html>

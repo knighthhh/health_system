@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+    	<link rel="stylesheet" href="../css/iconfont_mine.css" />
+
+    	
+		<style>		
+			.mui-table-view {
+				margin-top: 20px;
+			}
+			img{
+				height:80px;
+				width: 80px;
+			}
+			.m1{
+				color:orange;
+				}
+			.m2{
+				color:red;
+				}
+			.m3{
+				color:coral;
+				}
+			.m4{
+				color:#C0C0C0;
+				}
+			.m5{
+				color:#4EC7EF;
+				}				
+		</style>
+	</head>
+	<script type="text/javascript" src="../js/mui.min.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script>
+		window.addEventListener('refresh',function(event){
+		plus.webview.getWebviewById('mine/Mine.html').reload();
+		});
+	</script>
+	<script type="text/javascript">
+		
+		mui.plusReady(function() {
+			var account = document.getElementById('account');
+			var recharge = document.getElementById('recharge');
+			var follow = document.getElementById('follow');
+			var feedback = document.getElementById('feedback');
+			var about = document.getElementById('about');
+			var general = document.getElementById('general');
+			account.addEventListener('tap',function(event){
+				mui.openWindow({
+					url: 'account.html',
+					id: 'account',
+					preload: true,
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				}); 
+			},false);
+			recharge.addEventListener ('tap',function(event){
+				mui.openWindow({
+					url: 'recharge.html',
+					id: 'recharge',
+					preload: true,
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			},false);
+			follow.addEventListener('tap',function(event){
+				mui.openWindow({
+					url: 'follow.html',
+					id: 'follow',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			},false);
+			feedback.addEventListener('tap',function(event){
+				mui.openWindow({
+					url: 'feedback.html',
+					id: 'feedback',
+					preload: true,
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			},false);
+			about.addEventListener('tap',function(event){
+				mui.openWindow({
+					url: 'about.html',
+					id: 'about',
+					preload: true,
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			},false);
+			general.addEventListener('tap',function(event){
+				mui.openWindow({
+					url: 'general.html',
+					id: 'general',
+					preload: true,
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			},false);
+			
+			//自动登录，已经登录了的显示个人信息
+			var user_phone = plus.storage.getItem('user_phone');
+			if(islogin()){
+				document.getElementById("user_phone").innerHTML=user_phone;
+				mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/getuserInfo',{
+      				data:{
+      					user_phone:user_phone
+      				},
+      				dataType:'json',
+      				type:'POST',
+      				timeout:10000,
+      				success:function(data){
+      					//{"reslut":1}表示请求数据成功
+      					if(data.result==1){
+							document.getElementById("user_name").innerHTML=data.user_name;
+							document.getElementById("head-img").src=data.user_img;
+      					}else{ 
+      						//plus.ui.toast(data.data);
+      						
+      					}
+      				},
+      				error:function(){
+      					plus.nativeUI.toast("请检查您的网络");
+      				}
+      			})
+			}
+			
+			//退出登录 事件监听
+			var logout = document.getElementById('logout');
+			logout.addEventListener('tap',function(event){
+				var btnArray = ['否', '是'];
+				mui.confirm('您是否确认退出？', 'healthsystem', btnArray, function(e) {
+                    if (e.index == 1) {
+                        plus.storage.clear();
+						plus.ui.toast("您已成功退出");
+						mui.openWindow({
+							url: '/login/login.html',
+							id: 'login',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+                    } else {
+                       
+                    }
+                })
+			},false);
+		});
+	</script>
+	<body>	
+		<header class="mui-bar mui-bar-nav public-color">
+		    <h1 class="mui-title"></h1>
+		</header>
+	
+			<!--页面主内容区开始-->
+			<div class="mui-content">	
+						<ul class="mui-table-view mui-table-view-chevron ">
+							<li class="mui-table-view-cell mui-media">
+								<a class="mui-navigate-right" id="account">
+									<table>
+										<tr>
+											<td><img id="head-img" src="../img/doctor.jpeg" /></td>
+											<td style="padding-left: 15px;">
+												<div class="mui-media-body">
+													<span id="user_name">请登录</span>
+													<p class='mui-ellipsis'>账号:<span id="user_phone">无</span></p>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</a>
+							</li>
+						</ul>
+						<ul class="mui-table-view mui-table-view-chevron">
+							<li class="mui-table-view-cell">
+								<a id="recharge" class="mui-navigate-right">
+									<table><td><span class="iconfont icon-qianbao m1"></span>
+									账户余额</td></table></a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a id="follow" class="mui-navigate-right">
+									<table><td><span class="iconfont icon-guanzhu m2"></span>
+									我的关注</td></table></a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a id="general" class="mui-navigate-right">
+									<table><td><span class="iconfont icon-shezhi m5"></span>
+									通用设置</td></table>
+								</a>
+							</li>
+						</ul>
+						<ul class="mui-table-view mui-table-view-chevron">
+							<li class="mui-table-view-cell">
+								<a id="feedback" class="mui-navigate-right">
+									<table><td><span class="iconfont icon-fankui m3"></span>
+									意见反馈</td></table></a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a id="about" class="mui-navigate-right">
+								<table>
+									<tr><td><span class="iconfont icon-guanyu m4"></span>
+									关于</td>
+									</td><i class="mui-pull-right update"><p>V1.0.1</p></i></td></table>
+								</a> 
+							</li>
+							
+						</ul>
+						<ul class="mui-table-view">
+							<li id="logout" class="mui-table-view-cell" style="text-align: center;">
+								<a>退出登录</a>
+							</li>
+						</ul>
+					</div>
+			</div>
+	</body>	
+</html>

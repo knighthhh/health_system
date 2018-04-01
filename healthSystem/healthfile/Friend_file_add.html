@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">添加亲友档案</h1>
+		</header>
+		<div class="mui-content">
+			
+			<div class="friendadd">
+				<form class="mui-input-group public-edit outline_add">
+					<div class="">
+						<div class="mui-input-row">
+							<label>姓名：</label>
+							<input id="name" class="mui-input-clear"  type="text">
+						</div>
+					</div>
+					<div class="">
+						<div class="mui-input-row">
+							<label>性别：</label>
+							<input id="sex" class="mui-input-clear"  type="text">
+						</div>
+					</div>
+					<div class="">
+						<div class="mui-input-row">
+							<label>年龄：</label>
+							<input id="age" class="mui-input-clear"  type="text">
+						</div>
+					</div>
+					<div class="">
+						<div class="mui-input-row">
+							<label>关系：</label>
+							<!--<input id="relation" class="mui-input-clear"  type="text">-->
+								<select id="relation">
+									<option value="家庭成员">家庭成员</option>
+									<option value="亲戚">亲戚</option>
+									<option value="朋友">朋友</option>
+									<option value="其他">其他</option>
+								</select>
+						</div>
+					</div>
+					<div class="">
+						<div class="mui-input-row">
+							<label>所在城市：</label>
+							<input id="city" class="mui-input-clear"  type="text">
+						</div>
+					</div>
+					<div class="">
+						<div class="mui-input-row">
+							<label>电话：</label>
+							<input id="phone" class="mui-input-clear"  type="text">
+						</div>
+					</div>
+					<div class="">
+						<div class="mui-input-row">
+							<label>出生日期：</label>
+							<input id="date" class="mui-input-clear"  type="text">
+						</div>
+					</div>
+					<div class="mui-button-row">
+						<button id="submit" type="button" class="mui-btn mui-btn-primary">确认</button>&nbsp;&nbsp;
+						<button type="button" class="mui-btn mui-btn-danger" onclick="mui.back()">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function () {
+				var self = plus.webview.currentWebview();
+				var user_phone = self.user_phone;
+			    document.getElementById("submit").addEventListener('tap',function(e){
+				mui.post('http://' + serverName + '/health/management/Application/index.php/Connector/User/addRelaData',{
+						user_phone:user_phone,
+						relative_name:document.getElementById("name").value,
+    					relative_sex:document.getElementById("sex").value,
+    					relative_age:document.getElementById("age").value,
+    					relative_relation:document.getElementById("relation").value,
+    					relative_city:document.getElementById("city").value,
+    					relative_phone:document.getElementById("phone").value,
+    					relative_date:document.getElementById("date").value
+					},function(data){
+						if(data.result==1){
+								plus.nativeUI.toast("添加成功");
+								var My_file = plus.webview.getWebviewById('Friends_file');
+						        My_file.reload();
+						        mui.back();
+							}else{
+								plus.nativeUI.toast("添加失败");
+							}
+					},'json'
+				);
+			});
+			})
+			
+		</script>
+	</body>
+
+</html>

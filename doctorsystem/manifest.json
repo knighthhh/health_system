@@ -1,0 +1,1148 @@
+{
+	"@platforms": [
+		"android",
+		"iPhone",
+		"iPad"
+	],
+	"id": "H5B6A9DFB",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"name": "掌上健康医生版",/*应用名称，程序桌面图标名称*/
+	"version": {
+		"name": "1.0",/*应用版本名称*/
+		"code": ""
+	},
+	"description": "",/*应用描述信息*/
+	"icons": {
+		"72": "icon.png"
+	},
+	"launch_path": "index.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"developer": {
+		"name": "",/*开发者名称*/
+		"email": "",/*开发者邮箱地址*/
+		"url": ""
+	},
+	"permissions": {
+		"Accelerometer": {
+			"description": "访问加速度感应器"
+		},
+		"Audio": {
+			"description": "访问麦克风"
+		},
+
+		"Cache": {
+			"description": "管理应用缓存"
+		},
+		"Camera": {
+			"description": "访问摄像头"
+		},
+		"Console": {
+			"description": "跟踪调试输出日志"
+		},
+		"Contacts": {
+			"description": "访问系统联系人信息"
+		},
+		"Device": {
+			"description": "访问设备信息"
+		},
+		"Downloader": {
+			"description": "文件下载管理"
+		},
+		"Events": {
+			"description": "应用扩展事件"
+		},
+		"File": {
+			"description": "访问本地文件系统"
+		},
+		"Gallery": {
+			"description": "访问系统相册"
+		},
+		"Geolocation": {
+			"description": "访问位置信息"
+		},
+		"Invocation": {
+			"description": "使用Native.js能力"
+		},
+		"Orientation": {
+			"description": "访问方向感应器"
+		},
+		"Proximity": {
+			"description": "访问距离感应器"
+		},
+		"Storage": {
+			"description": "管理应用本地数据"
+		},
+
+		"Uploader": {
+			"description": "管理文件上传任务"
+		},
+		"Runtime": {
+			"description": "访问运行期环境"
+		},
+		"XMLHttpRequest": {
+			"description": "跨域网络访问"
+		},
+		"Zip": {
+			"description": "文件压缩与解压缩"
+		},
+		"Barcode": {
+			"description": "管理二维码扫描插件"
+		},
+		"Maps": {
+			"description": "管理地图插件"
+		},
+		"Speech": {
+			"description": "管理语音识别插件"
+		},
+		"Webview": {
+			"description": "窗口管理"
+		},
+		"NativeUI": {
+			"description": "原生UI控件"
+		},
+		"Navigator": {
+			"description": "浏览器信息"
+		},
+		"NativeObj": {
+			"description": "原生对象"
+		},"Push":{}
+	},
+	"plus": {
+		"splashscreen": {
+			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
+			"waiting": true
+		},
+		"popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
+		"runmode": "normal",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
+		"distribute": {
+			"plugins": {"push":{"igexin":{"appid":"rGeSOxPwgN6Ue2iIunDtKA","appkey":"SsoewVDYzC7wCldNX6Gz1","appsecret":"LK3dNF1SoW5zhqk8Z4gTW3"}},
+				"maps": {
+					"baidu": {
+						"appkey_ios": "ka2CZkCx5itOXmDnY8L6bsflccOeSU9X",
+						"appkey_android": "GUjG7LuLMf2AbBQaVEfZstGms17a7LEN",
+						"appkey": "",
+						"description": ""
+					}
+				}
+			},
+			"apple": {
+				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
+				"mobileprovision": "",/*iOS应用打包配置文件*/
+				"password": "",/*iOS应用打包个人证书导入密码*/
+				"p12": "",/*iOS应用打包个人证书，打包配置文件关联的个人证书*/
+				"devices": "universal",/*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
+				"frameworks": []
+			},
+			"google": {
+				"packagename": "",/*Android应用包名，如io.dcloud.HelloH5*/
+				"keystore": "",/*Android应用打包使用的密钥库文件*/
+				"password": "",/*Android应用打包使用密钥库中证书的密码*/
+				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
+				"permissions": ["<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.GET_TASKS\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>","<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
+			},
+			"orientation": [
+				"portrait-primary"
+			],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+			"icons": {
+				"ios": {
+					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
+					"auto": "", /*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+					"iphone": {
+						"normal": "unpackage/res/icons/57x57.png", /*iPhone3/3GS程序图标，分辨率：57x57*/
+						"retina": "unpackage/res/icons/114x114.png", /*iPhone4程序图标，分辨率：114x114*/
+						"retina7": "unpackage/res/icons/120x120.png", /*iPhone4S/5/6程序图标，分辨率：120x120*/
+						"retina8": "unpackage/res/icons/180x180.png", /*iPhone6 Plus程序图标，分辨率：180x180*/
+						"spotlight-normal": "unpackage/res/icons/29x29.png", /*iPhone3/3GS Spotlight搜索程序图标，分辨率：29x29*/
+						"spotlight-retina": "unpackage/res/icons/58x58.png", /*iPhone4 Spotlight搜索程序图标，分辨率：58x58*/
+						"spotlight-retina7": "unpackage/res/icons/80x80.png", /*iPhone4S/5/6 Spotlight搜索程序图标，分辨率：80x80*/
+						"settings-normal": "unpackage/res/icons/29x29.png", /*iPhone4设置页面程序图标，分辨率：29x29*/
+						"settings-retina": "unpackage/res/icons/58x58.png", /*iPhone4S/5/6设置页面程序图标，分辨率：58x58*/
+						"settings-retina8": "unpackage/res/icons/87x87.png"
+					},
+					"ipad": {
+						"normal": "unpackage/res/icons/72x72.png", /*iPad普通屏幕程序图标，分辨率：72x72*/
+						"retina": "unpackage/res/icons/144x144.png", /*iPad高分屏程序图标，分辨率：144x144*/
+						"normal7": "unpackage/res/icons/76x76.png", /*iPad iOS7程序图标，分辨率：76x76*/
+						"retina7": "unpackage/res/icons/152x152.png", /*iPad iOS7高分屏程序图标，分辨率：152x152*/
+						"spotlight-normal": "unpackage/res/icons/50x50.png", /*iPad Spotlight搜索程序图标，分辨率：50x50*/
+						"spotlight-retina": "unpackage/res/icons/100x100.png", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
+						"spotlight-normal7": "unpackage/res/icons/40x40.png",/*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*/
+						"spotlight-retina7": "unpackage/res/icons/80x80.png",/*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						"settings-normal": "unpackage/res/icons/29x29.png",/*iPad设置页面程序图标，分辨率：29x29*/
+						"settings-retina": "unpackage/res/icons/58x58.png"
+					}
+				},
+				"android": {
+					"mdpi": "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "unpackage/res/icons/48x48.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "unpackage/res/icons/96x96.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "unpackage/res/icons/144x144.png","xxxhdpi":"unpackage/res/icons/192x192.png"
+				}
+			},
+			"splashscreen": {
+				"ios": {
+					"iphone": {
+						"default": ""
+					},
+					"ipad": {
+						 /*iPad竖屏启动图片，分辨率：768x1004*/
+						"portrait-retina": "",/*iPad高分屏竖屏图片，分辨率：1536x2008*/
+						 /*iPad横屏启动图片，分辨率：1024x748*/
+						"landscape-retina": "", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
+						 /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
+						"portrait-retina7": "",/*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+						"landscape7": ""
+					}
+				},
+				"android": {
+					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "C:/Users/eric/Desktop/qidong_doc.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "C:/Users/eric/Desktop/qidong_doc.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "C:/Users/eric/Desktop/qidong_doc.png"
+
+				}
+			}
+		}
+	},
+	"dependencies": {
+		"pages": {
+			"Mine.html": {
+				"resources": [
+					"css/feedback.css",
+					"js/feedback.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"index.html": {
+				"resources": [
+					"fonts/iconfont_money.ttf",
+					"css/souye.css",
+					"fonts/iconfont_foot.ttf",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"img/logo.png",
+					"subindex.html",
+					"css/iconfont_money.css",
+					"css/iconfont_foot.css",
+					"main/subindex.html",
+					"fonts/iconfont.ttf",
+					"js/common.js",
+					"main/docHomepage.html"
+				],
+				"refer": [
+					"Mine.html",
+					"Inquiry.html",
+					"Health_File.html",
+					"mine/Mine.html",
+					"healthfile/Health_File.html",
+					"inquiry/Inquiry.html",
+					"main/search/search.html",
+					"login/login.html",
+					"message/Message.html"
+				],
+				"priority": 0
+			},
+			"Inquiry.html": {
+				"resources": [
+					"css/iconfont_inquiry.css",
+					"img/inquiry2.jpg",
+					"css/inquiry.css",
+					"fonts/iconfont_inquiry.ttf",
+					"css/header.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"Health_File.html": {
+				"resources": [
+					"img/healthfile.jpg",
+					"css/iconfont_health_file.css",
+					"fonts/iconfont_health_file.ttf",
+					"css/health_file.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"subindex.html": {
+				"resources": [
+					"img/test.jpg",
+					"img/lookonline.jpg",
+					"img/jiankang2.jpeg",
+					"fonts/iconfont.ttf",
+					"img/hospital.png",
+					"js/souye.js",
+					"img/jiankang.jpeg",
+					"img/doctor.jpeg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/subindex.html": {
+				"resources": [
+					"img/test.jpg",
+					"css/souye.css",
+					"img/lookonline.jpg",
+					"img/jiankang2.jpeg",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"fonts/iconfont.ttf",
+					"img/hospital.png",
+					"js/souye.js",
+					"img/jiankang.jpeg",
+					"css/iconfont_money.css",
+					"img/doctor.jpeg",
+					"css/iconfont_foot.css",
+					"js/mui.min.js",
+					"img/findHp.jpg",
+					"img/finddoctor.jpg",
+					"fonts/iconfont_money.ttf",
+					"fonts/mui.ttf",
+					"fonts/iconfont_foot.ttf",
+					"js/common.js",
+					null
+				],
+				"refer": [
+					"main/hosHP.html",
+					"finddoctor/search_doctor_yy.html",
+					"finddoctor/search_doctor.html",
+					"main/search/search.html",
+					"finddoctor/docHP.html",
+					"finddoctor/hosHP.html",
+					"main/docHP.html"
+				],
+				"priority": 0
+			},
+			"login/login.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/common.js",
+					"img/finddoctor.jpg",
+					"img/logo.png"
+				],
+				"refer": [
+					"index.html",
+					"login/reg.html",
+					"login/forget_password.html"
+				],
+				"priority": 0
+			},
+			"mine/Mine.html": {
+				"resources": [
+					"css/feedback.css",
+					"js/feedback.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/common.js",
+					"fonts/iconfont_money.ttf",
+					"css/iconfont_health_file.css",
+					"css/iconfont_mine.css",
+					"fonts/iconfont_mine.ttf",
+					"css/iconfont_money.css",
+					"css/iconfont.css",
+					"fonts/iconfont_health_file.ttf",
+					"fonts/iconfont.ttf",
+					"img/doctor.jpeg"
+				],
+				"refer": [
+					"mine/account.html",
+					"mine/recharge.html",
+					"mine/follow.html",
+					"mine/feedback.html",
+					"mine/about.html",
+					"login/login.html",
+					"mine/general.html",
+					"mine/my_ziliao.html"
+				],
+				"priority": 0
+			},
+			"healthfile/Health_File.html": {
+				"resources": [
+					"img/healthfile.jpg",
+					"css/iconfont_health_file.css",
+					"fonts/iconfont_health_file.ttf",
+					"css/health_file.css",
+					"img/doctor.jpeg",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/iconfont_foot.ttf",
+					"css/iconfont_foot.css",
+					"js/common.js"
+				],
+				"refer": [
+					"healthfile/medDiary.html",
+					"healthfile/History_todoc.html",
+					"healthfile/My_file.html",
+					"healthfile/Health_record.html"
+				],
+				"priority": 0
+			},
+			"inquiry/Inquiry.html": {
+				"resources": [
+					"css/iconfont_inquiry.css",
+					"img/inquiry2.jpg",
+					"css/inquiry.css",
+					"fonts/iconfont_inquiry.ttf",
+					"css/header.css",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/iconfont_foot.css",
+					"fonts/mui.ttf",
+					"fonts/iconfont_foot.ttf",
+					"img/doctor.jpeg",
+					"js/common.js"
+				],
+				"refer": [
+					"inquiry/mydoctor.html",
+					"inquiry/select_file.html",
+					"finddoctor/search_doctor.html",
+					"inquiry/patientmeg.html",
+					"message/chat.html"
+				],
+				"priority": 0
+			},
+			"main/search/search2.html": {
+				"resources": [
+					"main/search/search_info.html",
+					"css/search.css",
+					"js/mui.min.js",
+					"js/webviewGroup.js",
+					"css/mui.min.css",
+					"css/search_history.css",
+					"css/search_info.css",
+					"fonts/mui.ttf",
+					"js/common.js"
+				],
+				"refer": [
+					"main/search/search_info_dt.html",
+					"main/search/search_info_hp.html",
+					"main/search/search_info_jb.html",
+					"main/search/search_info_ks.html",
+					"main/search/search.html"
+				],
+				"priority": 0
+			},
+			"main/search/search_info.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/search_history.css",
+					"css/search_info.css",
+					"css/iconfont_money.css",
+					"fonts/iconfont_money.ttf",
+					"img/hospital.png",
+					"css/iconfont_se.css",
+					"fonts/iconfont_se.ttf",
+					"img/doctor.jpeg",
+					"js/common.js",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"finddoctor/hosHP.html",
+					"finddoctor/docHP.html"
+				],
+				"priority": 0
+			},
+			"main/search/search.html": {
+				"resources": [
+					"css/search.css",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/search_history.css",
+					"css/search_info.css",
+					"fonts/mui.ttf",
+					"js/common.js"
+				],
+				"refer": [
+					"main/search/search2.html",
+					"login/login.html",
+					"main/search/search_info.html"
+				],
+				"priority": 0
+			},
+			"main/search/search_info_dt.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/search_info.css",
+					"css/iconfont_money.css",
+					"fonts/iconfont_money.ttf",
+					"fonts/iconfont_se.ttf",
+					"img/doctor.jpeg",
+					"css/iconfont_se.css",
+					"js/common.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/search/search_info_hp.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/search_info.css",
+					"img/hospital.png",
+					"css/iconfont_se.css",
+					"fonts/iconfont_se.ttf",
+					"js/common.js"
+				],
+				"refer": [
+					"finddoctor/hosHP.html"
+				],
+				"priority": 0
+			},
+			"main/search/search_info_jb.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/search_info.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/search/search_info_ks.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/search_info.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"login/forget_password.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"js/yzm.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/common.js"
+				],
+				"refer": [
+					"login/reset.html"
+				],
+				"priority": 0
+			},
+			"finddoctor/search_doctor_yy.html": {
+				"resources": [
+					"js/mui.picker.min.js",
+					"css/app.css",
+					"js/city.data.js",
+					"css/mui.picker.min.css",
+					"css/iconfont_se.css",
+					"css/search_info.css",
+					"fonts/iconfont_se.ttf",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"img/hospital.png",
+					"js/common.js"
+				],
+				"refer": [
+					"finddoctor/hosHP.html"
+				],
+				"priority": 0
+			},
+			"finddoctor/search_doctor.html": {
+				"resources": [
+					"css/find_doctor.css",
+					"css/iconfont_health_file.css",
+					"fonts/iconfont_health_file.ttf",
+					"css/iconfont.css",
+					"fonts/iconfont.ttf",
+					"css/health_file.css",
+					"js/mui.min.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"finddoctor/search_doctor_jb.html",
+					"finddoctor/search_doctor_yy.html",
+					"finddoctor/search_doctor_xm.html"
+				],
+				"priority": 0
+			},
+			"mine/feedback.html": {
+				"resources": [
+					"css/feedback.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"finddoctor/hosHP.html": {
+				"resources": [
+					"img/hos1.jpg",
+					"img/hos3.jpg",
+					"img/hos2.jpg",
+					"img/hos4.jpg",
+					"fonts/iconfont_money.ttf",
+					"fonts/mui.ttf",
+					"css/iconfont_money.css",
+					"css/souye.css",
+					"fonts/iconfont_foot.ttf",
+					"js/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"fonts/iconfont.ttf",
+					"css/iconfont_foot.css",
+					"js/common.js"
+				],
+				"refer": [
+					"maps/maps_map.html"
+				],
+				"priority": 0
+			},
+			"finddoctor/search_doctor_xm.html": {
+				"resources": [
+					"css/mui.indexedlist.css",
+					"js/mui.indexedlist.js",
+					"js/mui.min.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/common.js"
+				],
+				"refer": [
+					"finddoctor/docHP.html"
+				],
+				"priority": 0
+			},
+			"inquiry/mydoctor.html": {
+				"resources": [
+					"css/mydoctor.css",
+					"js/mui.min.js",
+					"fonts/iconfont_money.ttf",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/iconfont_se.css",
+					"css/iconfont_money.css",
+					"fonts/iconfont_se.ttf",
+					"img/doctor.jpeg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"inquiry/select_file.html": {
+				"resources": [
+					"js/mui.picker.min.js",
+					"css/fast_question.css",
+					"css/mui.picker.min.css",
+					"css/mydoctor.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"inquiry/basic_text.html"
+				],
+				"priority": 0
+			},
+			"finddoctor/docHP.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/souye.css",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/iconfont_money.css",
+					"img/doctor.jpeg",
+					"css/iconfont_foot.css",
+					"js/common.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/docHP.html": {
+				"resources": [
+					"img/doctor.jpeg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/hosHP.html": {
+				"resources": [
+					"img/hos1.jpg",
+					"img/hos3.jpg",
+					"img/hos2.jpg",
+					"img/hos4.jpg",
+					"fonts/iconfont_money.ttf",
+					"css/souye.css",
+					"fonts/iconfont_foot.ttf",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"fonts/iconfont.ttf",
+					"css/iconfont_money.css",
+					"css/iconfont_foot.css"
+				],
+				"refer": [
+					"maps/maps.html",
+					"maps/maps_map.html"
+				],
+				"priority": 0
+			},
+			"mine/account.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/common.js",
+					"fonts/iconfont_account.ttf",
+					"css/iconfont_mine.css",
+					"fonts/iconfont_mine.ttf",
+					"css/iconfont_account.css",
+					"img/doctor.jpeg",
+					"css/iconfont_se.css",
+					"fonts/iconfont_se.ttf",
+					"fonts/iconfont_money.ttf",
+					"css/iconfont_money.css"
+				],
+				"refer": [
+					"mine/reset_name.html",
+					"mine/reset_password.html",
+					"mine/reset_fee.html"
+				],
+				"priority": 0
+			},
+			"finddoctor/search_doctor_jb.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/common.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"login/reg.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"maps/maps.html": {
+				"resources": [
+					"js/common.js",
+					"css/maps.css",
+					"js/maps.js",
+					"js/maps_immersed.js"
+				],
+				"refer": [
+					"maps/maps_map.html"
+				],
+				"priority": 0
+			},
+			"maps/maps_map.html": {
+				"resources": [
+					"js/common.js",
+					"maps/maps_map_sub.html",
+					"js/maps.js",
+					"js/maps_immersed.js",
+					"css/maps.css",
+					"js/mui.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"maps/maps_map_sub.html": {
+				"resources": [
+					"css/maps.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"maps/geolocation.html": {
+				"resources": [
+					"js/common.js",
+					"js/maps.js",
+					"css/maps.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"mine/recharge.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"healthfile/medDiary.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/mui.calendar.js",
+					"css/heathfile.css",
+					"css/mui.calendar.css"
+				],
+				"refer": [
+					"healthfile/write_diary.html"
+				],
+				"priority": 0
+			},
+			"mine/general.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"mine/follow.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"healthfile/write_diary.html": {
+				"resources": [
+					"css/mui.min.css",
+					"css/heathfile.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"healthfile/History_todoc.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/heathfile.css",
+					"js/common.js"
+				],
+				"refer": [
+					"healthfile/outline_add.html",
+					"login/login.html"
+				],
+				"priority": 0
+			},
+			"mine/about.html": {
+				"resources": [
+					"img/doctor.jpeg",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"healthfile/My_file.html": {
+				"resources": [
+					"img/person_background.png",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"img/inquiry.jpg",
+					"css/heathfile.css"
+				],
+				"refer": [
+					"healthfile/myfile_health_edit.html",
+					"healthfile/myfile_live_edit.html"
+				],
+				"priority": 0
+			},
+			"healthfile/Health_record.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"healthfile/outline_add.html": {
+				"resources": [
+					"js/feedback_mydoctor.js",
+					"img/choose_photos.png",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"healthfile/myfile_health_edit.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/docHomepage.html": {
+				"resources": [
+					"img/finddoctor.jpg",
+					"css/heathfile.css",
+					"img/doctor.jpeg",
+					"css/souye.css",
+					"css/iconfont.css",
+					"css/iconfont_money.css",
+					"css/iconfont_foot.css",
+					"img/test.jpg",
+					"img/person_background.png",
+					"img/jiankang2.jpeg",
+					"img/inquiry.jpg",
+					"js/souye.js",
+					"img/jiankang.jpeg",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/common.js"
+				],
+				"refer": [
+					"main/modify.html",
+					"main/homepage_deit.html",
+					"main/xiaoxi.html"
+				],
+				"priority": 0
+			},
+			"message/Message.html": {
+				"resources": [
+					"css/header.css",
+					"img/doctor.jpeg",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/common.js"
+				],
+				"refer": [
+					"message/chat.html",
+					"message/user_dangan.html",
+					"message/respon_type.html"
+				],
+				"priority": 0
+			},
+			"message/chat.html": {
+				"resources": [
+					"js/mui.imageViewer.js",
+					"css/app.css",
+					"css/mui.imageviewer.css",
+					"js/arttmpl.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"img/finddoctor.jpg",
+					"js/common.js",
+					"img/user.jpg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"login/reset.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"zixun/new_zixun.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"js/common.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/mui.previewimage.js",
+					"css/heathfile.css",
+					"img/doctor.jpeg"
+				],
+				"refer": [
+					"message/chat.html"
+				],
+				"priority": 0
+			},
+			"mine/reset_name.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"mine/reset_password.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"mine/reset_fee.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"inquiry/patientmeg.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"img/findHp.jpg",
+					"img/search.jpg",
+					"js/mui.previewimage.js",
+					"css/heathfile.css",
+					"img/doctor.jpeg",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/common.js"
+				],
+				"refer": [
+					"message/chat.html"
+				],
+				"priority": 0
+			},
+			"mine/my_ziliao.html": {
+				"resources": [
+					"css/iconfont_mine.css",
+					"css/mui.min.css",
+					"css/iconfont_account.css",
+					"css/iconfont_money.css",
+					"fonts/iconfont_money.ttf",
+					"fonts/iconfont_account.ttf",
+					"js/common.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"fonts/iconfont_mine.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/modify.html": {
+				"resources": [
+					"css/fast_question.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/homepage_deit.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/heathfile.css",
+					"js/common.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"message/user_dangan.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"js/common.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/mui.previewimage.js",
+					"css/heathfile.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"message/respon_type.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/header.css"
+				],
+				"refer": [
+					"message/chat.html",
+					"message/kcf.html"
+				],
+				"priority": 0
+			},
+			"message/kcf.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/fast_question.css",
+					"css/zixun.css"
+				],
+				"refer": [
+					"message/kcf_over.html"
+				],
+				"priority": 0
+			},
+			"message/kcf_over.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/fast_question.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/xiaoxi.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/header.css"
+				],
+				"refer": [
+					"zixun/new_zixun.html",
+					"main/see_xiaoxi.html"
+				],
+				"priority": 0
+			},
+			"main/see_xiaoxi.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.zoom.js",
+					"js/common.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/mui.previewimage.js",
+					"css/heathfile.css"
+				],
+				"refer": [
+					"message/chat.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"medDiary.html",
+				"html/Mine.html",
+				"html/subindex.html",
+				"img/1.jpg",
+				"img/text1.jpg",
+				"html/Health_File.html",
+				"html/Inquiry.html",
+				"css/mui.css",
+				"img/inquiry1.jpg",
+				"css/bottom.css"
+			]
+		}
+	}
+}

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/iconfont_account.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <div class="chose">
+		    	<span id="">
+		    	患者:
+		    </span>
+		    <span class="mui-select">
+		    	<select class="chose_man">
+		    		
+					<option value="item-1">张三</option>
+					<option value="item-2">李四</option>
+					<option value="item-3">陈海啸</option>
+					<option value="item-4">张多少</option>
+					<option value="item-5">李东旭</option>
+				</select>
+			</span>	
+		    </div>
+		    
+				
+				
+		</header>
+		<div class="mui-content">
+			<div class="mediary">
+				<div class="head-color">
+					<div id="look_year" class="look_year">
+						<h4 id="info_year" class="">
+							
+						</h4>
+						
+					</div>		           
+					<h1 id="info_day" class=""></h1>		           
+				    </div>
+				</div>
+				<p class="box">--用药详情--</p>
+				<div id="info">
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li id="use_time" class="mui-table-view-cell">
+				 	            <p class="">
+				 	            	用药时间:
+				 	               	<span id="show_time" style="color: #6C6C6C;"></span> 
+				 	            </p>
+				 	    </li>
+						<li id="use_number" class="mui-table-view-cell">
+							<p class="">
+								用药次数:
+								<span id="show_number" style="color: #6C6C6C;"></span>
+							</p>
+						</li>
+						<li class="mui-table-view-cell mui-collapse mui-active">
+							<a class="mui-navigate-right" href="#">
+								<p style="color: #6C6C6C;">是否按时用药:
+									<span id="is_on_time">否</span>
+									<span class="mui-pull-right detial">详情</span>
+									
+								</p>
+							</a>
+							<ul class="mui-table-view mui-table-view-chevron">
+								<li class="mui-table-view-cell">
+									<p id="is_on_time1" style="color: #6C6C6C;">忘记吃药详情....</p>
+								</li>
+								
+							</ul>
+						</li>
+						<li class="mui-table-view-cell mui-collapse">
+							<a class="mui-navigate-right" href="#">
+								<p  style="color: #6C6C6C;">所用药物:
+									<span class="mui-pull-right detial">详情</span>
+								</p>
+								
+							</a>
+							<ul class="mui-table-view mui-table-view-chevron">
+								<li class="mui-table-view-cell">
+									<p id="med-info" style="color: #6C6C6C;">所用药物详情....</p>
+								</li>
+								
+							</ul>
+						</li>
+						<li class="mui-table-view-cell mui-collapse">
+							<a class="mui-navigate-right" href="#">
+								<p style="color: #6C6C6C;">是否产生不良反应:
+									<span id="is_bad">是</span>
+									<span class="mui-pull-right detial">详情</span>
+									
+								</p>
+							</a>
+							<ul class="mui-table-view mui-table-view-chevron">
+								<li class="mui-table-view-cell">
+									<p id="is_bad1" style="color: #6C6C6C;">不良反应详情....</p>
+								</li>
+							</ul>
+						</li>
+						<li class="mui-table-view-cell">
+							<p>
+								<button  type="button" id="edit_outline" class="mui-btn mui-btn-success mui-btn-outlined mui-pull-right history_button edit_outline">修改记录</button>
+							</p>
+						</li>
+					</ul>
+				</div>
+				
+				
+				<div class="submit" id="write">
+					<span class="mui-btn mui-btn-success ">
+					填写今日用药情况
+					</span>
+				</div>
+			</div>	
+		</div>
+	
+	</body>
+	<script src="../js/mui.min.js"></script>
+	    <script type="text/javascript">
+	    	mui.init();
+			mui.plusReady(function() {
+					var write= document.getElementById('write');	
+					write.addEventListener('tap',function(event){
+						mui.openWindow({
+							url: 'write_diary2.html',
+							id: 'write_diary2',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},false);
+		
+				});
+
+	</script>
+	<script src="../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			 //mui初始化
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		mui.plusReady(function () {
+			var user_phone = plus.storage.getItem("user_phone");
+			var info_year = document.getElementById("info_year");
+			var info_day = document.getElementById("info_day");
+			var d = new Date();
+			var medDate = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate();
+			var day = d.getDay();
+					
+					switch(day){
+                case 1:
+                    day="一";
+                    break;
+                case 2:
+                    day="二";
+                    break;
+                case 3:
+                    day="三";
+                    break;
+                case 4:
+                    day="四";
+                    break;
+                case 5:
+                    day="五";
+                    break;
+                case 6:
+                    day="六";
+                    break;
+                case 0:
+                    day="天";
+                    break;
+                
+            }
+            info_year.innerHTML = d.getFullYear() + '<span class="mui-icon mui-icon-arrowdown"></span>';
+			info_day.innerHTML =(d.getMonth() + 1) + '月' + d.getDate()+'日'+ '星期'+day;
+			document.getElementById("look_year").addEventListener('tap', function() {
+				var dDate = new Date();				
+				var minDate = new Date();
+				minDate.setFullYear(1900, 1, 1);
+				var maxDate = new Date();
+				maxDate.setFullYear(2017, 8, 31);
+				plus.nativeUI.pickDate(function(e) {
+					var d = e.date;
+					var day = d.getDay();
+					
+					switch(day){
+		                case 1:
+		                    day="一";
+		                    break;
+		                case 2:
+		                    day="二";
+		                    break;
+		                case 3:
+		                    day="三";
+		                    break;
+		                case 4:
+		                    day="四";
+		                    break;
+		                case 5:
+		                    day="五";
+		                    break;
+		                case 6:
+		                    day="六";
+		                    break;
+		                case 0:
+		                    day="天";
+		                    break;
+		                
+		            }
+					info_year.innerHTML = d.getFullYear() + '<span class="mui-icon mui-icon-arrowdown"></span>';
+					info_day.innerHTML =(d.getMonth() + 1) + '月' + d.getDate()+'日'+ '星期'+day;
+					medDate = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate();
+					//查找指定日期的用药情况
+					
+					mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/Health/getDiary',{
+				    		user_phone:user_phone,
+				    		drug_date:medDate
+				    	},function(data){
+				    		var info = document.getElementById("info");
+				    		var p = '';
+				    		if(data.result==0){
+				    			console.log(JSON.stringify(data));
+				    			plus.nativeUI.toast("当日尚未添加用药日记");
+				    			
+				    				p += '<ul class="mui-table-view mui-table-view-chevron">';
+									p += '<li id="use_time" class="mui-table-view-cell"><p class="">用药时间：　';
+					 	            p += '<span id="show_time" style="color: #6C6C6C;">暂无</span></p></li>';
+									p += '<li id="use_number" class="mui-table-view-cell"><p class="">用药次数：　';
+									p += '<span id="show_number" style="color: #6C6C6C;">暂无</span></p></li>';
+									p += '<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#"><p style="color: #6C6C6C;">是否按时用药：　';
+									p += '<span>暂无</span>';
+									p += '<span class="mui-pull-right detial">详情</span>';
+									p += '</p></a><ul class="mui-table-view mui-table-view-chevron"><li class="mui-table-view-cell">';
+									p += '<p style="color: #6C6C6C;">暂无</p>';
+									p += '</li></ul></li><li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">';
+									p += '<p style="color: #6C6C6C;">所用药物：<span class="mui-pull-right detial">详情</span></p></a><ul class="mui-table-view mui-table-view-chevron"><li class="mui-table-view-cell">';
+									p += '<p style="color: #6C6C6C;">暂无</p>';
+									p += '</li></ul></li><li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">';
+									p += '<p style="color: #6C6C6C;">是否产生不良反应：　<span>暂无</span>';
+									p += '<span class="mui-pull-right detial">详情</span></p></a><ul class="mui-table-view mui-table-view-chevron"><li class="mui-table-view-cell">';
+									p += '<p style="color: #6C6C6C;">暂无</p>';
+									p += '</li></ul></li></ul></br>';
+				    			
+				    			info.innerHTML = p;
+				    		}else{
+				    			for(var i=0;i<data.length;i++){
+				    				p += '<ul class="mui-table-view mui-table-view-chevron">';
+									p += '<li id="use_time" class="mui-table-view-cell"><p class="">用药时间：　';
+					 	            p += '<span id="show_time" style="color: #6C6C6C;">'+data[i].drug_time+'分</span></p></li>';
+									p += '<li id="use_number" class="mui-table-view-cell"><p class="">用药次数：　';
+									p += '<span id="show_number" style="color: #6C6C6C;">'+data[i].drug_num+'</span></p></li>';
+									p += '<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#"><p style="color: #6C6C6C;">是否按时用药：　';
+									p += '<span>'+data[i].is_on_time+'</span>';
+									p += '<span class="mui-pull-right detial">详情</span>';
+									p += '</p></a><ul class="mui-table-view mui-table-view-chevron"><li class="mui-table-view-cell">';
+									if(data[i].is_on_time == '是'){
+										p += '<p style="color: #6C6C6C;">按时吃药，请继续保持!</p>';
+									}else if(data[i].is_on_time == '否'){
+										p += '<p style="color: #6C6C6C;">'+data[i].drug_notime+'</p>';
+									}
+									p += '</li></ul></li><li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">';
+									p += '<p style="color: #6C6C6C;">所用药物：<span class="mui-pull-right detial">详情</span></p></a><ul class="mui-table-view mui-table-view-chevron"><li class="mui-table-view-cell">';
+									p += '<p style="color: #6C6C6C;">'+data[i].drug_info+'</p>';
+									p += '</li></ul></li><li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">';
+									p += '<p style="color: #6C6C6C;">是否产生不良反应：　<span>'+data[i].is_bad+'</span>';
+									p += '<span class="mui-pull-right detial">详情</span></p></a><ul class="mui-table-view mui-table-view-chevron"><li class="mui-table-view-cell">';
+									if(data[i].is_bad == '是'){
+										p += '<p style="color: #6C6C6C;">'+data[i].drug_res+'</p>';
+									}else if(data[i].is_bad == '否'){
+										p += '<p style="color: #6C6C6C;">服药后状况良好哦！</p>';
+									}
+									p += '</li></ul></li><li class="mui-table-view-cell"><p style="margin-left:330px;"><button drugID="' + data[i].id +
+									'" type="button" id="edit_diary" class="mui-btn mui-btn-success mui-btn-outlined mui-pull-right">修改记录</button></p></li></ul></br>';
+				    			}
+				    			info.innerHTML = p;
+				    			
+				    		}
+				    		
+				    	},'json' );
+				}, function(e) {
+					mui.toast("您没有选择日期");
+				}, {
+					    title: '请选择日期',
+				        date: dDate,
+				        minDate: minDate,
+				        maxDate: maxDate
+				});
+			});
+			//查出当天的用药情况
+			mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/Health/getDiary',{
+				    		user_phone:user_phone,
+				    		drug_date:medDate
+				    	},function(data){
+				    		var info = document.getElementById("info");
+				    		var p = '';
+				    		if(data.result==0){
+				    			plus.nativeUI.toast("今日尚未添加用药日记");
+				    			return false;
+				    		}else{
+				    			for(var i=0;i<data.length;i++){
+				    				p += '<ul class="mui-table-view mui-table-view-chevron">';
+									p += '<li id="use_time" class="mui-table-view-cell"><p class="">用药时间：　';
+					 	            p += '<span id="show_time" style="color: #6C6C6C;">'+data[i].drug_time+'分</span></p></li>';
+									p += '<li id="use_number" class="mui-table-view-cell"><p class="">用药次数：　';
+									p += '<span id="show_number" style="color: #6C6C6C;">'+data[i].drug_num+'</span></p></li>';
+									p += '<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#"><p style="color: #6C6C6C;">是否按时用药：　';
+									p += '<span>'+data[i].is_on_time+'</span>';
+									p += '<span class="mui-pull-right detial">详情</span>';
+									p += '</p></a><ul class="mui-table-view mui-table-view-chevron"><li class="mui-table-view-cell">';
+									if(data[i].is_on_time == '是'){
+										p += '<p style="color: #6C6C6C;">按时吃药，请继续保持!</p>';
+									}else if(data[i].is_on_time == '否'){
+										p += '<p style="color: #6C6C6C;">'+data[i].drug_notime+'</p>';
+									}
+									p += '</li></ul></li><li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">';
+									p += '<p style="color: #6C6C6C;">所用药物：<span class="mui-pull-right detial">详情</span></p></a><ul class="mui-table-view mui-table-view-chevron"><li class="mui-table-view-cell">';
+									p += '<p style="color: #6C6C6C;">'+data[i].drug_info+'</p>';
+									p += '</li></ul></li><li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">';
+									p += '<p style="color: #6C6C6C;">是否产生不良反应：　<span>'+data[i].is_bad+'</span>';
+									p += '<span class="mui-pull-right detial">详情</span></p></a><ul class="mui-table-view mui-table-view-chevron"><li class="mui-table-view-cell">';
+									if(data[i].is_bad == '是'){
+										p += '<p style="color: #6C6C6C;">'+data[i].drug_res+'</p>';
+									}else if(data[i].is_bad == '否'){
+										p += '<p style="color: #6C6C6C;">服药后状况良好哦！</p>';
+									}
+									p += '</li></ul></li><li class="mui-table-view-cell"><p style="margin-left:330px;"><button drugID="' + data[i].id +
+									'" type="button" id="edit_diary"  class="mui-btn mui-btn-success mui-btn-outlined mui-pull-right">修改记录</button></p></li></ul></br>';
+				    			}
+				    			info.innerHTML = p;
+				    			
+				    		}
+				    		
+				    	},'json' );
+			//添加用药情况
+			var write= document.getElementById('write');	
+			write.addEventListener('tap',function(event){
+				mui.openWindow({
+					url: 'write_diary.html',
+					id: 'write_diary',
+					extras:{
+						medDate:medDate
+					},
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			},false);
+		});
+			</script>
+
+
+</html>

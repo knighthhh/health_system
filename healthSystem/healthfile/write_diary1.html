@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">用药日记</h1>
+		</header>
+		
+		<div class="mui-content">
+			<form action="" method="post">
+				<ul class="mui-table-view box-dairy">
+			        <li class="mui-table-view-cell">
+			            
+			                <p>是否按时吃药</p>
+			            
+			        
+			            <div class="mui-input-row mui-radio mui-left others-2">
+								<div class="mui-input-row mui-radio">
+								    <label>否</label>
+								    <input name="eat" type="radio">
+								</div>
+								   <div class="mui-input-row mui-radio">
+								    <label>是</label>
+								    <input name="eat" type="radio" checked>
+								</div> 
+						</div>
+						 <textarea id="textarea" rows="5" placeholder="填写吃药时间....." ></textarea>
+
+			        </li>
+			        
+			 
+			        <li class="mui-table-view-cell">
+			           
+			                <p>填写所用药物</p>
+			            <textarea id="textarea" rows="5" placeholder="填写药物详情....." ></textarea>
+			        </li>
+			        <li class="mui-table-view-cell">
+			            
+			                <p>是否产生不良反应</p>
+			                
+			            <div class="mui-input-row mui-radio mui-left others-2">
+								<div class="mui-input-row mui-radio">
+								    <label>否</label>
+								    <input name="bad" type="radio">
+								</div>
+								   <div class="mui-input-row mui-radio">
+								    <label>是</label>
+								    <input name="bad" type="radio" checked>
+								</div> 
+						</div>
+			             <textarea id="textarea" rows="5" placeholder="填写用药后情况....." ></textarea>
+
+			        </li>
+			        
+			    </ul>
+				<div class="submit" id="quickask">
+					<span class="mui-btn mui-btn-success ">
+					提交今日用药情况
+					</span>
+				</div>
+			</form>
+			
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

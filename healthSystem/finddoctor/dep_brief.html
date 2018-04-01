@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/find_doctor.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">科室简介</h1>
+		</header>
+		<div class="mui-content">
+			<div class="article_brief">
+				<ul class="mui-table-view" >
+						<li class="mui-table-view-cell">
+				           <h4 id="title" class="text_h4"></h4>     
+				        </li>
+				        <ul class="mui-table-view mui-table-view-chevron">
+						        <li class="mui-table-view-cell">    
+						          <p id="text" class="paragraph"></p> 	           
+						        </li>
+				        </ul>
+				</ul>
+<!--				
+				<ul class="mui-table-view" >
+						<li class="mui-table-view-cell">
+				           <h4 class="text_h4">鼻炎<span>预防</span></h4>         
+				        </li>
+				        <ul class="mui-table-view mui-table-view-chevron">
+						        <li class="mui-table-view-cell">    
+						          <p class="paragraph">鼻炎即鼻腔炎性疾病，是病毒、细菌、变应原、各种理化因子以及某些全身性疾病引起的鼻腔黏膜的炎症。鼻炎的主要病理改变是鼻腔黏膜充血、肿胀、渗出、增生、萎缩或坏死等</p> 	           
+						        </li>
+				        </ul>
+				</ul>-->
+				
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				//获得当前科室ID和医院ID
+				var self = plus.webview.currentWebview();
+				var hosID = self.hos_id;
+				var depID = self.dep_id;
+				mui.post('http://'+serverName+'/health/management/Application/index.php/Connector/Depa/gethosdep',{
+						hos_id:hosID,
+						dep_id:depID
+					},function(data){
+						document.getElementById("title").innerHTML = data.dep_name;
+						document.getElementById("text").innerHTML = data.dep_introduce;
+					},'json'
+				);
+				
+			});
+		</script>
+	</body>
+
+</html>

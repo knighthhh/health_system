@@ -1,0 +1,58 @@
+input[type=search]{
+	border-radius:100px;
+	background: #EEEEEE;
+}
+.mui-search .mui-placeholder{
+	font-size: 14px;
+	}
+.search{
+	margin-top: 2px;
+	padding-left: 8%; 
+	width: 80%; 
+	position: absolute;
+	
+}
+.public-color span{
+	color: #C0C0C0;
+
+}
+
+.public-color{
+	background:#fff;
+}
+.public-color a{
+	color:olivedrab;
+
+}
+.icon2{
+	width: 12%;
+	position: relative;
+	margin-top:12px;
+	font-size: 18px;
+	font-family:  "微软雅黑" ;
+}
+
+
+/*搜索历史*/
+
+.search_history{
+    margin:4px 8px;
+	color: #C0C0C0;
+	font-family:  "微软雅黑" ;
+}
+.search_text .mui-table-view-cell>a:not(.mui-btn){
+	margin: -8px -14px !important;
+	}
+.search_text .mui-icon{
+	font-size: 18px;
+	color: #CCCCCC;
+}
+.search_text a{
+	color: #CCCCCC;
+}
+.search_text a span{
+	color: #CCCCCC;
+}
+.search_text a p{
+	text-align: center;
+}

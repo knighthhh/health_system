@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			.mui-input-group label {
+				width:27%;
+				text-align: center;
+			}
+			/*.mui-input-row label~input,
+			.mui-input-row label~textarea {
+				width: 75%;
+			}*/
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			.mui-btn1{
+				margin: 0 10px ;
+			}
+			
+			
+			.mui-input-group .mui-input-row{
+				height: 55px;
+			}
+			input[type=color], input[type=date], input[type=datetime-local], input[type=datetime], input[type=email], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], select, textarea{
+				height: 55px;
+			}
+			input{
+				font-size: medium;
+				font-family: Microsoft YaHei;
+				letter-spacing: 1px;
+			}
+			.app-img{
+				width: 30%;
+				height: 30%;
+				margin: auto;
+			}
+			.app-img img{
+				
+				width: 100%;
+				margin: auto;
+				border-radius: 50%;
+			}
+			
+			.icon-public{
+				color: #4CD964;
+			}
+			.login-form label{
+				height: 65%;
+				margin-top: 10px;
+				width: 21%;
+				padding: 1px 0px 0px 22px;
+				border-right:1px solid #4CD964;
+			}
+			.login-form label span{
+				padding-top: 4px;
+			}
+			.login-form .mui-input-row label~input{
+				width: 75%;
+			}
+			input::-webkit-input-placeholder {
+				font-family:Microsoft YaHei;
+				letter-spacing: 1px;
+}
+			input:-moz-placeholder {
+			   font-family:Microsoft YaHei;
+			   letter-spacing: 1px;
+			}
+			.mui-input-row .mui-input-clear~.mui-icon-clear, .mui-input-row .mui-input-password~.mui-icon-eye, .mui-input-row .mui-input-speech~.mui-icon-speech{
+				top:18px;
+			}
+			.link-area a{
+				font-family:Microsoft YaHei;
+				
+				color: #4CD964;
+				
+				padding-bottom: 30px;
+			}
+			
+			.mui-btn-block{
+				padding: 13px 0;
+			}
+			.mui-input-row label{
+				font-family: "microsoft yahei";
+				padding: 11px 3px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">修改用户名</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group mui-card login-form">
+				<!--<div class="mui-input-row">
+					<label>当前名称</label>
+					<table>
+					<tr> 
+					<td>
+						<input id='now_user_name' type="text" class="mui-input-clear mui-input" >
+					</td>
+					</tr>
+					</table>
+				</div>-->
+				<div class="mui-input-row">
+					<label>新名称</label>
+					<table>
+					<tr> 
+					<td>
+						<input id='user_name' type="text" class="mui-input-clear mui-input" placeholder="请输入新用户名">
+					</td>
+					</tr>
+					</table>
+				</div>
+				<!--<div class="mui-input-row">
+					<label>密码确认</label>
+					<table>
+					<tr>
+					<td>
+						<input id='password_confirm' type="password" class="mui-input-password mui-input" placeholder="请再次确认密码">
+					</td>
+					</tr>
+					</table>
+				</div>-->
+				
+				
+			</form>
+			<div class="mui-content-padded">
+				<button type="button" id='submit' class="mui-btn mui-btn-block mui-btn-green">提交</button>
+			</div>
+			
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				var user_phone = self.user_phone;
+				var submitbtn = document.getElementById("submit");
+				
+				submitbtn.addEventListener('tap',function(){
+	      			//修改用户名，并跳转
+	      			var user_name = document.getElementById("user_name").value;
+					mui.ajax('http://' + serverName + '/health/management/Application/index.php/Connector/User/reset_name', {
+						data: {
+							user_phone:user_phone, 
+							user_name:user_name
+						},
+						dataType: 'json', //数据格式类型
+						type: 'POST', //http请求类型
+						timeout: 10000, //超时设置
+						success: function(data) {
+							if(data.result == 0) {
+								//修改用户名不成功
+								plus.ui.toast(data.data);
+							} else {
+								plus.ui.toast(data.data);
+								//跳转
+								mui.back();
+								plus.webview.getWebviewById('account').reload();
+								plus.webview.getWebviewById('mine/Mine.html').reload();
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							plus.nativeUI.toast('请检查您的网络');
+						}
+					})
+				});
+			})
+		</script>
+		
+	</body>
+
+</html>

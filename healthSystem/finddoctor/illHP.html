@@ -1,0 +1,314 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<link rel="stylesheet" type="text/css" href="../css/find_doctor.css" />
+		<link rel="stylesheet" type="text/css" href="../css/search_info.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont_se.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont_money.css" />
+		<link rel="stylesheet" type="text/css" href="../css/health_file.css" />
+	</head>
+
+	<body>
+		<header id="sickTitle" class="mui-bar mui-bar-nav public-color">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">简介</h1>
+		</header>
+		<div class="mui-content">
+			<div class="ill_contents">
+				<ul id="sick" class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<h4 class="text_h4">疾病<span>简介</span></h4>
+					</li>
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell brief">
+							<p class="paragraph">暂无</p>
+						</li>
+						<li class="mui-table-view-cell">
+							<p id="lookdetail" class="mui-pull-right" style="color:#0062CC;">查看详情>></p>
+						</li>
+					</ul>
+				</ul>
+				<!-------------热门医生---------->
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<h5 class="recommend">
+				           	热门医生推荐
+				           	<a>
+				           		<span id="more-doc" class="mui-pull-right">更多>></span>
+				           	</a>
+				           </h5>
+					</li>
+
+					<div id="doc" class="info_dt">
+						<ul class="mui-table-view mui-table-view-chevron">
+							<!--<li class="mui-table-view-cell mui-media ">
+								<a class=" ">
+									<div class="mui-row ">
+										<div class="mui-pull-left mui-col-xs-3">
+											<img src="../img/doctor.jpeg" style="width: 100%;" />
+										</div>
+										<div class="mui-col-xs-1">
+
+										</div>
+										<div class="mui-col-xs-7">
+											<h4 class="dt_title">张先生</h4>
+											<div class="dt_from">
+												<p><span class="mui-icon iconfont icon-iconaddress i-color"></span><span>惠州市人民医院</span></p>
+												<p><span class="mui-icon iconfont icon-iconaddress i-color"></span>所属科室：<span>骨科,眼科</span> </p>
+											</div>
+
+											</p>
+										</div>
+									</div>
+									<p class="mui-ellipsis"> 擅长：<span>治疗各种骨科症状，眼睛疾病</span></p>
+									<span class="iconfont icon-jinqian1 i-color"></span><span class="icon-title"> 30/半小时 </span>
+									<span class="iconfont icon-pinglun2 i-color"></span><span class="icon-title"> 1000</span>
+									<span class="iconfont icon-dianzan i-color"></span><span class="icon-title"> 1500</span>
+									<span class="iconfont icon-guanzhu1 i-color"></span><span class="icon-title"> 1500</span>
+								</a>
+							</li>-->
+						</ul>
+					</div>
+				</ul>
+				<!-------------热门医院---------->
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<h5 class="recommend">
+				           	热门医院推荐
+				           	<a>
+				         		<span id="more-hos" class="mui-pull-right">更多>></span>          		
+				           	</a>		           	
+				        </h5>
+					</li>
+					<div id="hos" class="info_hp">
+						<ul class="mui-table-view mui-table-view-chevron">
+							<!--<li class="mui-table-view-cell mui-media ">
+								<a class=" ">
+									<div class="mui-row ">
+										<div class="mui-pull-left mui-col-xs-3 ">
+											<img src="../img/hospital.png" style="width: 100%" />
+										</div>
+										<div class="mui-col-xs-9">
+											<h4 class="hp_title">惠州市人民医院</h4>
+											<p class="mui-ellipsis">专治/热门科室：<span>骨科，眼科</span></p>
+											<p>
+												<span class="iconfont icon-iconaddress i-color"></span>
+												<span class="icon-title">深圳</span>
+												<span class="iconfont icon-dengji i-color"></span>
+												<span class="icon-title">三级甲等</span>
+												<span class="iconfont icon-guanzhu1 i-color"></span>
+												<span class="icon-title">1000</span>
+											</p>
+										</div>
+									</div>
+								</a>
+							</li>-->
+						</ul>
+					</div>
+				</ul>
+				<!------------------知识推送--------------->
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<h5 class="recommend">
+				           	知识推送
+				           	<a>
+				           		<span class="mui-pull-right">更多>></span>
+				           	</a>
+				           </h5>
+					</li>
+					<div class="knowledge_info">
+						<ul id="knowledge" class="mui-table-view">
+							<!--<li id="know_detail" class="mui-table-view-cell mui-media">
+								<a href="">
+									<img class=" mui-pull-left" src="../img/finddoctor.jpg">
+									<div class="mui-media-body">
+										<h4 class="hp_title">鼻炎小知识</h4>
+										<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+										<span class="put-day">发布日期：</span><span class="day">2017-03-15</span> <span class="mui-pull-right read">阅读量:<span class="readnumber">500</span></span>
+									</div>
+								</a>
+							</li>-->
+						</ul>
+					</div>
+				</ul>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init({
+				preloadPages:[
+				{
+					url:'docHP.html',
+					id:'docHP.html'
+				},{
+					url:'hosHP.html',
+					id:'hosHP.html'
+				},{
+					url:'../healthfile/know_contents.html',
+					id:'know_contents.html'
+				}
+				],
+			});
+			mui.plusReady(function () {});
+				var illnessID = null;
+			window.addEventListener('illnessID',function(event){
+				//获得疾病ID
+				illnessID = event.detail.illnessID;
+				mui.get('http://'+serverName+'/health/management/Application/index.php/Connector/Sick/getSickDetail',{
+						illnessID:illnessID
+					},function(data){
+						//显示出疾病详情
+						var sick = document.getElementById("sick");
+						var s = '<li class="mui-table-view-cell"><h4 class="text_h4">'+data.illness_name+
+						'<span>简介</span></h4></li><ul class="mui-table-view mui-table-view-chevron"><li class="mui-table-view-cell brief"><p class="paragraph">'+data.illness_introduce+
+						'</p></li><li class="mui-table-view-cell"><p id="lookdetail" sickID="'+data.illness_id+'" class="mui-pull-right" style="color:#0062CC;">查看详情>></p></li></ul>';
+						sick.innerHTML = s;
+						depID = data.two_depa_id;
+						//显示疾病相关热门医生
+						var doc = document.getElementById("doc");
+						var d = '';
+						for(var i=0;i<3;i++){
+							d = d + '<ul class="mui-table-view mui-table-view-chevron"><li docID="'+data.doctor[i].doc_id+'" class="mui-table-view-cell mui-media "><a class=" "><div class="mui-row "><div class="mui-pull-left mui-col-xs-3"><img style="width:80px;height:80px;border-radius:100px;margin-left:20px" src="'+data.doctor[i].doc_img+
+							'"/></div><div class="mui-col-xs-1"></div><div class="mui-col-xs-7"><h4 class="dt_title">'+data.doctor[i].doc_name+
+							'</h4><div class="dt_from"><p><span class="mui-icon iconfont icon-iconaddress i-color"></span><span>'+data.doctor[i].hos_name+
+							'</span></p><p><span class="mui-icon iconfont icon-iconaddress i-color"></span><span>'+data.doctor[i].dep_name+
+							'</span></p></div></p></div></div><p class="mui-ellipsis"> 擅长：<span>'+data.doctor[i].doc_especial+
+							'</span></p><span class="iconfont icon-jinqian1 i-color"></span><span class="icon-title"> '+data.doctor[i].doc_fee+
+							'/半小时 </span><span class="iconfont icon-pinglun2 i-color"></span><span class="icon-title"> 1000 </span><span class="iconfont icon-dianzan i-color"></span><span class="icon-title"> 1500 </span><span class="iconfont icon-guanzhu1 i-color"></span><span class="icon-title"> 1500 </span></a></li></ul>';
+						}
+						doc.innerHTML = d;
+						//显示疾病相关热门医院
+						var hos = document.getElementById("hos");
+						var h = '';
+						for(var j=0;j<3;j++){
+							h = h +'<ul class="mui-table-view mui-table-view-chevron"><li hosID="'+data.hospital[j].hos_id+'" class="mui-table-view-cell mui-media "><a class=" "><div class="mui-row "><div class="mui-pull-left mui-col-xs-3 "><img style="height:65px;width:85px" src="'+data.hospital[j].hos_navigate_img+
+							'" style="width: 100%" /></div><div class="mui-col-xs-9"><h4 class="hp_title">'+data.hospital[j].hos_name+
+							'</h4><p><span class="iconfont icon-iconaddress i-color"></span><span class="icon-title">'+data.hospital[j].hos_address+
+							'</span></p><p><span class="iconfont icon-dengji i-color"></span><span class="icon-title">'+data.hospital[j].hos_level+
+							'</span><span class="iconfont icon-guanzhu1 i-color"></span><span class="icon-title">1000</span></p></div></div></a></li></ul>';
+						}
+						hos.innerHTML = h;
+						//显示疾病相关文章
+						var knowledge = document.getElementById("knowledge");
+						var k = '';
+						for(var p=0;p<3;p++){
+							k = k +'<li knowID="'+data.know[p].know_id+'" id="know_detail" class="mui-table-view-cell mui-media"><div class="mui-media-body"><h4 class="hp_title">'+data.know[p].know_title+
+							'</h4><p class="mui-ellipsis">'+data.know[p].know_title+'</p><span class="put-day">发布日期：</span><span class="day">'+data.know[p].time+
+							'</span> <span class="mui-pull-right read">阅读量:<span class="readnumber">'+data.know[p].know_see+'</span></span></div></li>';
+						}
+						knowledge.innerHTML = k;
+					},'json'
+				);
+				//更多医生列表跳转
+				document.getElementById("more-doc").addEventListener('tap',function(event){
+					mui.openWindow({
+					url:'doclist.html',
+					id :'doclist',
+					extras:{
+						dep_id:depID
+					},
+					show:{
+						aniShow:'pop-in'
+					}
+					});
+				});
+				//更多医院列表跳转
+				document.getElementById("more-hos").addEventListener('tap',function(event){
+					mui.openWindow({
+						url:'search_doctor_yy.html',
+						id :'search_doctor_yy',
+						extras:{
+							depID:depID
+						},
+						show:{
+							aniShow:'pop-in'
+						}
+					});
+				});
+				
+			});
+					//跳转至医生详情
+					var docHP = null;
+					mui('#doc').on('tap','li',function(e){
+						var docID = this.getAttribute('docID');
+						//获得医生详情页面
+						if(!docHP){
+							docHP = plus.webview.getWebviewById('docHP.html');
+						}
+						//通知自定义事件
+						mui.fire(docHP,'docID',{
+							docID:docID
+						});
+						mui.openWindow({
+							id:'docHP.html',
+							show:{
+								aniShow:'pop-in'
+							}
+						});
+					});
+					//跳转至医院详情
+					var hosHP = null;
+					mui('#hos').on('tap','li',function(e){
+						var hosID = this.getAttribute('hosID');
+						//获得医生详情页面
+						if(!hosHP){
+							hosHP = plus.webview.getWebviewById('hosHP.html');
+						}
+						//通知自定义事件
+						mui.fire(hosHP,'hosID',{
+							hosID:hosID
+						});
+						mui.openWindow({
+							id:'hosHP.html',
+							show:{
+								aniShow:'pop-in'
+							}
+						});
+					});
+					//疾病详情页面
+					mui('#sick').on('tap','#lookdetail',function(e){
+						//疾病简介ID
+						var sickID = this.getAttribute('sickID');
+						mui.openWindow({
+							url: 'article_brief.html',
+							id: 'article_brief',
+							extras:{
+								sickID:sickID
+							},
+							show: {
+								aniShow: 'pop-in'
+							}
+						});
+					});
+					var know = null;
+					//健康知识详情页面
+					mui('#knowledge').on('tap','li',function(e){
+						//获得当前知识ID
+						var knowID = this.getAttribute('knowID');
+						//获得知识详情页面
+						if(!know){
+							var know = plus.webview.getWebviewById('know_contents.html');
+						}
+						//通知knowID事件
+						mui.fire(know,'knowID',{
+							knowID:knowID
+						});
+						//打开详情页面
+						mui.openWindow({
+							id:'know_contents.html',
+							show:{
+								aniShow:'pop-in'
+							}
+						});
+					});
+		</script>
+	</body>
+
+</html>

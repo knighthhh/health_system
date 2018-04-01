@@ -1,0 +1,26 @@
+input[type=search]{
+	border-radius:100px;
+	background: #fff;
+}
+.mui-search .mui-placeholder{
+	font-size: 14px;
+	}
+.search{
+	padding-left: 10%; 
+	width: 85%; 
+	position: absolute;
+	
+}
+.public-color span{
+	color: #C0C0C0;
+
+}
+.mui-bar-tab .mui-tab-item.mui-active{
+	color: #05B19F;
+}
+.public-color{
+	background:#06BFAC;
+}
+.public-color a{
+	color: #fff;
+}

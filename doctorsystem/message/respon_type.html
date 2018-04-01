@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/header.css" />
+		<style>
+			.sick {
+				padding: 10px;
+			}
+			img{
+				height: 60px;
+				width: 60px;
+			}
+			li {
+				height: 80px;
+			}
+		</style>
+	</head>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript">
+		mui.init();
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			var user_phone = self.user_phone;
+			var hfzx = document.getElementById("hfzx");
+			var kcf = document.getElementById("kcf");
+			hfzx.addEventListener('tap',function(){
+				mui.openWindow({
+					url: 'chat.html',
+					id: 'chat',
+					extras:{
+						user_phone:user_phone
+					},
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			})
+			
+			kcf.addEventListener('tap',function(){
+				mui.openWindow({
+					url: 'kcf.html',
+					id: 'kcf',
+					extras:{
+						user_phone:user_phone
+					},
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			})
+		});
+	</script>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+			<h1 class="mui-title" style="color: #FFFFFF;">回复</h1>
+		</header>
+		<div class="mui-content">
+			<div class="select_p">
+				<button id="hfzx" type="button" class="mui-btn mui-btn-block">回复咨询</button>
+			</div>
+			<div class="select_p">
+				<button id="kcf" type="button" class="mui-btn mui-btn-block">开处方</button>
+			</div>
+		</div>
+	</body>
+
+</html>

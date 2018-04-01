@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="../../js/mui.min.js"></script>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/search_info.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont_se.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont_money.css" />
+	</head>
+
+	<body>
+		<div class="mui-content ">
+			<div class="info_dt">
+				<ul id="search_illness" class="mui-table-view mui-table-view-chevron">
+				
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				var searchtext = self.searchtext;
+				mui.post('http://'+serverName+'/health/management/application/index.php/Connector/Search/search_illness',{
+						searchtext:searchtext
+					},function(data){
+						if(data.result!=0){
+							var s="";
+							for(var i=0;i<data.length;i++){
+								s+="<li id='"+data[i].doc_id+"' class='mui-table-view-cell mui-media '><a class=''><div class='mui-row '><div class='mui-pull-left mui-col-xs-3 '>";
+								s+="<img src='"+data[i].doc_img+"' style='width: 100%' /></div><div class='mui-col-xs-1'></div><div class='mui-col-xs-8'>";
+								s+="<h4 class='dt_title'>"+data[i].doc_name+" 医生</h4><div class='dt_from'><p><span class='mui-icon iconfont icon-iconaddress i-color'></span>";
+								s+="<span>"+data[i].hos_name+"</span></p>";
+								s+="<p><span class='mui-icon iconfont icon-iconaddress i-color'></span>所属科室：<span>"+data[i].dep_name+"</span> </p><p class='mui-ellipsis'> <span class='iconfont icon-dianzan i-color'></span>擅长：<span>"+data[i].doc_especial+"</span></p></div></p></div></div>";
+								s+="<span class='iconfont icon-jinqian1 i-color'></span><span class='icon-title'> "+data[i].doc_fee+"/小时</span>";
+								s+="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span class='iconfont icon-pinglun2 i-color'></span><span class='icon-title'> "+data[i].doc_rece+"</span>";
+								s+="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span class='iconfont icon-guanzhu1 i-color'></span><span class='icon-title'> "+data[i].doc_attention+"</span>";
+							}
+							var search_illness =document.getElementById("search_illness");
+							search_illness.innerHTML = s;
+						}else{
+							//提示没有搜索结果
+							plus.nativeUI.toast("结果不存在");
+						}
+					},'json'
+				);
+				
+				//批量监听疾病列表点击
+				mui('#search_illness').on('tap', '.mui-table-view-cell', function() {
+					var docID = this.getAttribute('id');
+					//获得医生详情页面
+					docHP = plus.webview.getWebviewById('docHP.html');
+					//通知自定义事件
+					mui.fire(docHP,'docID',{
+						docID:docID
+					});
+					mui.openWindow({
+						id:'docHP.html',
+						show:{
+							aniShow:'pop-in'
+						}
+					});
+				}); 
+			})
+		</script>
+
+	</body>
+
+</html>

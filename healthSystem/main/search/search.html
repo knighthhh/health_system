@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="../../js/mui.min.js"></script>
+   
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../../css/search.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/search_history.css"/>
+	<link rel="stylesheet" href="../../css/search_info.css" />
+</head>
+<body>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script type="text/javascript">
+		
+		mui.plusReady(function(){
+			var self = plus.webview.currentWebview();
+			//显示历史搜索记录
+			var history_s=plus.storage.getItem('history_s0');
+			if(history_s){
+				var history_search = document.getElementById('history_search');
+				var s="";
+				var i=0;
+				while(history_s){
+					i++;
+					history_s = plus.storage.getItem('history_s'+i);
+				}
+				i--;
+				history_s=plus.storage.getItem('history_s'+i);
+				while(history_s){
+					s+=" <li id='history_id"+i+"' class='mui-table-view-cell'>";
+					s+="<a class=''>";
+					s+="<span class='mui-icon mui-icon-search'></span>";
+					s+="<span>"+history_s+"</span> ";
+					s+="</a></li>";
+					i--;
+					history_s = plus.storage.getItem('history_s'+i);
+				}
+				history_search.innerHTML += s;
+			}
+			
+			
+			//清除搜索记录
+			var trash = document.getElementById("trash");
+			trash.addEventListener('tap',function(){
+				var btnArray = ['否', '是'];
+				mui.confirm('确认删除历史记录？', 'healthsystem', btnArray, function(e) {
+                    if (e.index == 1) {
+                       history_s=plus.storage.getItem('history_s0');
+                       var i=0;
+                       while(history_s){
+							plus.storage.removeItem("history_s"+i);
+							i++;
+							history_s = plus.storage.getItem('history_s'+i);
+						}
+                       history_search.innerHTML = "";
+                    }else{
+                    }
+                });
+			});
+			
+			//搜索按钮事件监听
+			var searchbtn = document.getElementById("searchbtn");
+			searchbtn.addEventListener('tap',function(){
+				//把搜索记录保存到本地
+				var searchtext =document.getElementById("searchtext").value;
+				history_s=plus.storage.getItem('history_s0');
+				var m=0;
+				while(history_s){
+					m++;
+					history_s = plus.storage.getItem('history_s'+m);
+				}
+				plus.storage.setItem('history_s'+m,searchtext);
+				
+				//跳转
+				mui.openWindow({
+					url: 'search2.html',
+					id: 'search2',
+					extras:{
+				    	searchtext:searchtext
+				    },
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			});
+			
+			//历史搜索记录点击事件
+			mui('#history_search').on('tap', '.mui-table-view-cell', function() {
+				var searchtextlist = this.getElementsByTagName("span");
+				var searchtext = searchtextlist[1].innerHTML;
+				mui.openWindow({
+					url:'search2.html',   
+				    id:'search2',
+				    extras:{
+				    	searchtext:searchtext
+				    },
+				    show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+				setTimeout(function(){
+					self.close();	
+				},1000);
+			}); 
+		
+		});
+	</script>
+	
+	<!-- 头部  包含搜索-->
+	<header id="header" class="mui-bar mui-bar-nav public-color">
+	    <a class="mui-action-back mui-icon mui-icon-back mui-pull-left size2"></a>
+	     <a id="searchbtn" class="icon2 mui-pull-right" >搜索</a>
+	   
+	    <div id="search"class="search">
+	    	<div class="mui-input-row mui-search">
+	    		<input id="searchtext" class=" mui-input-clear" type="search" name="search"  value="" placeholder="搜疾病，医生，医院，科室" />
+	    	</div>
+	    </div>
+	</header>
+	<!-- 头部 -->
+	
+	<div class="mui-content">
+			<div class="search_history">
+				搜索历史
+			</div>
+			<div class="search_text">
+				<ul id="history_search" class="mui-table-view">
+			        <!--<li class="mui-table-view-cell">
+			            <a class="">
+			            	<span class="mui-icon mui-icon-search">
+			            	</span>
+			                <span>鼻炎</span> 
+			            </a>
+			        </li>-->
+		   		</ul>	
+			</div>
+			
+			<div class="search_text">
+				<ul id="trash" class="mui-table-view">
+					<li class="mui-table-view-cell">
+			            <a class="">
+			                <p><span class="mui-icon mui-icon-trash"></span>清除搜索记录</p>
+			            </a>
+			      	</li>
+				</ul>
+			</div>
+		</div>
+		
+	</body>
+</html>

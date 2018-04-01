@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+
+			.mui-input-group .mui-input-row{
+				height: 55px;
+			}
+			input[type=color], input[type=date], input[type=datetime-local], input[type=datetime], input[type=email], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], select, textarea{
+				height: 55px;
+			}
+			input{
+				font-size: medium;
+				font-family: Microsoft YaHei;
+				letter-spacing: 1px;
+			}
+			.app-img{
+				width: 30%;
+				height: 30%;
+				margin: auto;
+			}
+			.app-img img{
+				
+				width: 100%;
+				margin: auto;
+				border-radius: 50%;
+			}
+			
+			.icon-public{
+				color: #4CD964;
+			}
+			.login-form label{
+				height: 65%;
+				margin-top: 10px;
+				width: 20%;
+				padding: 1px 0px 0px 22px;
+				border-right:1px solid #4CD964;
+			}
+			.login-form label span{
+				padding-top: 4px;
+			}
+			.login-form .mui-input-row label~input{
+				width: 75%;
+			}
+			input::-webkit-input-placeholder {
+				font-family:Microsoft YaHei;
+				letter-spacing: 1px;
+}
+			input:-moz-placeholder {
+			   font-family:Microsoft YaHei;
+			   letter-spacing: 1px;
+			}
+			.mui-input-row .mui-input-clear~.mui-icon-clear, .mui-input-row .mui-input-password~.mui-icon-eye, .mui-input-row .mui-input-speech~.mui-icon-speech{
+				top:18px;
+			}
+			.link-area a{
+				font-family:Microsoft YaHei;
+				
+				color: #4CD964;
+				
+				padding-bottom: 30px;
+			}
+			
+			.mui-btn-block{
+				padding: 13px 0;
+			}
+
+		</style>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js"></script>
+
+<script>
+	(function($, doc) {
+		mui.init({
+			
+			keyEventBind: {
+				backbutton: false  //关闭back按键监听
+			}
+		});
+		
+	
+		
+		$.plusReady(function() {
+			var loginButton = doc.getElementById('login');
+			var user_phoneBox = doc.getElementById('user_phone');
+			var user_passwordBox = doc.getElementById('user_password');
+			var regButton = doc.getElementById('reg');
+			var forgetButton = doc.getElementById('forgetPassword');
+			var user_cid = plus.push.getClientInfo().clientid;
+			//登录验证
+			loginButton.addEventListener('tap',function(event){
+				if(user_phoneBox.value.length!=11){
+      				plus.ui.toast("手机号码格式不正确");
+      				return;
+      			}
+      			if(user_passwordBox.value.length==0){
+      				plus.ui.toast("密码不能为空");
+      				return;
+      			}
+      			
+      			mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/login',{
+      				data:{
+      					user_phone:user_phoneBox.value,
+      					user_password:user_passwordBox.value,
+      					user_cid:user_cid
+      				},
+      				dataType:'json',
+      				type:'POST',
+      				timeout:10000,
+      				success:function(data){
+      					//{"reslut":1}表示成功
+      					if(data.result==1){
+      						//登录成功
+      						plus.ui.toast("登录成功");
+      						plus.storage.setItem('user_phone',user_phoneBox.value);
+      						plus.storage.setItem('user_id',data.user_id);
+							plus.storage.setItem('user_token',data.user_token);
+							plus.storage.setItem('im_token',data.im_token);						
+      						plus.webview.show('../index.html');
+      						plus.webview.getWebviewById('mine/Mine.html').reload();
+							setTimeout(function(){
+								var self = plus.webview.currentWebview();
+								self.close();	
+							},1000);
+      					}else{
+      						//登录失败
+      						plus.ui.toast(data.data);
+      					}
+      				},
+      				error:function(){
+      					plus.nativeUI.toast("请检查您的网络");
+      				}
+      			})
+			},false);
+			
+			regButton.addEventListener('tap', function(event) {
+				$.openWindow({
+					url: 'reg.html',
+					id: 'reg',
+					show: {
+						aniShow: 'pop-in'
+					},
+					styles: {
+						popGesture: 'hide'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}, false);
+			forgetButton.addEventListener('tap', function(event) {
+				$.openWindow({
+					url: 'forget_password.html',
+					id: 'user_forget_password',
+					show: {
+						aniShow: 'pop-in'
+					},
+					styles: {
+						popGesture: 'hide'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}, false);
+		});
+	}(mui, document));
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>返回
+				</button>
+			<h1 class="mui-title">登录</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-img">
+				<img src="../img/logo.png"/>
+			</div>
+			
+			<form id='login-form' class="mui-input-group mui-card login-form">
+				<div class="mui-input-row">
+					<label>
+						<span class="mui-icon mui-icon-contact icon-public"></span>
+					</label>
+					<input id='user_phone' type="tel" class="mui-input-clear mui-input" placeholder="请输入手机号">
+				</div>
+				<div class="mui-input-row">
+					<label>
+						<span class="mui-icon mui-icon-locked icon-public"></span>
+					</label>
+					<input id='user_password' type="password" class=" mui-input mui-input-password" placeholder="请输入密码">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<div class="link-area">
+					<a id='reg' class="mui-pull-left">注册账号</a>  <a id='forgetPassword' class="mui-pull-right">忘记密码?</a>
+				</div>
+				<button id='login' type="button" class="mui-btn mui-btn-block mui-btn-green">立即登录</button>			
+			</div>
+
+		</div>	
+	</body>
+</html>

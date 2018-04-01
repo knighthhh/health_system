@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/mydoctor.css" />
+		<link rel="stylesheet" type="text/css" href="../css/fast_question.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+		<style type="text/css">
+			.basetext .mui-input-row {
+				height: 50px;
+			}
+			
+			.mui-card {
+				color: #A9A9A9;
+			}
+			
+			.mui-card input {
+				color: #A9A9A9;
+				font-size: 16px;
+			}
+			
+			.mui-card input[type=text] {
+				padding: 25px 15px;
+			}
+			
+			.others {
+				padding: 15px 15px;
+				color: #A9A9A9;
+			}
+			
+			.others-1 {
+				display: inline-block;
+				margin: 15px 15px;
+				color: #A9A9A9;
+			}
+			
+			.others-2 {
+				padding: 5px 15px;
+			}
+			
+			.ChooseSex .mui-radio {
+				float: right;
+			}
+			
+			.ChooseSex .mui-radio input[type=radio]:checked:before {
+				content: '\e442';
+			}
+		</style>
+	</head>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript">
+		
+	</script>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav public-color">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">添加亲友的基本信息</h1>
+		</header>
+		<div class="mui-content">
+
+			<form class="mui-input-group mui-card  basetext">
+
+				<div class="mui-input-row ">
+
+					<input type="text" id="name" class="mui-input-clear" placeholder="请输入姓名">
+				</div>
+				<div class="mui-input-row  ChooseSex">
+
+					<p class="others-1">选择性别</p>
+					<div class="mui-input-row mui-radio mui-right others-2">
+						<div class="mui-input-row mui-radio">
+							<label>女</label>
+							<input name="sex" value="女" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio">
+							<label>男</label>
+							<input name="sex" value="男" type="radio" checked>
+						</div>
+					</div>
+				</div>
+
+				<div class="mui-input-row">
+
+					<input id="phone" type="text" class="mui-input-clear" placeholder="输入您的手机号码">
+				</div>
+				<div class="mui-input-row" id="YearMonth">
+					<p id="YearMonth_text" class="others-1">出生日期：</p>
+
+					<!-- <input id="YearMonth" type="text" class="mui-input-clear" placeholder="出生日期">-->
+				</div>
+				<div id="RelationShip" class="mui-input-row">
+					<p id="RelationShip_Result" class="others">与本人关系：</p>
+				</div>
+
+			</form>
+
+			<!--提交-->
+			<div class="submit" id="addpatient">
+				<span class="mui-btn mui-btn-success ">
+					立即添加
+					</span>
+			</div>
+
+		</div>
+
+		<script src="../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			//mui初始化
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var info = document.getElementById("YearMonth_text");
+			var d = null;
+			document.getElementById("YearMonth").addEventListener('tap', function() {
+				var dDate = new Date();
+				dDate.setFullYear(2000, 1, 1);
+				var minDate = new Date();
+				minDate.setFullYear(1900, 1, 1);
+				var maxDate = new Date();
+				maxDate.setFullYear(2017, 8, 31);
+				plus.nativeUI.pickDate(function(e) {
+					d = e.date;
+					info.innerText = '您选择的出生日期是:' + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+				}, function(e) {
+					info.innerText = "您没有选择出生日期";
+				}, {
+					title: "请选择日期",
+					date: dDate,
+					minDate: minDate,
+					maxDate: maxDate
+				});
+			})
+			
+		</script>
+
+		<!--选择关系-->
+		<script type="text/javascript" charset="utf-8">
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					//普通示例
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'br',
+						text: '本人'
+					}, {
+						value: 'jtcy',
+						text: '家庭成员'
+					}, {
+						value: 'qq',
+						text: '亲戚'
+					}, {
+						value: 'py',
+						text: '朋友'
+					}, {
+						value: 'qt',
+						text: '其他'
+					}]);
+					var showUserPickerButton = doc.getElementById('RelationShip');
+					var relation = null;
+					var showSickPerson = document.getElementById("RelationShip_Result");
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							relation = items[0].text;
+							showSickPerson.innerText = "与本人的关系是：" + items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+					mui.plusReady(function() {
+						var user_phone = plus.storage.getItem('user_phone');
+						var select_file = document.getElementById('addpatient');
+						addpatient.addEventListener('tap', function(event) {
+							var obj = document.getElementsByName("sex");
+							for(var i=0;i<obj.length;i++){
+								if(obj[i].checked){
+									var sex = obj[i].value
+								}
+							}
+							mui.post('http://' + serverName + '/health/management/Application/index.php/Connector/User/addRelaData',{
+									user_phone:user_phone,
+									relative_name:document.getElementById("name").value,
+			    					relative_sex:sex,
+			    					relative_relation:relation,
+			    					relative_phone:document.getElementById("phone").value,
+			    					relative_date:d.getFullYear()+'年'+(d.getMonth() + 1) + "月" + d.getDate()+"日",
+								},function(data){
+									if(data.result==1){
+										plus.nativeUI.toast("添加成功");
+										var My_file = plus.webview.getWebviewById('select_file');
+								        My_file.reload();
+								        mui.back();
+									}else{
+										plus.nativeUI.toast("添加失败");
+									}
+								},'json'
+							);
+						}, false);
+		
+					});
+				});
+			})(mui, document);
+			
+			
+		</script>
+
+	</body>
+
+</html>

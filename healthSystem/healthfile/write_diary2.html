@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+		    <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">用药日记</h1>
+		</header>
+		
+		<div class="mui-content">
+				<ul class="mui-table-view">
+			 	        <li id="use_time" class="mui-table-view-cell">
+			 	            <a class="mui-navigate-right">
+			 	               	<span id="show_time" style="color: #6C6C6C;">用药时间</span> 
+			 	            </a>
+			 	        </li>
+			 	        <li id="use_number" class="mui-table-view-cell">
+			 	           <a class="mui-navigate-right">
+			 	               	<span id="show_number"  style="color: #6C6C6C;">用药次数</span> 
+			 	            </a>
+			 	        </li>
+			 	       
+			 	       
+			 	    </ul>
+			<form action="" method="post">
+				<ul class="mui-table-view box-dairy">
+			        <!--<li class="mui-table-view-cell">
+			            
+			                <p>是否按时吃药</p>
+			            
+			        
+			            <div class="mui-input-row mui-radio mui-left others-2">
+								<div class="mui-input-row mui-radio">
+								    <label>否</label>
+								    <input name="eat" type="radio">
+								</div>
+								   <div class="mui-input-row mui-radio">
+								    <label>是</label>
+								    <input name="eat" type="radio" checked>
+								</div> 
+						</div>
+						 <textarea id="textarea" rows="5" placeholder="填写吃药时间....." ></textarea>
+
+			        </li>-->
+			        
+			 
+			        <li class="mui-table-view-cell">
+			           
+			                <p>填写所用药物</p>
+			            <textarea id="textarea" rows="5" placeholder="填写药物详情....." ></textarea>
+			        </li>
+			        <li class="mui-table-view-cell">
+			            
+			                <p>是否产生不良反应</p>
+			           
+			             <textarea id="textarea" rows="5" placeholder="填写用药后情况....." ></textarea>
+
+			        </li>
+			        
+			    </ul>
+				<div class="submit" id="quickask">
+					<span class="mui-btn mui-btn-success ">
+					提交今日用药情况
+					</span>
+				</div>
+			</form>
+			
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script src="../js/mui.picker.min.js"></script>
+<script>
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					//普通示例
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'ywj',
+						text: '一日一次'
+					}, {
+						value: 'aaa',
+						text: '一日两次'
+					}, {
+						value: 'lj',
+						text: '一日三次'
+					}]);
+					var showUserPickerButton = doc.getElementById('use_number');
+                    var show_number = doc.getElementById('show_number');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							
+							show_number.innerText = "用药次数：" + items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+
+				});
+			})(mui, document);
+		</script>
+		
+		<script type="text/javascript">
+var show_time=document.getElementById('show_time');
+document.getElementById("use_time").addEventListener('tap', function() {
+    var dTime = new Date();
+    //设置默认时间
+    dTime.setHours(6, 0);
+    plus.nativeUI.pickTime(function(e) {
+        var d = e.date;
+        show_time.innerText="您选择的用药时间是：" + d.getHours() + ":" + d.getMinutes();
+    }, function(e) {
+        mui.toast("您没有选择时间");
+    }, {
+        title: "请选择时间",
+        is24Hour: true,
+        time: dTime
+    });
+});
+</script>
+	</body>
+
+</html>

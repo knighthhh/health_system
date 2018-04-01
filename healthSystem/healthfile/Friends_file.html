@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">亲友档案</h1>
+		</header>
+		<div class="mui-content">
+			<div class="friend_file">
+				<!--<p class="box">--我关联的亲友--</p>
+					<ul class="mui-table-view">
+					         <li id="friendfile_detail" class="mui-table-view-cell mui-media">
+							        <a class="mui-navigate-right">
+							            <img class="mui-media-object mui-pull-left" src="../img/inquiry.jpg">
+							            <div class="mui-media-body">
+							                <p>张三</p>
+							                <p>与本人关系:<span>父子</span></p>
+							            </div>
+							        </a>
+							
+					    </ul>
+					    <div class="submit" id="add_outline">
+							<span class="mui-btn mui-btn-success ">
+									关联更多亲友
+							</span>
+						</div>		-->
+					
+				<p class="box">--我添加的亲友--</p>
+						<ul id="relative" class="mui-table-view">
+					        <li id="friendfile_detail" class="mui-table-view-cell mui-media">
+						        <a class="mui-navigate-right">
+						            <img class="mui-media-object mui-pull-left" src="../img/inquiry.jpg">
+						            <div class="mui-media-body">
+						                <p>张三</p>
+						                <p>与本人关系:<span>父子</span></p>
+						            </div>
+						        </a>
+							</li>
+					    </ul>
+				<div id="friendfile_add" class="submit">
+					<span class="mui-btn mui-btn-success ">
+							添加亲友档案
+					</span>
+				</div>				
+			</div>
+		</div>
+		
+		
+		
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+	    	mui.init();
+	    		mui.plusReady(function() {
+	    			if(islogin()){
+		    			var user_phone = plus.storage.getItem('user_phone');
+		    			mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/User/getRelaData',{
+		    					user_phone:user_phone
+		    				},function(data){
+		    					var relative = document.getElementById("relative");
+		    					var r = '';
+		    					for(var i=0;i<data.length;i++){
+		    						r = r + '<li relaID="'+data[i].relative_id+'" class="mui-table-view-cell mui-media">';
+							        r = r + '<a class="mui-navigate-right"><img class="mui-media-object mui-pull-left" src="../img/inquiry.jpg">';
+							        r = r + '<div class="mui-media-body"><p>'+data[i].relative_name+'</p><p>与本人关系:<span>'+data[i].relative_relation+'</span></p></div></a></li>';
+		    					}
+		    					relative.innerHTML = r;
+		    				},'json'
+		    			);
+						//var friendfile_detail= document.getElementById('relative');	
+						var friendfile_add= document.getElementById('friendfile_add');	
+						mui('#relative').on('tap','li',function(e){
+							var relative_id = this.getAttribute('relaID');
+							mui.openWindow({
+								url: 'Friend_file_detail.html',
+								id: 'Friend_file_detail',
+								extras:{
+									relative_id:relative_id
+								},
+								show: {
+									aniShow: 'pop-in'
+								},
+								waiting: {
+									autoShow: false
+								}
+							});
+						});
+					
+						friendfile_add.addEventListener('tap',function(event){
+							console.log("asas");
+							mui.openWindow({
+								url: 'Friend_file_add.html',
+								id: 'Friend_file_add',
+								extras:{
+									user_phone:user_phone
+								},
+								show: {
+									aniShow: 'pop-in'
+								},
+								waiting: {
+									autoShow: false
+								}
+							});
+						},false);
+					}else{
+						mui.openWindow({
+							url: '/login/login.html',
+							id: 'login',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+						plus.nativeUI.toast("请先登录");
+					}
+				});
+
+	</script>
+	</body>
+
+</html>

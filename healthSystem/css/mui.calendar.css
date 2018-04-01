@@ -1,0 +1,36 @@
+.calendar-box{
+    		width: 100%;
+    		background-color: #FFFFFF;
+    	}
+    	.calender-title{
+    		height: 35px;
+    		color: #929292;
+    		text-align: center;
+    		line-height: 35px;
+    		background-color: #DDDDDD;
+    	}
+    	.calendar-date > .calendar-week{
+    		border-bottom: 1px solid #DDDDDD;height: 40px;line-height: 40px;color: #888888;font-size: 16px;
+    	}
+    	.calendar-date > .calendar-week div{
+    		width: 14%;text-align: center;float: left;
+    	}
+    	.calendar-date > .calendar-day{
+    		border-bottom: 1px solid #DDDDDD;height: 45px;line-height: 45px;color: #888888;font-size: 16px;
+    	}
+    	.calendar-date > .calendar-day div{
+    		width: 14%;text-align: center;float: left;height: 45px;
+    	}
+    	.cq-sign{
+    		background: url(../images/sign/cq-sign.png) no-repeat 10px 5px;
+    		background-size: 32px 32px;
+    	}
+    	.zc-sign{
+    		background: url(../images/sign/zc-sign.png) no-repeat 10px 5px;
+    		background-size: 32px 32px;
+    	}
+    	.today-sign{
+    		background-position-x:7px;
+    		background-position-y: 2px;
+    		background-size: 40px 40px;
+    	}

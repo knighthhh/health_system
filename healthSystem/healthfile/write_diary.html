@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">用药日记</h1>
+		</header>
+
+		<div class="mui-content">
+			<form action="" method="post">
+				<ul class="mui-table-view box-dairy">
+					<li id="use_time" class="mui-table-view-cell">
+						
+			 	            <a class="mui-navigate-right">
+			 	            	用药时间：
+			 	               	<span id="show_time" style="color: #6C6C6C;"></span> 
+			 	            </a>
+			 	    </li>
+					<li id="use_number" class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							用药次数：
+							<span id="show_number" style="color: #6C6C6C;"></span>
+						</a>
+					</li>
+					<li id="anshichiyao" class="mui-table-view-cell">
+						<span style="color: #6C6C6C;">是否按时吃药</span>
+						<div class="mui-input-row mui-radio mui-left others-2">
+							<div id="chiyao" class="mui-input-row mui-radio">
+								<label class="no">否</label>
+								<input class="no" name="eat" value="否" type="radio">
+							</div>
+							<div id="chiyao1" class="mui-input-row mui-radio">
+								<label class="yes">是</label>
+								<input class="yes" name="eat" value="是" type="radio" checked>
+							</div>
+							<textarea style="display: none;" id="textarea1" rows="5" placeholder="未按时服用药物的原因....."></textarea>
+						</div>
+					</li>
+
+					<li class="mui-table-view-cell">
+						<p>填写所用药物</p>
+						<textarea id="textarea3" rows="5" placeholder="填写药物详情....."></textarea>
+					</li>
+					<li class="mui-table-view-cell">
+						<p>是否产生不良反应</p>
+						<div class="mui-input-row mui-radio mui-left others-2">
+							<div id="fanying" class="mui-input-row mui-radio">
+								<label class="no">否</label>
+								<input class="no" name="bad" value="否" type="radio" checked>
+							</div>
+							<div id="fanying1" class="mui-input-row mui-radio">
+								<label class="yes">是</label>
+								<input class="yes" name="bad" value="是" type="radio">
+							</div>
+							<textarea style="display: none;" id="textarea2" rows="5" placeholder="填写用药后情况....."></textarea>
+						</div>
+						
+					</li>
+
+				</ul>
+				<div class="submit" id="quickask">
+					<span class="mui-btn mui-btn-success ">
+					提交今日用药情况
+					</span>
+				</div>
+			</form>
+
+		</div>
+
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function () {
+				var self = plus.webview.currentWebview();
+				var medDate = self.medDate;
+				var user_phone = plus.storage.getItem("user_phone");
+				document.getElementById("quickask").addEventListener('tap',function(e){
+					var is_on_time = document.getElementsByName("eat");
+					var is_bad = document.getElementsByName("bad");
+					var isontime = null;
+					var isbad = null;
+					for(var i=0;i<is_on_time.length;i++){
+						if(is_on_time[i].checked){
+							isontime = is_on_time[i].value;
+						}
+					}
+					for(var j=0;j<is_bad.length;j++){
+						if(is_bad[j].checked){
+							isbad = is_bad[j].value;
+						}
+					}
+//					console.log(medDate);
+//					console.log(document.getElementById("textarea1").value);
+					//return false;
+					
+					mui.post('http://'+serverName+'/health/management/Application/index.php/Connector/Health/addDiary',{
+							user_phone:user_phone,
+							drug_date:medDate,
+							drug_time:document.getElementById("show_time").innerHTML,
+							drug_num:document.getElementById("show_number").innerHTML,
+							is_on_time:isontime,
+							drug_notime:document.getElementById("textarea1").value,
+							drug_info:document.getElementById("textarea3").value,
+							drug_res:document.getElementById("textarea2").value,
+							is_bad:isbad
+						},function(data){
+							console.log(JSON.stringify(data));
+							if(data.result==1){
+								plus.nativeUI.toast("成功");
+								var My_file = plus.webview.getWebviewById('medDiary');
+						        My_file.reload();
+						        mui.back();
+							}else{
+								plus.nativeUI.toast("失败");
+							}
+						},'json'
+					);
+				});
+			});
+			mui("#chiyao").on('tap','.no',function(){
+				document.getElementById("textarea1").style.display = "block";
+			});
+			mui("#chiyao1").on('tap','.yes',function(){
+				document.getElementById("textarea1").style.display = "none";
+			});
+			mui("#fanying").on('tap','.no',function(){
+				document.getElementById("textarea2").style.display = "none";
+			});
+			mui("#fanying1").on('tap','.yes',function(){
+				document.getElementById("textarea2").style.display = "block";
+			});
+		</script>
+		<script src="../js/mui.picker.min.js"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				var show_time=document.getElementById('show_time');
+				document.getElementById("use_time").addEventListener('tap', function() {
+				  var dTime = new Date();
+				  //设置默认时间
+				  dTime.setHours(6, 0);
+				  plus.nativeUI.pickTime(function(e) {
+				      var d = e.date;
+				      show_time.innerText = d.getHours() + ":" + d.getMinutes();
+				  }, function(e) {
+				      mui.toast("您没有选择时间");
+				  }, {
+				      title: "请选择时间",
+				      is24Hour: true,
+				      time: dTime
+				  });
+				});
+				$.ready(function() {
+					//普通示例
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'ywj',
+						text: '一日一次'
+					}, {
+						value: 'aaa',
+						text: '一日两次'
+					}, {
+						value: 'lj',
+						text: '一日三次'
+					}]);
+					var showUserPickerButton = doc.getElementById('use_number');
+					var show_number = doc.getElementById('show_number');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+
+							show_number.innerText = items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+
+				});
+			})(mui, document);
+		</script>
+
+		<script type="text/javascript">
+			
+		</script>
+	</body>
+
+</html>

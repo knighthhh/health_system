@@ -1,0 +1,44 @@
+/*我的医生*/
+.public-color{
+	background:#06BFAC;
+}
+.public-color a{
+	color: #fff;
+}
+.public-color h1{
+	color: #fff;
+	font-size: large;
+}
+/*医生信息*/
+.icon-title{
+	color: #06BFAC;
+	font-size: 13px;
+}
+.dt_title{
+	color: #6D6D72;
+	font-size:medium;
+	margin:5px 0px 10px 0px;
+}
+.dt_from{
+	margin:5px 0px 5px 0px;
+}
+
+.info_dt .i-color{
+	color:#1AC0F4;
+}
+.info_dt ul{
+	margin-bottom: 8px;
+}
+.clinic_time{
+	margin-left: 8px;
+}
+.consult_button{
+	line-height: 0.6;
+}
+
+.info_dt .mui-table-view-cell>a:not(.mui-btn){
+	margin: -6px -15px;
+}
+.info_dt .mui-table-view-chevron .mui-table-view-cell>a:not(.mui-btn){
+	margin-right: -110px;
+}

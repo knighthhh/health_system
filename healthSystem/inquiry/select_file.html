@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/mydoctor.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/fast_question.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
+</head>
+<script type="text/javascript" src="../js/mui.min.js" ></script>
+<script type="text/javascript">
+	mui.init();
+		mui.plusReady(function() {
+					var addpatient = document.getElementById('addpatient');
+					var quickask = document.getElementById('quickask');
+					addpatient.addEventListener('tap',function(event){
+						mui.openWindow({
+							url: 'basic_text.html',
+							id: 'basic_text',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},false);
+					quickask.addEventListener('tap',function(event){
+						mui.openWindow({
+							url: 'fast_question.html',
+							id: 'fast_question',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},false);
+				});
+	</script>
+<body>
+	
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">选择你所需要看病的患者</h1>
+		</header>
+		<div class="mui-content">
+			<div class="select_p">
+				<button id="showUserPicker" type="button" class="mui-btn mui-btn-block">选择已添加的患者<span id="" class="mui-icon mui-icon-list"></button>
+				<button type="button" class="mui-btn mui-btn-block" id="addpatient">添加亲友患者<span id="" class="mui-icon mui-icon-plus"></span></button>
+			</div>
+			<p id="showpsick"></p>
+					
+	<!--提交-->
+				<div class="submit" id="quickask">
+					<span class="mui-btn mui-btn-success ">
+					下一步
+					</span>
+				</div>
+							
+		</div>
+<script src="../js/mui.min.js"></script>
+<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/mui.picker.min.js"></script>
+<script>
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					mui.plusReady(function () {
+					    var user_phone = plus.storage.getItem('user_phone');
+						//获取用户的亲友姓名
+						var relative = document.getElementById("relative");
+						//var data = null;
+					mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/Health/getAskRelaName',{
+							user_phone: user_phone
+						},function(data){
+							window.data = JSON.stringify(data);
+							var userPicker = new $.PopPicker();
+							userPicker.setData(data);
+							var showUserPickerButton = doc.getElementById('showUserPicker');
+							var userResult = doc.getElementById('userResult');
+							var showSickPerson = document.getElementById("showpsick");
+							showUserPickerButton.addEventListener('tap', function(event) {
+								userPicker.show(function(items) {
+									showUserPickerButton.innerText = items[0].text;
+									showSickPerson.innerText = "您选择的患者是：" + items[0].text;
+									//返回 false 可以阻止选择框的关闭
+									//return false;
+								});
+							}, false);
+						},'json'
+					);
+					
+//					var data = [{
+//						value: '1',
+//						text: '张三'
+//					}, {
+//						value: '2',
+//						text: '李四'
+//					}, {
+//						value: 'lj',
+//						text: '罗辑'
+//					}, {
+//						value: 'ymt',
+//						text: '云天明'
+//					}, {
+//						value: 'shq',
+//						text: '史强'
+//					}, {
+//						value: 'zhbh',
+//						text: '章北海'
+//					}, {
+//						value: 'zhy',
+//						text: '庄颜'
+//					}, {
+//						value: 'gyf',
+//						text: '关一帆'
+//					}, {
+//						value: 'zhz',
+//						text: '智子'
+//					}, {
+//						value: 'gezh', 
+//						text: '歌者'
+//					}];
+					});
+				});
+			})(mui, document);
+		</script>
+		
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!--<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">-->
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css" />
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<style type="text/css">
+			img {
+				height: 80px;
+				width: 80px;
+			}
+			
+			.others-1 {
+				display: inline-block;
+				margin: 15px 15px;
+				color: #A9A9A9;
+			}
+			
+			.others-2 {
+				padding: 5px 0px;
+			}
+			
+			.condition .mui-radio {
+				float: right;
+			}
+			
+			.condition .mui-radio input[type=radio]:checked:before {
+				content: '\e442';
+			}
+			
+			.mui-input-row label {
+				padding-right: 50px;
+			}
+			
+			.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			
+			p img {
+				max-width: 100%;
+				height: auto;
+			}
+		</style>
+	</head>
+	<script type="text/javascript">
+		mui.init();
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			var inqu_id = self.inqu_id; 
+			var user_phone = self.user_phone;
+			var time = self.time;
+			var doc_phone = plus.storage.getItem('doc_phone');
+			//获取患者咨询信息
+			mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/Inquiry/getInquiry_detail',{	
+				data:{
+					inqu_id:inqu_id,
+					user_phone:user_phone,
+					time : time
+				},
+				dataType:'json', 
+				type:'POST',
+				timeout:10000,
+				success:function(data){
+					document.getElementById("user_name").innerHTML=data.user_name;
+					document.getElementById("zixun_illness").innerHTML=data.zixun_illness;
+					document.getElementById("see_doc").innerHTML=data.see_doc;
+					document.getElementById("zixun_text").innerHTML=data.zixun_text;
+					
+					//图片展示
+					if(data.img){
+						var s="";
+						for(var i=0;i<data.img.length;i++){
+							s+="<img src='"+data.img[i]+"' data-preview-src='' data-preview-group='1' />";
+						}
+						document.getElementById("zixun_img").innerHTML = s;
+					}
+				},
+				error:function(){
+//					plus.nativeUI.toast("请检查您的网络");
+				}
+			})
+			//回复
+			var huifu = document.getElementById("huifu");
+			huifu.addEventListener('tap',function(){
+				mui.openWindow({
+					url: '/message/chat.html', 
+					id: 'chat',
+					extras:{
+						user_phone:user_phone
+					},
+					show: {
+						aniShow: 'pop-in'
+					},
+					styles: {
+						popGesture: 'hide'
+					},
+					waiting: {
+						autoShow: true
+					}
+				});
+				//“我的医生”添加记录
+				mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/mydoc',{	
+					data:{
+						user_phone:user_phone,
+						doc_phone:doc_phone
+					},
+					dataType:'json',
+					type:'POST',
+					timeout:10000,
+					success:function(data){
+						//{"reslut":1}表示成功
+					},
+					error:function(){
+					}
+				})
+				//发送推送给患者
+//				mui.ajax('http://'+serverName+'/health/management/Application/Connector/push/push_user.php',{
+//					data:{
+//						doc_phone:doc_phone,
+//						user_phone:user_phone
+//					},
+//					dataType:'json',
+//					type:'POST',
+//					timeout:10000,
+//					success:function(data){
+//						//{"reslut":1}表示成功
+//						
+//					},
+//					error:function(){
+//					}
+//				})
+				
+				//刷新我的患者列表
+				plus.webview.getWebviewById('message/Message.html').reload();
+				
+				//10秒后关闭页面
+				setTimeout(function(){
+//					var self = plus.webview.currentWebview();
+					self.close();	 
+				},10000);
+			});
+			
+			//暂不处理
+//			var ignore = document.getElementById("ignore");
+//			ignore.addEventListener('tap',function(){
+//				mui.back();
+//			});
+
+		});
+	</script>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav public-color">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">患者情况</h1>
+		</header>
+		<div class="mui-content">
+			<div class="public-detail">
+				<ul class="mui-table-view mui-card">
+					<li class="mui-table-view-cell">
+						<span>患者姓名：</span>
+						<span id="user_name"> </span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>所患疾病：</span>
+						<span id="zixun_illness"></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>是否去过医院就诊：</span>
+						<span id="see_doc"></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>疾病详情及病史描述：</span>
+						<span id="zixun_text"></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>相关资料：</span>
+						<span id=""> </span>
+						<p id="zixun_img">
+							<!--<img src="../img/doctor.jpeg" data-preview-src="" data-preview-group="1" />-->
+						</p>
+					</li>
+				</ul>
+				<div class="submit" id="reply">
+					<button id="huifu" class="mui-btn mui-btn-success">回复</button>
+					<!--<button id="ignore" class="mui-btn mui-btn-blue">暂不处理</button>-->
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.zoom.js"></script>
+		<script src="../js/mui.previewimage.js"></script>
+		<script>
+			mui.previewImage();
+		</script>
+	</body>
+
+</html>

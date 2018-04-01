@@ -1,0 +1,13 @@
+ul{padding-left: 0px}
+ul,li{list-style: none;}
+
+.list{width: 210px;border-bottom:solid 1px #316a91;margin:30px auto 0 10px;}
+.list ul li{ border:solid 1px #316a91; border-bottom:0;}
+.list ul li a{padding-left: 10px; font-size:12px; display: block; font-weight:bold; height:36px;line-height: 36px;position: relative;
+}
+.list ul li .inactive{ background:url(images/off.png) no-repeat 170px center;}
+.list ul li .inactives{background:url(images/on.png) no-repeat 170px center;} 
+.list ul li ul{display: none;}
+.list ul li ul li { border-left:0; border-right:0; border-color:#467ca2;}
+.list ul li ul li ul{display: none;}
+.last{ background-color:#d6e6f1; border-color:#6196bb; }

@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">亲友信息</h1>
+		</header>
+		
+		<div class="mui-content">
+				<div class="friend-detail">
+					<ul class="mui-table-view">
+				        <ul class="mui-table-view mui-table-view-chevron">
+						        <li class="mui-table-view-cell">
+						           <span>姓　　名：</span>
+						           <span id="name"></span>
+						        </li>
+						        <li class="mui-table-view-cell">
+							           <span id="">性　　别：</span>
+							           <span id="sex"></span>
+						        </li>
+						        <li class="mui-table-view-cell">			        	
+						        	   <span>年　　龄：</span>
+							           <span id="age"></span>
+						        </li>
+						        <li class="mui-table-view-cell">
+							           <span id="">
+							           	关　　系：
+							           </span>
+							           <span id="relation">
+							           	
+							           </span>
+						        </li>
+						        <li class="mui-table-view-cell">			        	
+						        	   <span>所在城市：</span>
+							           <span id="city"></span>
+						        </li>
+						        <li class="mui-table-view-cell">			        	
+						        	   <span>电　　话：</span>
+							           <span id="phone"></span>
+						        </li>
+						        <li class="mui-table-view-cell">			        	
+						        	   <span>出生日期：</span>
+							           <span id="date"></span>
+						        </li>
+				       	</ul>
+				       	<div class="mui-button-row">
+							<button id="edit" type="button" class="mui-btn mui-btn-primary">修改</button>&nbsp;&nbsp;
+							<button id="delete" type="button" class="mui-btn mui-btn-danger" >删除</button>
+						</div>
+				    </ul>
+				</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function () {
+			    var self = plus.webview.currentWebview();
+			    var relative_id = self.relative_id;
+			    mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/User/getRelaDetail',{
+	    					relative_id:relative_id
+	    				},function(data){
+	    					document.getElementById("name").innerHTML = data.relative_name;
+	    					document.getElementById("sex").innerHTML = data.relative_sex;
+	    					document.getElementById("age").innerHTML = data.relative_age;
+	    					document.getElementById("relation").innerHTML = data.relative_relation;
+	    					document.getElementById("city").innerHTML = data.relative_city;
+	    					document.getElementById("phone").innerHTML = data.relative_phone;
+	    					document.getElementById("date").innerHTML = data.relative_date;
+	    				},'json'
+	    			);
+	    		document.getElementById("edit").addEventListener('tap',function(e){
+	    			mui.openWindow({
+	    				url:'Friend_edit.html',
+	    				id :'Friend_edit',
+	    				extras:{
+	    					relative_id:relative_id
+	    				},
+	    				show:{
+	    					aniShow:'pop-in'
+	    				}
+	    			});
+	    		});
+	    		
+	    		//删除
+	    		document.getElementById("delete").addEventListener('tap',function(e){
+	    			var btnArray = ['否', '是'];
+						mui.confirm('确认删除记录？', 'healthsystem', btnArray,function(e){
+							if(e.index == 1){
+								mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/User/delRelaData',{
+				    					relative_id:relative_id
+				    				},function(data){
+				    					if(data.result==1){
+											plus.nativeUI.toast("删除成功");
+											var My_file = plus.webview.getWebviewById('Friends_file');
+									        My_file.reload();
+									        mui.back();
+										}else{
+											plus.nativeUI.toast("删除失败");
+										}
+				    				},'json'
+				    			);
+							}else{
+								plus.nativeUI.toast("取消");
+							}
+						});
+	    			
+	    		});
+			})
+		</script>
+	</body>
+
+</html>

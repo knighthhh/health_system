@@ -1,0 +1,385 @@
+/*public*/
+.public-detail {
+	margin-top:10px ;
+}
+.public-detail span{
+	color: #8F8F94;
+}
+.public-edit label{
+	font-size: medium;
+	font-family: "微软雅黑";
+	letter-spacing: 1px;
+	color: #000409;
+	padding: 11px 13px;
+}
+
+
+
+
+
+
+
+/*medDiary*/
+.public-color{
+	background:#06BFAC;
+}
+.public-color h1{
+	color:#F7F7F7;
+	font-size: 19px;
+}
+.chose{
+	
+	width:auto;
+	margin-left:35%;
+	color: #F7F7F7;
+	font-size:18px;
+	letter-spacing: 3px;
+	
+}
+.chose .mui-select:before{
+	font-family: Muiicons;
+    position: absolute;
+    top: 0px;
+    right: -10px;;
+    content: '\e581';
+    color: #F7F7F7;
+}
+.chose_man{
+	width: auto;
+	background: #06BFAC;
+	font-size:18px;
+	letter-spacing: 3px;
+	padding: 12px 8px 0px 3px;
+}
+
+.box{
+	text-align: center;
+	background: #fff;
+	padding: 8px 0px;
+	font-size: 15px;
+	color:#6C6C6C;
+	margin-top:5px;
+	letter-spacing: 4px;
+	border-bottom: 1px solid #f0f0f0;
+}
+.detial{
+	margin-right: -10%;
+	color: #1AC0F4;
+}
+
+.submit{
+	text-align: center;
+	
+	
+}
+.submit .mui-btn{
+
+	font-size: 18px;
+	margin: 10px;
+	padding: 6px 80px;
+}
+/*medDiary*/
+
+.head-color{
+	background-color: #06BFAC;
+	height: 100px;
+}
+.head-color h4{
+	text-align: center;
+	padding-top: 8px;
+	color: #fff;
+}
+.look_year{
+	height: 40px;
+	
+	border-bottom:1px solid #fff; 
+	letter-spacing: 2px;
+}
+.head-color h1{
+	padding-top: 8px;
+	text-align: center;
+	color: #fff;
+}
+
+
+
+/*write_diary*/
+
+.box-dairy p{
+	
+	font-size: 17px;
+}
+		.others-2{
+			float: right;
+			margin-right: 25%;
+		}
+		
+    	.others-2 .mui-radio{
+				float: right;
+		}
+
+		 .others-2 .mui-radio input[type=radio]:checked:before {
+		    content: '\e442';
+		    }
+		 /*.others-2 .mui-input-row label{
+		 	padding-right:auto;
+		 }*/
+		
+
+
+/*History_todoc*/
+.online_history span{
+	color: #8F8F94;
+}
+.outline_history span{
+	color: #8F8F94;
+}
+
+.history_button{
+	width: 25%;
+    line-height: 0.7;
+	margin: 0px 5px 0 0;
+}
+
+
+/*outline_add*/
+.outline_add{
+	margin-top: 10px;
+}
+.advise  .mui-input-row{
+	height: 80px;
+}
+.infor .mui-input-row{
+	height: 70px;
+}
+
+.medicine .mui-input-row{
+	height: 70px;
+}
+.add_medicinephoto .row {
+	width: 100%;
+	background-color: #fff;
+}
+
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
+	font-size: 14px;
+}
+.add_medicinephoto .hidden {
+	display: none;
+}
+.add_medicinephoto .image-list {
+	width: 100%;
+	height: 85px;
+	background-size: cover;
+	padding: 10px 10px;
+	overflow: hidden;
+}
+.add_medicinephoto .image-item {
+	width: 65px;
+	height: 65px;
+	background-image: url(../img/choose_photos.png);
+	background-size: 100% 100%;
+	display: inline-block;
+	position: relative;
+	border-radius: 5px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	border: solid 1px #e8e8e8;
+}
+.add_medicinephoto .image-item .file {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+	z-index: 0;
+}
+.add_medicinephoto .image-item.space {
+	border: none;
+}
+.add_medicinephoto .image-item .image-close {
+	position: absolute;
+	display: inline-block;
+	right: -6px;
+	top: -6px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	border-radius: 12px;
+	background-color: #FF5053;
+	color: #f3f3f3;
+	border: solid 1px #FF5053;
+	font-size: 9px;
+	font-weight: 200;
+	z-index: 1;
+}
+.add_medicinephoto .image-item input[type="file"] {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+	z-index: 0;
+}
+.add_medicinephoto .image-item.space .image-close {
+	display: none;
+}
+.add_medicinephoto .mui-inline{
+	vertical-align: bottom;
+	font-size: 14px;
+	color: #8f8f94;
+}
+
+
+
+/*myfile*/
+.person_info{
+	
+	
+}
+.person_info .mui-table-view{
+	background: url(../img/person_background.png);
+	background-size:100%;
+}
+.person_info .name{
+	font-family: "微软雅黑";
+	color: #06BFAC;
+}
+.person_info img{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+.person_info .mui-table-view-cell{
+	padding: 11px 8px;
+}
+.headline{
+	font-family: "微软雅黑";
+	font-size:medium;
+	color: #22BBA7 ;
+}
+
+.other_info_res p{
+	font-family: "微软雅黑";
+	font-size: medium;
+	display: block;
+	float: left;
+}
+.other_info_res span{
+	font-family: "微软雅黑";
+    color: #22BBA7;
+}
+
+
+/*friend_file*/
+.friend_file img{
+	border-radius: 50%;
+}
+
+.friend-detail{
+		margin-top: 10px;
+}
+.friend-detail .headcolor{
+	background-color:#78E067;
+	 opacity:0.8;
+}
+.friend-detail  span{
+
+	color: #8F8F94;
+}
+
+
+/*health_record*/
+.c-left p{
+	margin-left: 5px;
+	font-size: medium;
+}
+.s-left{
+	float: left;
+}
+.c-normal{
+		width:25px;
+		height:25px;
+		border-radius:50%;
+		margin-left:25%;
+		float: left;
+		border:1px solid #78E067;
+}
+.c-bad{
+	width:25px;
+		height:25px;
+		border-radius:50%;
+		margin-left:15%;
+		float: left;
+		border:1px solid #FF0000;
+}
+
+
+
+.health_record .mui-grid-view.mui-grid-9{
+     		background-color: #fff;
+     		clear: both;
+     	}
+.health_record .mui-grid-view.mui-grid-9 .mui-table-view-cell{
+	padding: 0px 0px;
+}
+
+.health_record .mui-grid-view.mui-grid-9 .mui-table-view-cell>a:not(.mui-btn){
+	padding: 2px 0;
+}
+.health_record .iconfont{
+	display: block;
+	font-size: x-large!important;
+	margin-top:20%;
+	padding-bottom: 5px;
+	
+	
+}
+.health_record .circle_normal{
+		width:100px;
+		height:100px;
+		border-radius:50%;
+		margin: auto;
+		border:2px solid #78E067; 
+		}
+.health_record .circle_bad{
+		width:100px;
+		height:100px;
+		border-radius:50%;
+		margin: auto;
+		border:2px solid #FF0000; 
+		}
+.circle p{
+	display:inline;
+}
+		
+.ul_t1{
+	color:#FF9F22;
+}
+
+.ul_t2{
+	color:#4F92EF;
+}
+
+.ul_t3{
+	color:#4EC7EF;
+}
+
+.ul_t4{
+	color:#FF0000;
+}
+
+.ul_t5{
+	
+	color:#FF6767;
+}
+
+.ul_t6{
+	color:#CF2D28;
+}

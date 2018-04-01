@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont_account.css" />
+		<link rel="stylesheet" href="../css/iconfont_mine.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont_money.css" />
+		<style>
+			.mui-table-view {
+				margin-top: 20px;
+			}
+			
+			.mui-table-view span.mui-pull-right {
+				color: #999;
+			}
+			.head {
+				height: 80px;
+			}
+			#head {
+				line-height: 80px;
+			}
+			.head-img {
+				width: 40px;
+				height: 40px;
+			}
+			#head-img1 {
+				position: absolute;
+				bottom: 10px;
+				right: 40px;
+				width: 80px;
+				height: 80px;
+			}
+			.i1{
+				color:gray;
+				}
+			.i2{
+				color:orange;
+				}
+			.i3{
+				color:deepskyblue;
+				}
+			.i4{
+				color:red;
+				}	
+		</style>
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script type="text/javascript">
+			mui.init();			
+			mui.plusReady(function(){
+				//获取个人信息
+				var doc_phone = plus.storage.getItem('doc_phone');
+				var doc_id = plus.storage.getItem('doc_id');
+				mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/Doc/getDocDetail',{
+      				data:{
+      					doc_id:doc_id
+      				},
+      				dataType:'json',
+      				type:'get',
+      				timeout:10000, 
+      				success:function(data){
+						document.getElementById("money").innerHTML=data.doc_fee+'/每小时';
+      				},
+      				error:function(){
+      					plus.nativeUI.toast("请检查您的网络");
+      				}
+      			})
+				
+				//修改费用
+				var moneybtn = document.getElementById("pay");
+				moneybtn.addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'reset_fee.html',
+						id: 'reset_fee',
+						extras:{
+							doc_phone:doc_phone
+						},
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'hide'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				})
+				
+			});
+		</script>
+		<!--用户名头像-->
+		<header class="mui-bar mui-bar-nav">
+		   <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>
+				</button>
+				<h1 class="mui-center mui-title">我的资料</h1>
+		</header>
+			<div class="mui-content">
+						
+						<ul class="mui-table-view">
+							<li id="pay" class="mui-table-view-cell">
+								<a><span class="iconfont icon-jinqian1 i2"></span>
+									咨询费用<span id="money" class="mui-pull-right"></span></a>
+							</li>
+												
+						</ul>			
+				</div>
+	</body>
+</html>

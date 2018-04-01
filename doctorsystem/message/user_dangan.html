@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!--<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">-->
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+
+		
+		<style type="text/css">
+			img {
+				height: 80px;
+				width: 80px;
+			}
+			
+			.others-1 {
+				display: inline-block;
+				margin: 15px 15px;
+				color: #A9A9A9;
+			}
+			
+			.others-2 {
+				padding: 5px 0px;
+			}
+			
+			.condition .mui-radio {
+				float: right;
+			}
+			
+			.condition .mui-radio input[type=radio]:checked:before {
+				content: '\e442';
+			}
+			
+			.mui-input-row label {
+				padding-right: 50px;
+			}
+			
+			.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			
+			p img {
+				max-width: 100%;
+				height: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav public-color">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">患者档案</h1>
+		</header>
+		<div class="mui-content">
+			<div class="public-detail">
+				<ul class="mui-table-view mui-card">
+					<li class="mui-table-view-cell" style="text-align:center;">
+						<span style="color: #06BFAC; ">基础信息</span>
+					</li>
+				</ul>
+				<ul class="mui-table-view mui-card">
+					<li class="mui-table-view-cell">
+						<span>姓名：</span>
+						<span id="user_name"> </span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>性别：</span>
+						<span id="user_sex"> </span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>电话：</span>
+						<span id="user_phone"></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>年龄：</span>
+						<span id="user_age"></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>所在城市：</span>
+						<span id="user_city"></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>职业：</span>
+						<span id="user_profession"> </span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>民族：</span>
+						<span id="user_nation"> </span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>婚姻状况：</span>
+						<span id="user_marriage"> </span>
+					</li>
+				</ul>
+			</div>
+			<div class="public-detail">
+				<ul class="mui-table-view mui-card">
+					<li class="mui-table-view-cell" style="text-align:center;">
+						<span style="color: #06BFAC; ">健康记录</span>
+					</li>
+				</ul>
+				
+				<ul class="mui-table-view mui-card">
+					<li id="look_year" class="mui-table-view-cell" style="text-align:center;">
+						<span id="info_day" style="color: darkred; "> 请选择日期</span>
+					</li>
+					
+				</ul>
+				<ul class="mui-table-view mui-card">
+			 	        <li id="health_height" class="mui-table-view-cell">
+			 	            <a>
+			 	               	<span class="mui-icon iconfont icon-shengao ul_t1"></span>
+			 	               	身高:
+			 	               	<span id="info_height">
+			 	               		暂无
+			 	               	</span>
+			 	            </a>
+			 	        </li>
+			 	        <li id="health_weight" class="mui-table-view-cell">
+			 	            <a >
+			 	                <span class="mui-icon iconfont icon-ccgl-chengzhongsaomiao-5 ul_t2"></span>
+			 	                	体重:
+			 	                <span id="info_weight">
+			 	               		暂无
+			 	               	</span>
+			 	            </a>
+			 	        </li>
+			 	        <li id="health_vision" class="mui-table-view-cell">
+			 	            <a >
+			 	                <span class="mui-icon iconfont icon-shiliceping ul_t3"></span>
+			 	                
+			 	                	视力:
+			 	                <span id="info_vision">
+			 	               		暂无
+			 	               	</span>
+			 	            </a>
+			 	        </li>
+			 	          <li id="health_glucose" class="mui-table-view-cell">
+			 	            <a >
+			 	                 <span class="mui-icon iconfont icon-xueya ul_t4"></span>
+			 	                 	血糖:
+			 	                <span id="info_glucose">
+			 	               		暂无
+			 	               	</span>
+			 	            </a>
+			 	        </li>
+			 	          <li id="health_blood" class="mui-table-view-cell">
+			 	            <a >
+			 	                 <span class="mui-icon iconfont icon-iconxt ul_t5"></span>
+			 	                 	血压:
+			 	                 <span id="info_blood">
+			 	               		暂无
+			 	               	</span>
+			 	            </a>
+			 	        </li>
+			 	          <li id="health_heart" class="mui-table-view-cell">
+			 	            <a >
+			 	                 <span class="mui-icon iconfont icon-icon ul_t6"></span>
+			 	                	心率: 
+			 	                <span id="info_heart">
+			 	               		暂无
+			 	               	</span>
+			 	                 
+			 	            </a>
+			 	        </li>
+			 	    </ul>
+			</div>
+			<!--历史就诊记录-->
+			<div class="public-detail">
+				<ul class="mui-table-view mui-card">
+					<li class="mui-table-view-cell" style="text-align:center;">
+						<span style="color: #06BFAC; ">历史就诊记录</span>
+					</li>
+				</ul>
+				<div id="chufangdiv">
+					<!--<ul class="mui-table-view mui-card">
+						<li class="mui-table-view-cell">
+							<span>诊断：</span>
+							<span id="zhenduan"></span>
+						</li>
+						<li class="mui-table-view-cell">
+							<span>建议：</span>
+							<span id="jianyi"></span>
+						</li>
+						<li class="mui-table-view-cell">
+							<span>处方：</span>
+							<span id="chufang"></span>
+						</li>
+						<li class="mui-table-view-cell">
+							<span>检验：</span>
+							<span id="jianyan"></span>
+						</li>
+						<li class="mui-table-view-cell">
+							<span>相关资料：</span>
+							<span id=""> </span>
+							<p id="chufang_img">
+								<img src="../img/doctor.jpeg" data-preview-src="" data-preview-group="1" />
+							</p>
+						</li>
+					</ul>-->
+				</div>
+			</div>
+			
+		</div>
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script src="../js/mui.zoom.js"></script>
+		<script src="../js/mui.previewimage.js"></script>
+		<script src="../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			//mui初始化
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+		mui.plusReady(function(){
+			var self = plus.webview.currentWebview();
+			var user_phone = self.user_phone;
+			var doc_phone = plus.storage.getItem('doc_phone');
+			
+			//查基础信息
+			mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/getuserInfo',{
+  				data:{
+  					user_phone:user_phone
+  				},
+  				dataType:'json',
+  				type:'POST',
+  				timeout:10000,
+  				success:function(data){
+  					document.getElementById("user_name").innerHTML = data.user_name;
+  					document.getElementById("user_sex").innerHTML = data.user_sex;
+  					document.getElementById("user_phone").innerHTML = user_phone;
+  					document.getElementById("user_age").innerHTML = data.user_age;
+  					document.getElementById("user_city").innerHTML = data.user_city;
+  					document.getElementById("user_profession").innerHTML = data.profession;
+  					document.getElementById("user_nation").innerHTML = data.nation;
+  					document.getElementById("user_marriage").innerHTML = data.marriage;
+  				},
+  				error:function(){
+  					plus.nativeUI.toast("请检查您的网络");
+  				}
+  			})
+			
+			var info = document.getElementById("info_day");
+			var d = null;
+			document.getElementById("look_year").addEventListener('tap', function() {
+				
+				var dDate = new Date();
+				var minDate = new Date();
+				minDate.setFullYear(1900, 1, 1);
+				var maxDate = new Date();
+				maxDate.setFullYear(2017, 8, 31);
+				plus.nativeUI.pickDate(function(e) {
+					d = e.date;
+					info.innerText = '您选择的日期是:' + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+				
+					//查出指定日期的健康记录
+				    mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/Health/getRecord',{
+				    		user_phone:user_phone,
+				    		date:d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()
+				    	},function(data){
+				    		if(data.result==0){
+				    			plus.nativeUI.toast("当日尚未添加健康记录");
+				    			document.getElementById("info_height").innerHTML = '暂无';
+					    		document.getElementById("info_weight").innerHTML = '暂无';
+					    		document.getElementById("info_vision").innerHTML = '暂无';
+					    		document.getElementById("info_glucose").innerHTML = '暂无';
+					    		document.getElementById("info_blood").innerHTML = '暂无';
+					    		document.getElementById("info_heart").innerHTML = '暂无';
+				    			return false;
+				    		}else{
+				    			document.getElementById("info_height").innerHTML = data.height;
+					    		document.getElementById("info_weight").innerHTML = data.weight;
+					    		document.getElementById("info_vision").innerHTML = data.vision;
+					    		document.getElementById("info_glucose").innerHTML = data.bloglu;
+					    		document.getElementById("info_blood").innerHTML = data.blopre;
+					    		document.getElementById("info_heart").innerHTML = data.heart;
+				    		}
+				    		
+				    	},'json'
+				    );
+				
+				}, function(e) {
+					info.innerText = "您没有选择日期";
+				}, {
+					title: "请选择日期",
+					date: dDate,
+					minDate: minDate,
+					maxDate: maxDate
+				});
+			})
+			
+			//查询历史就诊，处方信息
+			mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/Chufang/get_doc_user_chufang',{	
+				data:{
+					user_phone:user_phone,
+					doc_phone:doc_phone
+				},
+				dataType:'json',
+				type:'POST',
+				timeout:10000,
+				success:function(data){
+					var s="";
+  					for(var i=0;i<data.length;i++){
+  						s+="<ul class='mui-table-view mui-card'><li class='mui-table-view-cell'><span>医院名称：</span>";
+  						s+="<span id='hos_name'>"+data[i].hos_name+"</span></li><li class='mui-table-view-cell'><span>医生姓名：</span>";
+  						s+="<span id='doc_name'>"+data[i].doc_name+"</span></li><li class='mui-table-view-cell'><span>诊断：</span>";
+  						s+="<span id='zhenduan'>"+data[i].zhenduan+"</span></li><li class='mui-table-view-cell'><span>建议：</span>";
+  						s+="<span id='jianyi'>"+data[i].jianyi+"</span></li><li class='mui-table-view-cell'><span>处方：</span>";
+  						s+="<span id='chufang'>"+data[i].chufang+"</span></li><li class='mui-table-view-cell'><span>检验：</span>";
+  						s+="<span id='jianyan'>"+data[i].jianyan+"</span></li><li class='mui-table-view-cell'>";
+  						s+="<span>相关资料：</span><p id='chufang_img'>";
+  						//图片展示
+						if(data[i].img){
+							for(var j=0;j<data[i].img.length;j++){
+								s+="<img src='"+data[i].img[j]+"' data-preview-src='' data-preview-group='1' />";
+							}
+						}
+  						
+						s+="</p></li></ul>";
+  					}
+  					document.getElementById("chufangdiv").innerHTML = s;
+				},
+				error:function(){
+				}
+			})
+		})
+			
+		</script>
+		<script src="../js/mui.zoom.js"></script>
+		<script src="../js/mui.previewimage.js"></script>
+		<script>
+			mui.previewImage();
+		</script>
+	</body>
+
+</html>

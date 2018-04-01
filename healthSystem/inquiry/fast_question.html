@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="../js/mui.min.js"></script> 
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/mydoctor.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/fast_question.css"/>
+    <link rel="stylesheet" href="../css/zixun.css" type="text/css" charset="utf-8"/>
+   
+    <script type="text/javascript" src="../js/common.js" ></script>
+    <style type="text/css">
+    
+    	
+    	.others-1{
+    		display: inline-block;
+    		margin: 15px 15px;
+    		color: #A9A9A9;
+    	}
+        .others-2{
+        	padding: 5px  0px;
+        }
+    	.condition .mui-radio{
+				float: right;
+		}
+
+		 .condition .mui-radio input[type=radio]:checked:before {
+		    content: '\e442';
+		    }
+		 .mui-input-row label{
+		 	padding-right: 50px;
+		 }
+
+    </style>
+</head>
+<body>
+	
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">描述您的情况</h1>
+		</header>
+		<div class="mui-content">
+			<p>填写你的情况</p>
+			<form class="mui-input-group mui-card  basetext">
+				
+					<div class="mui-input-row ">
+					    
+					    <input id="illness" type="text" class="mui-input-clear" placeholder="请填写所患疾病">
+					</div>
+					<div class="mui-input-row condition">
+					    
+					   <p class="others-1" >是否去过医院就诊</p>
+					
+					    
+					   <div  class="mui-input-row mui-radio mui-right others-2">
+								<div class="mui-input-row mui-radio">
+								    <label>否</label>
+								    <input name="seedoc" type="radio" value="off" checked="">
+								</div>
+								   <div class="mui-input-row mui-radio">
+								    <label>是</label> 
+								    <input id="see_doc" name="seedoc" type="radio" value="on">  
+								</div> 
+						</div>
+					</div>	 
+					    
+			</form>	
+					
+					<div class="mui-input-row" style="margin: 10px 5px;">
+						<p>疾病详情，病史描述</p>
+						<textarea id="textarea" rows="5" placeholder="详细病情....." ></textarea>
+					</div>
+					
+					
+	<!--上传图片-->				
+					<p>上传有助于医生更了解您的病情的资料（选填，如提供患者的检查情况，检查报告，CT照片，所用药物）</p>
+					<!--<div id="" class="addphoto">
+						<div id="image-list" class="row image-list">
+					</div>-->
+				
+					<div id="dcontent" class="dcontent">
+						<br/>
+						<p class="heading">上传文件列表：</p>
+						<ul id="files" style="text-align:left;">
+							<p id="empty" style="font-size:12px;color:#C6C6C6;">无上传文件</p>
+						</ul>
+						<table style="width:100%;">
+							<tbody>
+								<tr>
+									<td style="width:40%"><div class="button button-select" onclick="appendByCamera()">拍照</div></td>
+									<td style="width:40%"><div class="button button-select" onclick="appendByGallery()">相册选取</div></td>
+								</tr>
+							</tbody>
+						</table>
+						<br/>
+						<!--<div class="button" onclick="upload()">上 传</div>-->
+						<br/>
+					</div>  
+	    </div>
+					
+	<!--提交-->
+				<div id="submitbtn" class="submit">
+					<span class="mui-btn mui-btn-success">
+					提交
+					</span>
+				</div>
+		</div>
+
+		 <!--<script src="../js/feedback_mydoctor.js" type="text/javascript" charset="utf-8"></script>-->
+		 <script type="text/javascript">
+		 	mui.init();
+		 	var user_phone =null;
+		 	mui.plusReady(function(){
+		 		user_phone = plus.storage.getItem('user_phone');
+		 		var illness = document.getElementById("illness");
+		 		var see_doc = document.getElementById("see_doc");
+		 		var textarea = document.getElementById("textarea");
+		 		var submitbtn = document.getElementById("submitbtn");
+		 		submitbtn.addEventListener('tap',function(){
+		 			upload(); 
+		 			mui.openWindow({
+						url: 'question_over.html', 
+						id: 'question_over',
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'hide'
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+					setTimeout(function(){
+						var self = plus.webview.currentWebview();
+						self.close();	 
+					},2000);
+		 		})
+		 		
+		 		
+		 	})
+		 	//上传文件
+//		 	var server="http://172.17.32.112:88/upload.php";
+//		 	'http://'+serverName+'/health/management/Application/index.php/Connector/'
+			var files=[];
+			// 上传文件
+			function upload(){
+				var task=plus.uploader.createUpload('http://'+serverName+'/health/management/Application/index.php/Connector/Inquiry/setInquiry',
+					{method:"POST"},
+					function(t,status){ //上传完成
+						if(status==200){
+						
+//							eval("var json_info ="+t.responseText);
+//							alert(json_info.illness); 
+						}else{
+							
+						}
+					}
+				);
+				var res = see_doc.checked;
+				if(res==true){
+					res='是';
+				}else{
+					res='否';
+				}
+				
+				task.addData("user_phone",user_phone);
+				task.addData("zixun_illness",illness.value);
+				task.addData("see_doc",res);  
+				task.addData("zixun_text",textarea.value);
+				task.addData("uid",getUid());
+				for(var i=0;i<files.length;i++){
+					var f=files[i];
+					task.addFile(f.path,{key:f.name});
+				}
+				task.start();
+			}
+			// 拍照添加文件
+			function appendByCamera(){
+				plus.camera.getCamera().captureImage(function(p){
+					appendFile(p);
+				});	
+			}
+			// 从相册添加文件 
+			function appendByGallery(){
+				plus.gallery.pick(function(p){
+			        appendFile(p);
+			    });
+			}
+			// 添加文件
+			var index=1;
+			function appendFile(p){
+				var fe=document.getElementById("files");
+				var li=document.createElement("li");
+				var n=p.substr(p.lastIndexOf('/')+1);
+				li.innerText=n;
+				fe.appendChild(li);
+				files.push({name:"uploadkey"+index,path:p});
+				index++;
+				empty.style.display="none";
+			}
+			// 产生一个随机数
+			function getUid(){
+				return Math.floor(Math.random()*100000000+10000000).toString();
+			}
+		 </script>
+</body>
+</html>

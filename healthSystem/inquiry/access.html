@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/header.css"/>
+		<link rel="stylesheet" href="../css/feedback.css" />
+		<style type="text/css">
+			.mui-table-view {
+				margin-top: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function () {
+				var self = plus.webview.currentWebview();
+				var doc_phone = self.doc_phone;
+			    var user_phone = plus.storage.getItem('user_phone');
+				document.getElementById("submit").addEventListener('tap',function(){
+					var pingjia_text = document.getElementById("advice").value;
+					mui.post('http://'+serverName+'/health/management/application/index.php/Connector/User/set_pingjia',{
+							user_phone:user_phone,
+							doc_phone:doc_phone,
+							pingjia_text:pingjia_text
+						},function(data){
+							if(data.result == 1){
+								plus.nativeUI.toast("评价提交成功！");
+								mui.back();
+							}else{
+								plus.nativeUI.toast("请检查您的网络");
+							}
+						},'json'
+					);
+				});
+			})	
+		</script>
+		<div id="feedback" class="mui-page feedback">
+			<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav "></span>返回
+				</button>
+				<button id="submit" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">提交</button>
+				<h1 class="mui-center mui-title">评价</h1>
+			</div>
+			<div class="mui-content">
+				<div class="mui-content-padded">
+					<div class="mui-inline">评价和建议</div>
+				</div>
+				<div class="row mui-input-row">
+					<textarea id='advice' class="mui-input-clear question" placeholder="请详细描述你对医生的意见和建议..."></textarea>
+			</div>
+			</div>
+		</div>
+	</body>
+
+</html>

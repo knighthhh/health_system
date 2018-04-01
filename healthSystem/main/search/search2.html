@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<!--<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">-->
+		<link rel="stylesheet" href="../../css/search_history.css" />
+		<link rel="stylesheet" href="../../css/search.css" />
+		<link rel="stylesheet" href="../../css/search_info.css" />
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+		</style>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/common.js"></script>
+		<script src="../../js/webviewGroup.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var searchtext = self.searchtext;
+
+				//监听该页面的搜索按钮
+				document.getElementById("search2").addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'search.html',
+						id: 'search',
+						///preload: true,
+						show: {
+							aniShow: 'pop-in'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+					setTimeout(function(){
+						self.close();	
+					},1000);
+				//mui.back();
+				});
+				var group = new webviewGroup("viewgroup", {
+					items: [{
+						id: "search_info.html",
+						url: "search_info.html",
+						waiting:false,
+						extras: {
+							searchtext:searchtext,
+						}
+					}, {
+						id: "search_info_jb.html",
+						url: "search_info_jb.html",
+						waiting:false,
+						extras: {
+							searchtext:searchtext
+						}
+					}, {
+						id: "search_info_hp.html",
+						url: "search_info_hp.html",
+						waiting:false,
+						extras: {
+							searchtext:searchtext
+						}
+					}, {
+						id: "search_info_dt.html",
+						url: "search_info_dt.html",
+						waiting:false,
+						extras: {
+							searchtext:searchtext
+						}
+					}, {
+						id: "search_info_ks.html",
+						url: "search_info_ks.html",
+						waiting:false,
+						extras: {
+							searchtext:searchtext
+						}
+					}],
+					onChange: function(obj) {
+						var c = document.querySelector(".mui-control-item.mui-active");
+						if(c) {
+							c.classList.remove("mui-active");
+						}
+						document.querySelector(".mui-scroll .mui-control-item:nth-child(" + (parseInt(obj.index) + 1) + ")").classList.add("mui-active");
+					}
+				});
+				mui(".mui-scroll").on("tap", ".mui-control-item", function(e) {
+					var wid = this.getAttribute("data-wid");
+					group.switchTab(wid);
+				});
+
+			});
+			
+			mui.back = function() {
+				var _self = plus.webview.currentWebview();
+				_self.close("auto");
+
+			}
+			function searchwin(){
+				var w = plus.webview.create( "search.html" );
+				w.show("pop-in");
+				mui.back();
+			//	w.show("slide-in-right");
+				//document.getElementById("search").focus();
+			}
+		</script>
+	</head>
+
+	<body>
+		<!-- 头部  包含搜索-->
+		<header id="header" class="mui-bar mui-bar-nav public-color">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left size2"></a>
+			<a id="search2" class="icon2 mui-pull-right ">搜索</a>
+
+			<div  id="searchtext2" class="search"> 
+				<div class="mui-input-row mui-search">
+					<input  class=" mui-input-clear" type="search" name="search" onclick="searchwin()" value="" placeholder="搜疾病，医生，医院，科室" />
+				</div>
+			</div>
+		</header>
+		<!-- 头部 --> 
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active" href="#item1mobile" data-wid="search_info.html">
+							全部
+						</a>
+						<a class="mui-control-item" href="#item2mobile" data-wid="search_info_jb.html">
+							疾病
+						</a>
+						<a class="mui-control-item" href="#item3mobile" data-wid="search_info_hp.html">
+							医院
+						</a>
+						<a class="mui-control-item" href="#item4mobile" data-wid="search_info_dt.html">
+							医生
+						</a>
+						<a class="mui-control-item" href="#item5mobile" data-wid="search_info_ks.html">
+							科室
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		
+	</body>
+
+</html>

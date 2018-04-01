@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/souye.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont_foot.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont_money.css"/>
+</head>
+
+
+
+<body>
+<!--哈哈-->
+	<script src="js/mui.min.js"></script>
+	<script src="js/common.js"></script>
+	<script type="text/javascript">
+			mui.init({
+				keyEventBind:{
+					backbutton:false
+				}
+			});
+			//设置默认打开首页显示的子页序号；
+			var Index=0;
+			//把子页的路径写在数组里面
+			var subpages = ['main/subindex.html','inquiry/Inquiry.html','healthfile/Health_File.html','mine/Mine.html'];
+				
+			
+			//所有的plus-*方法写在mui.plusReady中或者后面。
+			mui.plusReady(function() {
+				// 监听点击消息事件
+			    plus.push.addEventListener( "click", function( msg ) {
+			    	//区分处方推送和咨询推送
+			    	if(msg.content == '您咨询的医生给你开了处方'){
+			    		mui.openWindow({
+							url: 'finddoctor/zixun_new_chufang.html',
+							id: 'zixun_new_chufang',
+							extras:{
+								doc_phone:msg.payload,
+							},
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+			    	}else{
+			    		 mui.openWindow({
+							url: 'im/im-chat.html',
+							id: 'im-chat',
+							extras:{
+								doc_phone:msg.payload,
+							},
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+						plus.webview.getWebviewById('inquiry/mydoctor.html').reload();
+			    	}
+			       
+			    }, false );
+				
+			    //获取当前页面所属的Webview窗口对象
+			    var self = plus.webview.currentWebview();
+			    //获取推送所要用的CID
+			    user_cid = plus.push.getClientInfo().clientid;
+			    plus.storage.setItem('user_cid',user_cid);
+			    for (var i = 0; i < 4; i++) {
+			        //创建webview子页
+			        var sub = plus.webview.create(
+			            subpages[i], //子页url
+			            subpages[i], //子页id
+			            {
+			                top: '0px',//设置距离顶部的距离
+			                bottom: '51px'//设置距离底部的距离
+			            }
+			        );
+			        //如不是我们设置的默认的子页则隐藏，否则添加到窗口中
+			        if (i != Index) {
+			            sub.hide();
+			        }
+			        //将webview对象填充到窗口
+			        self.append(sub);
+			    }
+			    
+				//已经登录过的，保持登录状态，有BUG，因为从登录界面进来也要验证一次
+				var tempuserphone=plus.storage.getItem('user_phone');
+				var temptoken=plus.storage.getItem('user_token');				
+				if(tempuserphone!=null && temptoken!=null){
+					mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/login',{	
+						data:{
+							user_phone:tempuserphone,
+							user_token:temptoken
+						},
+						dataType:'json',
+						type:'POST',
+						timeout:10000,
+						success:function(data){
+							//{"reslut":1}表示成功
+							if(data.result==1){
+								//登录成功
+								//plus.ui.toast("自动登录成功");
+								//将用户信息放进本地的存储中
+								plus.storage.setItem('user_phone',tempuserphone);
+								plus.storage.setItem('user_id',data.user_id);
+								plus.storage.setItem('user_token',data.user_token);
+								plus.storage.setItem('im_token',data.im_token);
+								
+							}else{
+								//登录失败，过期的缓存清理掉
+								plus.storage.clear();
+								plus.ui.toast(data.data);
+							}
+						},
+						error:function(){
+							plus.nativeUI.toast("请检查您的网络");
+						}
+					})
+				}
+				    
+			   //当前激活选项
+				var activeTab = subpages[Index];
+				//选项卡点击事件
+				mui('.mui-bar-tab').on('tap', 'a', function(e) {
+				    //获取目标子页的id
+				    var targetTab = this.getAttribute('href');
+				    if (targetTab == activeTab) {
+				        return;
+				    }
+				   //显示目标选项卡
+				     plus.webview.show(targetTab,"fade-in");
+				    //隐藏当前选项卡
+				    plus.webview.hide(activeTab,"fade-out");
+				    //更改当前活跃的选项卡
+				    activeTab = targetTab;
+				});
+				
+				//我的  没登录要返回登录
+				var mine = document.getElementById("mine");
+				mine.addEventListener('tap',function(){
+					if(islogin()){
+						
+					}else{
+						mui.openWindow({
+							url: '/login/login.html',
+							id: 'login',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+						plus.nativeUI.toast("请先登录");
+					}
+				})
+				
+			
+			});
+		</script> 
+	
+	
+
+	<!--底部-->
+	
+		<nav class="mui-bar mui-bar-tab bottom">
+		    <a class="mui-tab-item mui-active" href="main/subindex.html">
+		        <span class="mui-icon iconfont icon-zhuye"></span>
+		        <span class="mui-tab-label">主页</span>
+		    </a>
+		    <a class="mui-tab-item" href="inquiry/Inquiry.html" >
+		        <span class="mui-icon iconfont icon-baojifuben"></span>
+		        <span class="mui-tab-label">问诊</span>
+		    </a>
+		    <a  class="mui-tab-item " href="healthfile/Health_File.html" >
+		        <span class="mui-icon iconfont icon-jiankangdangan2" ></span>
+		        <span class="mui-tab-label">健康档案</span>
+		    </a>
+		    <a id="mine" class="mui-tab-item" href="mine/Mine.html" >
+		        <span class="mui-icon iconfont icon-wode4"></span>
+		        <span class="mui-tab-label">我的</span>
+		    </a>
+		</nav>
+	
+	<!--底部-->
+	
+</body>
+</html>

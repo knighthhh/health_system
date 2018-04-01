@@ -1,0 +1,278 @@
+*{
+	margin:0;padding:0;
+	}
+/*头部搜索*/
+/*.input input{
+	width: 87%;
+	height: 25px;
+	border-radius: 100px;
+	border: 0px;
+	font-size: 12px;
+	color:#666;
+}*/
+input[type=search]{
+	border-radius:100px;
+	background: #fff;
+}
+.mui-search .mui-placeholder{
+	font-size: 14px;
+	}
+.search{
+	padding-left: 10%; 
+	width: 85%; 
+	position: absolute;
+	
+}
+.public-color span{
+	color: #C0C0C0;
+
+}
+.mui-bar-tab .mui-tab-item.mui-active{
+	color: #05B19F;
+}
+.public-color{
+	background:#06BFAC;
+}
+.public-color a{
+	color: #fff;
+}
+/*头部搜索*/
+
+/*轮播图*/
+#slider img{
+	height: 180px;
+}
+
+
+/*轮播图*/
+
+/*八宫格常见科室*/
+.box-a{
+	
+	background: #fff;
+	overflow: hidden;
+}
+.box-a .mui-table-view-cell:after{
+	height: 0px;
+}
+.box-a-l{
+	width: 25%;
+	text-align: center;
+	padding: 15px 0px;
+	float: left;
+	/*border-right: 1px solid #f0f0f0;
+	border-bottom: 1px solid #f0f0f0;*/
+}
+.box-a-l  span{
+	
+	font-size: 35px;
+	/*display: inline-block;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 100px;
+	color: #fff;*/
+}
+.box-a-l p{
+	margin: 0px;
+	padding-top: 5px;
+	color: #000;
+	font-size: 13px;
+}
+.tu-yi{
+	color:#FF9F22;
+}
+.tu-er{
+	color:#FF6767;
+}
+
+.tu-san{
+	color:#8A90F9;
+}
+
+.tu-si{
+	color:#FED030;
+}
+
+.tu-wu{
+	color:#FF9F22;
+}
+
+.tu-liu{
+	color:#4F92EF;
+}
+
+.tu-qi{
+	color:#FECF30;
+}
+
+.tu-ba{
+	color:#4EC7EF;
+}
+/*八宫格常见科室*/
+
+
+/*三宫格找医生医院*/
+
+.box-b{
+	margin-top: 8px;
+	background: #F0F0F0;
+}
+.box-b-a img{
+	
+	width: 100%;
+	height: 100%;
+}
+.box-b-a{
+	margin: 0 auto;
+	width: 95%;
+}
+.box-b-a .inline{
+	width:95%;
+	position:absolute;
+	font-size: 15px;
+	bottom:0px !important;
+	background-color: #CCCCCC;
+	background:rgba(90,90, 54, 0.2);
+	color: #fff;
+	text-align: center;
+}
+.box-b-b{
+	margin: 0 auto;
+	width: 95%;
+
+}
+.box-b-b img{
+width: 100%;
+height: 100%;
+}
+
+.box-b-c{
+	margin: 0 auto;
+	margin-top: 2px;
+	width: 95%;
+
+}
+.box-b-c img{
+	width: 100%;
+	height: 100%;
+}
+.box-b-a .mui-slider-indicator{
+	float: left;
+	width:95%;
+	bottom: 0;
+	color: #fff;
+	font-size: 15px;
+	background-color: #CCCCCC;
+	background:rgba(90,90, 54, 0.2);
+	z-index:99;
+}
+
+
+/*三宫格找医生医院*/
+
+
+/*热门医生医院滚动*/
+.box-c{
+	margin-top: 5px;
+	
+}
+
+
+.box-c-p{
+	text-align: center;
+	background: #fff;
+	padding: 8px 0px;
+	font-size: 13px;
+	color:#6C6C6C;
+	margin: 0px;
+	letter-spacing: 5px;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+
+
+.box-c-a{
+	margin: 5px;
+	overflow: hidden;
+	background: #fff;
+	height: auto;
+	border-bottom: 1px solid #f0f0f0;
+}
+.box-c-a-l{
+	width: 20%;
+	float: left;
+}
+.box-c-a-l img{
+	
+	width: 80%;
+
+}
+.box-c-a-r{
+	width: 75%;
+	float: left;
+}
+.box-c-a-r h4{
+	color: #6D6D72;
+	font-size: 13px;
+	margin:8px 0px 5px 0px;
+}
+.box-c-a-r p{
+	margin: 0px 0px 5px 0px;
+	font-size: #666;
+	font-size: 13px;
+}
+
+.box-d{
+	margin-top: 5px;
+	
+}
+
+
+.box-d-p{
+	text-align: center;
+	background: #fff;
+	padding: 8px 0px;
+	font-size: 13px;
+	color:#6C6C6C;
+	margin: 0px;
+	letter-spacing: 5px;
+	border-bottom: 1px solid #f0f0f0;
+}
+.box-d-a{
+	margin: 5px;
+	overflow: hidden;
+	background: #fff;
+	height: auto;
+	border-bottom: 1px solid #f0f0f0;
+}
+.box-d-a-l{
+	width: 20%;
+	float: left;
+}
+.box-d-a-l img{
+	
+	width: 100%;
+}
+.box-d-a-r{
+	width: 75%;
+	float: left;
+}
+.box-d-a-r h4{
+	color: #6D6D72;
+	font-size: 13px;
+	margin:8px 0px 5px 0px;
+}
+.box-d-a-r p{
+	margin: 0px 0px 5px 0px;
+	font-size: #666;
+	font-size: 13px;
+}
+
+
+
+/*热门医生医院滚动*/
+
+
+/*底部*/
+

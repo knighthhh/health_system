@@ -1,0 +1,66 @@
+
+/*模块标题*/
+.info_title .mui-table-view{
+	background: #EFEFF4;
+}
+.info_title a{
+	font-family:sans-serif;
+	font-size: medium;
+	
+}
+.info_title .mui-pull-right{
+	margin-right: -30px;
+}
+
+/*医院模块*/
+.hp_title{
+	color: #6D6D72;
+	font-size:medium;
+	margin:0px 0px 10px 0px;
+}
+.icon-title{
+	color: burlywood;
+	font-size: 13px;
+}
+.info_hp .i-color{
+	color:#4EC7EF;
+}
+
+
+
+
+
+/*医生模块*/
+.dt_title{
+
+	color: #6D6D72;
+	font-size:medium;
+	margin:5px 0px 10px 0px;
+}
+.dt_from{
+	margin:5px 0px 5px 0px;
+}
+.info_dt .icon-title{
+	color: #05B19F;
+	font-size: 13px;
+}
+.info_dt .i-color{
+	color:#1AC0F4;
+}
+
+
+/*科室模块*/
+
+.ks_title{
+	color: #6D6D72;
+	font-size:medium;
+	margin:5px 0px 10px 0px;
+}
+
+
+/*疾病模块*/
+.jb_title{
+	color: #6D6D72;
+	font-size:medium;
+	margin:5px 0px 10px 0px;
+}

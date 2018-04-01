@@ -1,0 +1,429 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+				<link rel="stylesheet" type="text/css" href="../css/iconfont_hos.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+<!--		<link rel="stylesheet" type="text/css" href="../css/iconfont_money.css" />-->
+		<!--<link rel="stylesheet" type="text/css" href="../css/iconfont_hos.css"/>-->
+
+		<style>
+			.jianjie p {
+				float: right;
+				width: 85%;
+			}
+			
+			.jianjie li {
+				height: 100%;
+			}
+			
+			.jianjie span {
+				width: 15%;
+				float: left;
+			}
+		</style>
+		<style type="text/css">
+			.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+		
+
+		</style>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.previewimage.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.zoom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js"></script>
+		<link rel="stylesheet" href="../css/souye.css" />
+		<!--<script type="text/javascript" src="js/souye.js" ></script>-->
+
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			window.onload = function() {
+				
+
+				mui.plusReady(function() {
+					var hos_id = null;
+					var user_phone = plus.storage.getItem("user_phone");
+					//用来传个下一个页面的经度，纬度，医院名字
+					var longitude = null;
+					var latitude = null;
+					var hos_name = null;
+					//添加detailPage自定义事件监听
+					window.addEventListener('hosID', function(event) {
+						//获得医生ID参数
+						hos_id = event.detail.hosID;
+						//根据id向服务器请求医院轮播图片
+						mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/Hos/getHosImg', {
+							hos_id: hos_id
+						}, function(data) {
+							var slider1 = document.getElementById("slider1");
+							var indicator = document.getElementById("indicator");
+							//医院轮播图
+							var hosimg = '';
+							for(i = 0; i < data.length; i++) {
+								hosimg = hosimg + '<div class="mui-slider-item"><img data-preview-src="" data-preview-group="'+(i+2)+'" src="' + data[i].hos_img + '"></div>';
+							}
+
+							slider1.innerHTML = hosimg;
+							//轮播图下面的圆点
+							var item = '';
+							for(j = 0; j < data.length; j++) {
+								if(j == 0) {
+									item = item + '<div class="mui-indicator mui-active"></div>';
+								} else {
+									item = item + '<div class="mui-indicator"></div>';
+								}
+							}
+							indicator.innerHTML = item;
+							//图片轮播配置
+							mui.previewImage();
+							var gallery = mui('.mui-slider');
+							gallery.slider({
+								interval: 1500 //自动轮播周期，若为0则不自动播放，默认为0；
+							});
+						}, 'json');
+						//根据id向服务器请求医院详情
+						mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/hos/getHosDetail', {
+							hos_id: hos_id
+						}, function(data) {
+							//console.log(data.hos_daohang);
+							longitude = data.hos_longitude;
+							latitude = data.hos_latitude;
+							hos_name = data.hos_name;
+							var hosTitle = document.getElementById("hosTitle");
+							var hosInfo = document.getElementById('hosInfo');
+							//标题
+							var title = '';
+							title = title + '<h1 class="mui-title" style="color: #FFFFFF;">' + data.hos_name + '</h1>';
+							hosTitle.innerHTML = title;
+							//简介
+							document.getElementById("daohangtu").src = data.hos_daohang;
+							var li = '';
+							li = li + '<li class="mui-table-view-cell"><a class="mui-navigate-right"><span class="iconfont icon-dizhi tu-wu "></span><p align="center">' + data.hos_address_detail +
+								'</p></a></li><li class="mui-table-view-cell mui-disabled"><span class="iconfont icon-iconfont176huiyuandengjieps tu-er "></span><p align="center">' + data.hos_level +
+								'</p></li><li class="mui-table-view-cell mui-disabled"><span class="iconfont icon-chakantieziguanzhu tu-liu "></span><p align="center">关注度：' + data.hos_attention +
+								'</p></li><li id="intro1" class="mui-table-view-cell"><a class="mui-navigate-right"><span class="iconfont icon-intro tu-san "></span><p align="center">医院介绍</p></a></li><li id="daohang" class="mui-table-view-cell"><a class="mui-navigate-right"><span class="iconfont icon-daohangtubiao tu-er "></span><p align="center">院内导航图</p></a></li>';
+							hosInfo.innerHTML = li;
+
+						}, 'json');
+
+						//去这里按钮监听事件
+						var gohereButton = document.getElementById("gohere");
+						gohereButton.addEventListener('tap', function() {
+							mui.openWindow({
+								url: '/maps/maps_map.html',
+								id: 'maps',
+								extras: {
+									hos_id: hos_id,
+									longitude: longitude,
+									latitude: latitude,
+									hos_name: hos_name
+								},
+								show: {
+									aniShow: 'pop-in'
+								},
+								styles: {
+									popGesture: 'hide'
+								},
+								waiting: {
+									autoShow: true
+								}
+							});
+						});
+					});
+					//科室批量监听
+					mui('#depalist').on('tap', '.box-a-l', function() {
+						var dep_id = this.getAttribute('id');
+						//console.log(hos_id);
+						mui.openWindow({
+							url: 'officeHP.html',
+							id: 'officeHP',
+							extras: {
+								hos_id: hos_id,
+								dep_id: dep_id
+							},
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+
+					});
+					//查看院内导航图
+					mui("#hosInfo").on('tap','#daohang',function(e){
+						var daohangtu = document.getElementById("daohangtu");
+						mui.trigger(daohangtu,'tap');
+					});
+					//查看医院简介	
+					mui('#hosInfo').on('tap', '#intro1', function(e) {
+						mui.openWindow({
+							url: 'hos_brief.html',
+							id: 'hos_brief',
+							extras: {
+								hos_id: hos_id
+							},
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+
+            		});
+            		
+            		//关注按钮监听
+            		var attention = document.getElementById("attention");
+            		attention.addEventListener('tap',function(){
+            			mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/attention_hos',{
+			  				data:{
+								hos_id:hos_id,
+								user_phone:user_phone
+			  				},
+			  				dataType:'json',
+			  				type:'POST',
+			  				timeout:10000,
+			  				success:function(data){
+			  					//{"reslut":1}表示成功
+			  					plus.nativeUI.toast(data.data);
+			  					
+			  				},
+			  				error:function(){
+								plus.nativeUI.toast("请检查您的网络");
+			  				}
+			  			})
+            		});
+				});
+			}
+		</script>
+	</head>
+	<header class="mui-bar mui-bar-nav public-color">
+	</header>
+	<header id=" " class="mui-bar mui-bar-nav public-color">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<a id="hosTitle">
+
+		</a>
+	</header>
+
+	<body>
+
+		<!--轮播图-->
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
+				<div id="slider1" class="mui-slider-group">
+
+				</div>
+				<div id="indicator" class="mui-slider-indicator">
+				</div>
+			</div>
+			<!--轮播图-->
+			<div class="box-c ">
+				<p class="box-c-p ">- 简介 -</p>
+				<!--导航图-->
+				<img id="daohangtu" data-preview-src="" data-preview-group="1" src="" style="display: none;"/>
+				<ul id="hosInfo" class="mui-table-view jianjie"></ul>
+			</div>
+
+		</div>
+		<div class="box-c ">
+			<p class="box-c-p">- 科室-</p>
+		</div>
+
+		<div id="depalist" class="box-a">
+			<div id="5" class="box-a-l">
+				<span class="iconfont icon-1 tu-yi"></span>
+				<p>妇产科</p>
+			</div>
+			<div id="3" class="box-a-l">
+				<span class="iconfont icon-guke_iconx-copy tu-er"></span>
+				<p>骨科</p>
+			</div>
+			<div id="2" class="box-a-l">
+				<span class="iconfont icon-neike tu-san"></span>
+				<p>内科</p>
+			</div>
+			<div id="11" class="box-a-l">
+				<span class="iconfont icon-pifuke tu-si"></span>
+				<p>皮肤科</p>
+			</div>
+			<div id="14" class="box-a-l">
+				<span class="iconfont icon-yanke1 tu-wu"></span>
+				<p>眼科</p>
+			</div>
+			<div id="1" class="box-a-l">
+				<span class="iconfont icon-color tu-liu"></span>
+				<p>外科</p>
+			</div>
+			<div id="12" class="box-a-l">
+				<span class="iconfont icon-color1 tu-qi"></span>
+				<p>儿科</p>
+			</div>
+			<div id=" " class="box-a-l">
+				<span class="iconfont icon-circle-more tu-ba"></span>
+				<p>更多</p>
+			</div>
+		</div>
+
+		<div class="mui-card-footer">
+			<button type="button" id="gohere" class="mui-btn public-color mui-pull-left" style="color: #FFFFFF;margin-left: 20%;">去这里</button>
+			<!--调用地图模块-->
+			<button id="attention" type="button" class="mui-btn public-color mui-pull-right" style="color: #FFFFFF;margin-right: 20% ;">关注</button>
+		</div>
+
+	</body>
+
+</html>

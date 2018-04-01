@@ -1,0 +1,23 @@
+/*搜索历史*/
+
+.search_history{
+    margin:4px 8px;
+	color: #C0C0C0;
+	font-family:  "微软雅黑" ;
+}
+.search_text .mui-table-view-cell>a:not(.mui-btn){
+	margin: -8px -14px !important;
+	}
+.search_text .mui-icon{
+	font-size: 18px;
+	color: #CCCCCC;
+}
+.search_text a{
+	color: #CCCCCC;
+}
+.search_text a span{
+	color: #CCCCCC;
+}
+.search_text a p{
+	text-align: center;
+}

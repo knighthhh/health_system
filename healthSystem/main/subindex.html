@@ -1,0 +1,434 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />	 
+    <link rel="stylesheet" type="text/css" href="../css/souye.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont_foot.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont_money.css"/>
+	</head>
+
+	<body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/immersed.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/souye.js" ></script>
+	<script src="../js/common.js"></script>
+	<script type="text/javascript">
+			mui.init(
+			{
+			  preloadPages:[
+			  {
+			    id:'hosHP.html',
+			    url:'../finddoctor/hosHP.html'           
+			  },{
+			  	id:'docHP.html',
+			    url:'../finddoctor/docHP.html' 
+			  }
+			  ]
+			}
+				)
+		</script>
+		<script type="text/javascript">
+// H5 plus事件处理
+		mui.plusReady(function() {
+				 	var find = document.getElementById("box-b-a");
+					var finddoctor = document.getElementById('finddoctor');
+					var findhos = document.getElementById('findhos');
+					function geoInf( position ) {
+						var address = position.address;
+						var city = address.city.substring(0,address.city.length-1);
+						document.getElementById("city").innerText = city;
+					}
+					plus.geolocation.getCurrentPosition( geoInf, function ( e ) {
+						plus.nativeUI.alert( "获取位置信息失败："+e.message );
+					}, {geocode:true} );
+					//找医生点击事件
+					find.addEventListener('tap',function(){
+						mui.openWindow({
+							url: '../finddoctor/search_doctor.html',
+							id: 'findoctor',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					});
+					
+					//健康资讯点击事件
+					finddoctor.addEventListener('tap',function(event){
+						mui.openWindow({
+							url: '../finddoctor/search_doctor.html',
+							id: 'findoctor',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},false);
+					findhos.addEventListener('tap',function(event){
+						mui.openWindow({
+							url: '../finddoctor/search_hos.html',
+							id: 'findhos',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},false);
+					
+					//科室批量监听
+            		mui('#depalist').on('tap', '.box-a-l', function() {
+						var dep_id = this.getAttribute('id');
+						mui.openWindow({
+							url:'/finddoctor/doclist.html',   
+						    id:'doclist',
+						    extras:{
+						    	dep_id:dep_id
+						    },
+						    show:{
+						    	aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting:{
+								autoShow:true
+							}
+						});
+					}); 
+					
+				//获取热门医院信息
+				mui.getJSON('http://'+serverName+'/health/management/Application/index.php/Connector/Hos/getHotHos',{},function(data){
+						//获得服务器响应
+						var demo4 = document.getElementById("demo4");
+						var item = '';
+						for(i=0;i<data.length;i++){
+							//console.log(data[i].hos_navigate_img);
+							item = item+'<div hos-id='+data[i].hos_id+' class="box-d-a"><div class="box-d-a-l"><img style="width:60px;height:70px" src="'+data[i].hos_navigate_img+'" /></div><div class="box-d-a-r"><h4>'+data[i].hos_name+'</h4><p>'+data[i].hos_level+'</p><span style="font-size: 13px;color: #666;">'+data[i].hos_address+
+							'</span><span style="color:#05B19F;"></span><span style="float: right;padding-right: 10px;color:#666;font-size: 11px;">关注量：'+data[i].hos_attention+'</span></div></div>'
+						}
+						demo4.innerHTML = item;
+						//滚动列表
+						var speed2=30
+					   	demo5.innerHTML=demo4.innerHTML
+					   	function Marquee2(){
+					   	if(demo5.offsetTop-demo3.scrollTop<=0)
+					   	demo3.scrollTop-=demo4.offsetHeight
+					   	else{
+					   	demo3.scrollTop++
+					   	}
+					   	}
+					   	var MyMar2=setInterval(Marquee2,speed2)
+						//点击热门医院跳转至详情
+							var detailPage = null;
+							//添加列表项的点击事件
+							mui('#demo4').on('tap', '.box-d-a', function() {
+							  var hosID = this.getAttribute('hos-id');
+							  //获得详情页面
+							  if(!detailPage){
+							    detailPage = plus.webview.getWebviewById('hosHP.html');
+							  }
+							  //触发详情页面的detailPage事件
+							mui.fire(detailPage,'hosID',{
+							    hosID:hosID
+							  });
+							mui.openWindow({ 
+							    id:'hosHP.html',
+							    show:{
+									aniShow:'pop-in'							    	
+    							}
+							 });
+							});  
+						    mui('#demo5').on('tap', '.box-d-a', function() {
+							  var hosID = this.getAttribute('hos-id');
+							  //获得详情页面
+							  if(!detailPage){
+							    detailPage = plus.webview.getWebviewById('hosHP.html');
+							  }
+							  //触发详情页面的detailPage事件
+							mui.fire(detailPage,'hosID',{
+							    hosID:hosID
+							  });
+							mui.openWindow({ 
+							    id:'hosHP.html',
+							    show:{
+									aniShow:'pop-in'							    	
+    							}
+							 });
+							});  
+					});
+					//获取热门医生信息
+					mui.get('http://'+serverName+'/health/management/Application/index.php/Connector/Doc/getHotDoc',{
+							
+						},function(data){
+							var demo1 = document.getElementById("demo1");
+							var item2= '';
+							for(i=0;i<data.length;i++){
+								//alert(data[i].hos_name);
+								item2 = item2+'<div doc-id='+data[i].doc_id+' class="box-c-a"><div class="box-c-a-l"><img style="width:55px;height:55px;border-radius:100px;margin-left:5px;margin-top:6px" src="'+data[i].doc_img+'" /></div><div class="box-c-a-r"><h4>'+data[i].doc_name+'  '+data[i].hos_name+'</h4><p style="font-size: 13px;">擅长：'+data[i].doc_especial+
+								'</p><span class="mui-icon iconfont icon-jinqian1" style="font-size: 13px;color: #666;"></span><span style="font-size: 13px;color:#05B19F;">'+data[i].doc_fee+
+								'/次</span><span class="mui-icon iconfont icon-pinglun2" style="font-size: 13px;color: #666;"></span><span style="font-size: 13px;color:#05B19F;">'+data[i].doc_rece+'</span><span class="mui-icon iconfont icon-dianzan1" style="font-size: 13px;color: #666;"></span><span style="font-size: 13px;color:#05B19F;">'+data[i].doc_attention+
+								'</span></div></div>';
+							
+							}
+							//热门医生列表滚动
+							demo1.innerHTML = item2;
+							var speed=20;
+						    demo2.innerHTML=demo1.innerHTML
+						    function Marquee(){
+						    if(demo2.offsetTop-demo.scrollTop<=0)
+						    demo.scrollTop-=demo1.offsetHeight
+						    else{
+						    demo.scrollTop++
+						    }
+						    }
+						    var MyMar=setInterval(Marquee,speed)
+						    //点击热门医生跳转医生详情
+							var detailPage = null;
+							//添加列表项的点击事件
+							mui('#demo1').on('tap', '.box-c-a', function() {
+							  var docID = this.getAttribute('doc-id');
+							  //获得详情页面
+							  if(!detailPage){
+							    detailPage = plus.webview.getWebviewById('docHP.html');
+							  }
+							  //触发详情页面的newsId事件
+							  mui.fire(detailPage,'docID',{
+							    docID:docID
+							  });
+							//打开详情页面          
+							  mui.openWindow({  
+							    id:'docHP.html',
+							    show:{
+							    	aniShow:'pop-in',  									event:'loaded',//页面显示时机，默认为titleUpdate事件时显示
+    							}
+							 });
+							});  
+						    mui('#demo2').on('tap', '.box-c-a', function() {
+							  var docID = this.getAttribute('doc-id');
+							  //获得详情页面
+							  if(!detailPage){
+							    detailPage = plus.webview.getWebviewById('docHP.html');
+							  }
+							  //触发详情页面的newsId事件
+							  mui.fire(detailPage,'docID',{
+							    docID:docID
+							  });
+							//打开详情页面          
+							  mui.openWindow({  
+							    id:'docHP.html',
+							    show:{
+							    	aniShow:'pop-in',  									
+							    	event:'loaded',//页面显示时机，默认为titleUpdate事件时显示
+    							}
+							 });
+							});  
+						},'json');
+//						//获取在线医生
+//						mui.post('http://'+serverName+'/health/management/application/index.php/Connector/Doc/get_online_doc',{
+//							},function(data){
+//								document.getElementById("online_doc").innerHTML = data.result;
+//							},'json'
+//						);
+					
+				});
+				
+function searchwin(){
+	var w = plus.webview.create( "search/search.html" );
+	w.show("pop-in");
+//	w.show("slide-in-right");
+	//document.getElementById("search").focus();
+}
+	</script>
+		<!-- 头部  包含搜索-->
+	<header id="header" class="mui-bar mui-bar-nav public-color">
+	    <a id="city" style="margin-top: 5px;font-size: 15px;" class=" mui-icon mui-pull-left city">定位中</a>
+	    <a class=" mui-icon mui-icon-chat mui-pull-right "style="color: #FFFFFF;margin-left: 30px;"></a>
+	    <!--删掉了mui-action-back-->
+	    <div id="search" class="search">
+	    	<div class="mui-input-row mui-search">
+	    		<input class=" mui-input-clear" type="search" name="search" id="search" onclick="searchwin()" placeholder="搜疾病，医生，医院，科室" />
+	    	</div>
+	    	<!--<img src="../img/search1.png" style="display: inherit; margin: auto; width: 100%;height: 42px;" onclick="searchwin()" />-->
+
+	    </div>   
+	</header>
+	<!-- 头部 -->
+		<!--轮播图-->
+<div class="mui-content">
+		<div id="slider" class="mui-slider" >
+		  <div class="mui-slider-group mui-slider-loop">
+		    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+		    <div class="mui-slider-item mui-slider-item-duplicate">
+		      <a href="#">
+		        <img src="../img/jiankang2.jpeg">
+		      </a>
+		    </div>
+		    <!-- 第一张 -->
+		    <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="../img/jiankang2.jpeg">
+		      </a>
+		    </div>
+		    <!-- 第二张 -->
+		    <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="../img/jiankang.jpeg">
+		      </a>
+		    </div>
+		    <!-- 第三张 -->
+		    <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="../img/test.jpg">
+		      </a>
+		    </div>
+		    <!-- 第四张 -->
+		    <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="../img/jiankang2.jpeg">
+		      </a>
+		    </div>
+		    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+		    <div class="mui-slider-item mui-slider-item-duplicate">
+		      <a href="#">
+		        <img src="../img/jiankang.jpeg">
+		      </a>
+		    </div>
+		  </div>
+		  <div class="mui-slider-indicator">
+		    <div class="mui-indicator mui-active"></div>
+		    <div class="mui-indicator"></div>
+		    <div class="mui-indicator"></div>
+		    <div class="mui-indicator"></div>
+		  </div>
+		</div>
+		
+	<!--轮播图-->
+	<!--八宫格常见科室-->
+	
+		<div id="depalist" class="box-a">
+		    	<div id="5" class="box-a-l">
+		    		<span class="iconfont icon-1 tu-yi"></span>
+		    		<p >妇产科</p>
+		    	</div>
+		    	<div id="3" class="box-a-l">
+		    		<span class="iconfont icon-guke_iconx-copy tu-er"></span>
+		    		<p>骨科</p>
+		    	</div>
+		    	<div id="2"  class="box-a-l">
+		    		<span class="iconfont icon-neike tu-san"></span>
+		    		<p>内科</p>
+		    	</div>
+		    	<div id="11" class="box-a-l">
+		    		<span class="iconfont icon-pifuke tu-si"></span>
+		    		<p>皮肤科</p>
+		    	</div>
+		    	<div id="14" class="box-a-l">
+		    		<span class="iconfont icon-yanke1 tu-wu"></span>
+		    		<p>眼科</p>
+		    	</div>
+		    	<div id="1" class="box-a-l">
+		    		<span class="iconfont icon-color tu-liu"></span>
+		    		<p>外科</p>
+		    	</div>
+		    	<div id="12" class="box-a-l">
+		    		<span class="iconfont icon-color1 tu-qi"></span>
+		    		<p>儿科</p>
+		    	</div>
+		    	<div class="box-a-l">
+		    		<span class="iconfont icon-circle-more tu-ba"></span>
+		    		<p>更多</p>
+		    	</div>
+		 </div>
+		    
+		    
+		
+	
+	
+	<!--八宫格常见科室-->
+	
+	<!--三宫格找医生医院-->
+	
+		
+		
+		
+			<div class="mui-row  box-b" id="box-b">
+											
+				<div class=" mui-col-sm-6 mui-col-xs-6">
+
+					<div  id="box-b-a" class="box-b-a"  style="background: #fff;">						
+								<img class="" src="../img/finddoctor.jpg"/>
+				    			
+		   			 </div>
+		   			 
+				</div>
+				
+					<div class=" mui-col-sm-6 mui-col-xs-6">
+							   	<div class="box-b-b" id="findhos">
+							    		<img class="" src="../img/hos.jpg"/>
+							    </div>
+							   </a>
+							     
+							    <div class="box-b-c" id="finddoctor">
+							    		<img class="" src="../img/jkzx.jpg"/>
+							    </div>
+								</a>
+				  </div>	  
+			</div>
+		
+	<!--三宫格找医生医院-->	 
+                   
+<!--热门医生医院滚动-->
+	<!--热门医生滚动-->
+<div class="box-c">
+		<p class="box-c-p">- 热门医生 -</p>
+			<div id="demo" style="overflow:hidden; position:relative; height:200px;width:100%;">
+				<div id="demo1">
+					<!--<div class="box-c-a">
+						<div class="box-c-a-l">
+							<img src="../img/doctor.jpeg" />
+						</div>
+						<div class="box-c-a-r">
+							<h4 >王哲医生1  惠州第一人民医院</h4>
+							<p style="font-size: 13px;">擅长：眼科，鼻科</p>
+							<span class="mui-icon iconfont icon-jinqian1" style="font-size: 13px;color: #666;"></span><span style="font-size: 13px;color:#05B19F;">30/半小时</span>
+							<span class="mui-icon iconfont icon-pinglun2" style="font-size: 13px;color: #666;"></span><span style="font-size: 13px;color:#05B19F;">1000</span>
+							<span class="mui-icon iconfont icon-dianzan1" style="font-size: 13px;color: #666;"></span><span style="font-size: 13px;color:#05B19F;">1500</span>
+						</div>
+					</div>-->
+				</div>	
+				<div id="demo2"></div>
+			</div>	
+	</div>
+
+	<!--热门医院滚动-->
+	
+	<div class="box-d">
+		<p class="box-d-p" >- 热门医院 -</p>		
+		<div id="demo3" style="overflow:hidden; position: relative; height:200px;width:100%;">
+			<div id="demo4">
+					
+			</div>
+				<div id=demo5></div>
+		</div>	
+	</div>
+	
+	
+	
+	
+	
+</div>
+<!--热门医生医院滚动-->
+	
+	</body>
+
+</html>

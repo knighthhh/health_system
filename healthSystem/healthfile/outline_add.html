@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">添加线下就诊详情</h1>
+		</header>
+		<div class="mui-content">
+			<form id="form" class="mui-input-group public-edit outline_add">
+				<div class="mui-input-row">
+					<label>就诊医生：</label>
+					<input id="doc" class="mui-input-clear" placeholder="姓名" type="text">
+				</div>
+				<div class="mui-input-row">
+					<label>就诊医院：</label>
+					<input id="hos" class="mui-input-clear" placeholder="医院名称" type="text">
+				</div>
+				<div class="mui-input-row">
+					<label>就诊科室：</label>
+					<input id="dep" class="mui-input-clear" placeholder="科室" type="text">
+				</div>
+				<div class="infor">
+					<div class="mui-input-row ">
+						<label>	医生诊断：</label>
+						<input id="res" class="mui-input-clear" placeholder="疾病" type="text">
+					</div>
+				</div>
+				<div class="advise">
+					<div class="mui-input-row">
+						<label>医生建议：</label>
+						<textarea id="sgs" name="" rows="" placeholder="医生建议" cols=""></textarea>
+					</div>
+				</div>
+				<div class="mui-input-row">
+					<label>就诊日期：</label>
+					<input id="time" class="mui-input-clear" placeholder="日期" type="text">
+				</div>
+				<div class="medicine">
+					<div class="mui-input-row">
+						<label>处方信息：</label>
+						<input id="page" class="mui-input-clear" placeholder="处方" type="text">
+					</div>
+				</div>
+				<p>上传您的处方信息图片（可选：建议小于2M）</p>
+				<!--<div id="" class="add_medicinephoto">
+						<div id="image-list" class="row image-list">
+					</div>-->
+				<ul id="files" style="text-align:left;">
+					<p id="empty" style="font-size:12px;color:#C6C6C6;">无上传文件</p>
+				</ul>
+				<a id="piture_btn" class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined picture-btn" style="padding: 5px 20px;">上传</a>
+				<div class="medicine">
+					<div class="mui-input-row">
+						<label>检查信息：</label>
+						<input id="check" class="mui-input-clear" placeholder="处方" type="text">
+					</div>
+				</div>
+				<p>上传您的检查信息图片（可选：建议小于2M）</p>
+				<!--<div id="" class="add_medicinephoto">
+						<div id="image-list" class="row image-list">
+					</div>-->
+				<ul id="files1" style="text-align:left;">
+					<p id="empty1" style="font-size:12px;color:#C6C6C6;">无上传文件</p>
+				</ul>
+				<a id="piture_btn1" class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined picture-btn" style="padding: 5px 20px;">上传</a>
+				<div class="mui-button-row">
+					<button id="submit1" type="button" class="mui-btn mui-btn-primary" onclick="upload()">确认</button>&nbsp;&nbsp;
+					<button type="button" class="mui-btn mui-btn-danger" onclick="mui.back()">取消</button>
+				</div>
+			</form>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../js/feedback_mydoctor.js" type="text/javascript" charset="utf-8"></script>-->
+		<script type="text/javascript">
+			var server = 'http://' + serverName + '/health/management/Application/index.php/Connector/health/uploadHis';
+			var files = [];
+			mui.plusReady(function () {
+			})
+			// 上传文件
+			function upload() {
+				if(files.length > 0) {
+					var task = plus.uploader.createUpload(server, {
+						method: "POST"
+					},
+					function(t, status) { //上传完成
+						if(status == 200) {
+							plus.nativeUI.toast(t.responseText);
+							var taskList = plus.webview.getWebviewById('History_todoc');
+					        taskList.reload();
+					        mui.back();
+						} else {
+							//plus.nativeUI.alert("上传失败！");
+						}
+					});
+					var self = plus.webview.currentWebview();
+					var relative_id = self.relative_id;
+					//用户手机号
+					var user_phone = plus.storage.getItem('user_phone');
+					//提交表单数据
+					var doc = document.getElementById("doc").value;
+					var hos = document.getElementById("hos").value;
+					var dep = document.getElementById("dep").value;
+					var res = document.getElementById("res").value;
+					var sgs = document.getElementById("sgs").value;
+					var time = document.getElementById("time").value;
+					var page = document.getElementById("page").value;
+					var check = document.getElementById("check").value;
+					task.addData('seecase_doc',doc);
+					task.addData('seecase_hos',hos);
+					task.addData('seecase_depa',dep);
+					task.addData('seecase_info',res);
+					task.addData('seecase_sgs',sgs);
+					task.addData('seecase_time',time);
+					task.addData('page_info',page);
+					task.addData('check_info',check);
+					task.addData('user_phone',user_phone);
+					task.addData('relative_id',relative_id);
+					for(var i = 0; i < files.length; i++) {
+						var f = files[i];
+						task.addFile(f.path, {
+							key: f.name
+						});
+					}
+					task.start();
+				}else{
+					var self = plus.webview.currentWebview();
+					var relative_id = self.relative_id;
+					//用户手机号
+					var user_phone = plus.storage.getItem('user_phone');
+					var doc = document.getElementById("doc").value;
+					var hos = document.getElementById("hos").value;
+					var dep = document.getElementById("dep").value;
+					var res = document.getElementById("res").value;
+					var sgs = document.getElementById("sgs").value;
+					var time = document.getElementById("time").value;
+					var page = document.getElementById("page").value;
+					var check = document.getElementById("check").value;
+					mui.post('http://' + serverName + '/health/management/Application/index.php/Connector/health/uploadHis',{
+						seecase_doc:doc,
+						seecase_hos:hos,
+						seecase_depa:dep,
+						seecase_info:res,
+						seecase_sgs:sgs,
+						seecase_time:time,
+						page_info:page,
+						check_info:check,
+						user_phone:user_phone,
+						relative_id:relative_id
+					},function(data){
+							//console.log(data);
+							plus.nativeUI.toast(data);
+							var taskList = plus.webview.getWebviewById('History_todoc');
+					        taskList.reload();
+					        mui.back();
+						},'text');
+				}
+				
+
+				}
+			// 拍照添加处方图片
+			function appendByCamera() {
+				plus.camera.getCamera().captureImage(function(p) {
+					appendFile(p);
+				});
+			}
+			// 从相册添加处方图片
+			function appendByGallery() {
+				plus.gallery.pick(function(p) {
+					appendFile(p);
+				});
+			}
+			// 拍照添加检查图片
+			function appendByCamera1() {
+				plus.camera.getCamera().captureImage(function(p) {
+					appendFile1(p);
+				});
+			}
+			// 从相册添加检查图片
+			function appendByGallery1() {
+				plus.gallery.pick(function(p) {
+					appendFile1(p);
+				});
+			}
+			// 添加文件
+			var index = 1;
+			//添加处方信息图片
+			function appendFile(p) {
+				var fe = document.getElementById("files");
+				var li = document.createElement("li");
+				var n = p.substr(p.lastIndexOf('/') + 1);
+				li.innerText = n;
+				fe.appendChild(li);
+				files.push({
+					name: "pageImg" + index,
+					path: p
+				});
+				index++;
+				empty.style.display = "none";
+			}
+			//添加检查信息图片
+			function appendFile1(p) {
+				var fe = document.getElementById("files1");
+				var li = document.createElement("li");
+				var n = p.substr(p.lastIndexOf('/') + 1);
+				li.innerText = n;
+				fe.appendChild(li);
+				files.push({
+					name: "checkImg" + index,
+					path: p
+				});
+				index++;
+				empty1.style.display = "none";
+			}
+	
+			document.getElementById("piture_btn").addEventListener('tap', function() {
+				var btnArray = [{
+					title: "拍照或录像"
+				}, {
+					title: "选取现有的"
+				}];
+				plus.nativeUI.actionSheet({
+					title: "选择照片",
+					cancel: "取消",
+					buttons: btnArray
+				}, function(e) {
+					var index = e.index;
+					switch(index) {
+						case 0:
+							break;
+						case 1:
+							appendByCamera();
+							break;
+						case 2:
+							appendByGallery();
+							break;
+					}
+				});
+			});
+			document.getElementById("piture_btn1").addEventListener('tap', function() {
+				var btnArray = [{
+					title: "拍照或录像"
+				}, {
+					title: "选取现有的"
+				}];
+				plus.nativeUI.actionSheet({
+					title: "选择照片",
+					cancel: "取消",
+					buttons: btnArray
+				}, function(e) {
+					var index = e.index;
+					switch(index) {
+						case 0:
+							break;
+						case 1:
+							appendByCamera1();
+							break;
+						case 2:
+							appendByGallery1();
+							break;
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

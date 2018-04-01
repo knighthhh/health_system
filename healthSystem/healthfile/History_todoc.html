@@ -1,0 +1,567 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css" />
+		<!--处理图片的JS-->
+		
+	
+		<style>
+			img {
+				height: 80px;
+				width: 80px;
+			}
+			.others-1 {
+				display: inline-block;
+				margin: 15px 15px;
+				color: #A9A9A9;
+			}
+			
+			.others-2 {
+				padding: 5px 0px;
+			}
+			
+			.condition .mui-radio {
+				float: right;
+			}
+			
+			.condition .mui-radio input[type=radio]:checked:before {
+				content: '\e442';
+			}
+			
+			.mui-input-row label {
+				padding-right: 50px;
+			}
+			
+			.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			
+			p img {
+				max-width: 100%;
+				height: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<div class="chose">
+				<span id="">
+		    	患者:
+		    </span>
+				<span class="mui-select">
+		    	<select id="relative" class="chose_man">
+		    		<option value="0">本人</option>
+				</select>
+			</span>
+			</div>
+		</header>
+		<div id="content" class="mui-content">
+			<p class="box">--处方记录--</p>
+			<div id="chufangdiv" class="outline_history">
+				<!--<ul class="mui-table-view mui-card">
+					<li class="mui-table-view-cell">
+						<span>医院名称：</span>
+						<span id="hos_name"> </span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>医生姓名：</span>
+						<span id="doc_name"></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>诊断：</span>
+						<span id="zhenduan"></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>建议：</span>
+						<span id="jianyi"></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>处方：</span>
+						<span id="chufang"></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>检验：</span>
+						<span id="jianyan"></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span>相关资料：</span>
+						<p id="chufang_img">
+							<img src="../img/doctor.jpeg" data-preview-src="" data-preview-group="1" />
+						</p>
+					</li>
+				</ul>-->
+			</div>
+			
+			<p class="box">--在线咨询记录--</p>
+			<div id="online_vis" class="online_history">
+				<!--<ul class="mui-table-view mui-card">
+				        <li class="mui-table-view-cell">
+				           <span style="margin-left: 137px;">暂无</span>
+				        </li>
+				    </ul>-->
+				<!--<ul class="mui-table-view mui-card">
+					<li class="mui-table-view-cell">
+						<span id="">
+				           	问诊医生： 
+				           </span>
+						<span id="doc_name">
+				           	张医生
+				           </span>
+						<div class="mui-pull-right" style="width: 50%;">
+							<span id="">
+					           	问诊医院：
+					           </span>
+							<span id="hos_name">
+					           	中心医院
+				           	   </span>
+						</div>
+
+					</li>
+					<li class="mui-table-view-cell">
+
+						<span id="">
+					           	问诊科室：
+					           </span>
+						<span id="dep_name">
+					           	耳鼻喉科
+					           </span>
+
+						<div class="mui-pull-right" style="width: 50%; ">
+							<span id="">
+					           	问诊疾病：
+					           </span>
+							<span id="zixun_illness">
+					           	鼻炎
+					           </span>
+						</div>
+
+					</li>
+					<li class="mui-table-view-cell">
+
+						<span id="">
+					           	问诊内容：
+					           </span>
+						<span id="zixun_text">
+					           	所患过敏性鼻炎....
+					           </span>
+
+					</li>
+					
+					<li class="mui-table-view-cell">
+						<span id="">
+							问诊日期：
+				           </span>
+						<span id="time">
+				           	2017-04-01 
+				           </span>
+					</li>
+					</ul>-->
+					<!--<li class="mui-table-view-cell">
+						<p>
+							<button type="button" class="mui-btn mui-btn-success mui-btn-outlined mui-pull-right history_button">
+															去复诊
+								</button>
+							<button id="detail_online" type="button" class="mui-btn mui-btn-success mui-btn-outlined mui-pull-right history_button detail_online">
+															查看详情
+								</button>
+						</p>
+
+					</li>-->
+				
+				
+			</div>
+			<p class="box">--线下就诊记录--</p>
+			<div id="outline_history" class="outline_history">
+
+			</div>
+			<div class="submit" id="add_outline">
+				<span class="mui-btn mui-btn-success ">
+					增加线下就诊记录
+					</span>
+			</div>
+		</div>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function() {
+				if(islogin()) {
+					var user_phone = plus.storage.getItem('user_phone');
+					//获取用户的亲友姓名
+					var relative = document.getElementById("relative");
+					var item = '<option value="0">本人</option>';
+					mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/Health/getHisRelaName', {
+						user_phone: user_phone
+					}, function(data) {
+						for(var j = 0; j < data.length; j++) {
+							item = item + '<option value="' + data[j].relative_id + '">' + data[j].relative_name + '</option>';
+						} 
+						relative.innerHTML = item;
+					}, 'json');
+					//默认获取本人的历史就诊记录
+					var outline = document.getElementById("outline_history");
+					var item2 = '';
+					mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/Health/getHisVis', {
+						relative_id: 0,
+						user_phone: user_phone
+					}, function(data) {
+						for(var i = 0; i < data.length; i++) {
+							item2 = item2 + '<ul class="mui-table-view mui-card"><li class="mui-table-view-cell "><span id="">就诊医院：</span><span id="">' + data[i].seecase_hos +
+								'</span></li><li class="mui-table-view-cell "><span id="">就诊医生：</span><span id="">' + data[i].seecase_doc +
+								'</span></li><li class="mui-table-view-cell "><span id="">就诊科室：</span><span id="">' + data[i].seecase_depa +
+								'</span><div class="mui-pull-right" style="width: 50%; "><span id="">医生诊断：</span><span id="">' + data[i].seecase_info +
+								'</span></div></li><li class="mui-table-view-cell "><span id="">医生建议：</span><span id="">' + data[i].seecase_sgs +
+								'</span></li><li class="mui-table-view-cell "><span id="">处方信息：</span><span id="">' + data[i].page_info +
+								'</span></li><li class="mui-table-view-cell "><span id="">就诊时间：</span><span id="">' + data[i].seecase_time +
+								' </span></li><li class="mui-table-view-cell"><p><button seecaseID="' + data[i].seecase_id + '" id="detail_outline" type="button" class="mui-btn mui-btn-success mui-btn-outlined mui-pull-right history_button detail_outline">查看详情</button></p></li></ul>';
+						}
+						outline.innerHTML = item2;
+					}, 'json');
+					//获取指定亲友的历史就诊记录
+					relative.addEventListener('change', function(event) {
+						relative_id = this.value;
+						var add_outline = document.getElementById("add_outline");
+						
+						var item3 = '';
+						var item4 = '';
+						mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/Health/getHisVis', {
+							relative_id: relative_id,
+							user_phone: user_phone
+						}, function(data) {
+							if(data == null) {
+								item3 = item3 + '<ul class="mui-table-view mui-card"><li class="mui-table-view-cell"><span style="margin-left: 137px;">暂无</span></li></ul>';
+								outline.innerHTML = item3;
+							} else {
+								for(var i = 0; i < data.length; i++) {
+									item3 = item3 + '<ul class="mui-table-view mui-card"><li class="mui-table-view-cell "><span id="">就诊医院：</span><span id="">' + data[i].seecase_hos +
+										'</span></li><li class="mui-table-view-cell "><span id="">就诊医生：</span><span id="">' + data[i].seecase_doc +
+										'</span></li><li class="mui-table-view-cell "><span id="">就诊科室：</span><span id="">' + data[i].seecase_depa +
+										'</span><div class="mui-pull-right" style="width: 50%; "><span id="">医生诊断：</span><span id="">' + data[i].seecase_info +
+										'</span></div></li><li class="mui-table-view-cell "><span id="">医生建议：</span><span id="">' + data[i].seecase_sgs +
+										'</span></li><li class="mui-table-view-cell "><span id="">处方信息：</span><span id="">' + data[i].page_info +
+										'</span></li><li class="mui-table-view-cell "><span id="">就诊时间：</span><span id="">' + data[i].seecase_time +
+										' </span></li><li class="mui-table-view-cell"><p><button seecaseID="' + data[i].seecase_id + '" id="detail_outline" type="button" class="mui-btn mui-btn-success mui-btn-outlined mui-pull-right history_button detail_outline">查看详情</button></p></li></ul>';
+								}
+								item4 = item4 + '<div class="submit" id="add_outline1"><span class="mui-btn mui-btn-success ">增加线下就诊记录</span></div>';
+								outline.innerHTML = item3;
+								add_outline.innerHTML = item4;
+								//切换亲友时重新添加一个添加按钮用于传递当前亲友ID
+								var add_outline1 = document.getElementById("add_outline1");
+								add_outline1.addEventListener('tap', function(event) {
+								mui.openWindow({
+									url: 'outline_add.html',
+									id: 'outline_add',
+									extras:{
+										relative_id:relative_id
+									},
+									show: {
+										aniShow: 'pop-in'},
+									waiting: {
+									autoShow: false
+									}
+									});
+								}, false);
+								var detailPage = null;
+								mui(".outline_history").on('tap', '.detail_outline', function(event) {
+									var seecaseID = this.getAttribute('seecaseID');
+									mui.openWindow({
+										id: 'outline_detail',
+										url:'outline_detail.html',
+										extras:{
+											seecaseID: seecaseID,
+											relative_id: relative_id
+										},
+										show: {
+											aniShow: 'pop-in'
+										}
+									});
+								});
+							}
+						},'json');
+					});
+					
+					//获取在线咨询记录
+					mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/Health/get_online_vis',{
+	      				data:{
+	      					user_phone:user_phone
+	      				}, 
+	      				dataType:'json',
+	      				type:'POST',
+	      				timeout:10000,
+	      				success:function(data){
+	      					var s="";
+	      					for(var i=0;i<data.length;++i){
+	      						s+="<ul class='mui-table-view mui-card'><li class='mui-table-view-cell'><span >问诊医生：</span>";
+	      						s+="<span id='doc_name'>"+data[i].doc_name+"</span><div class='mui-pull-right' style='width: 50%;'><span >问诊医院：</span>";
+	      						s+="<span id='hos_name'>"+data[i].hos_name+"</span></div></li><li class='mui-table-view-cell'><span >问诊科室： </span>";
+	      						s+="<span id='dep_name'>"+data[i].dep_name+"</span><div class='mui-pull-right' style='width: 50%; '><span >问诊疾病：</span>";
+	      						s+="<span id='zixun_illness'>"+data[i].zixun_illness+" </span></div></li><li class='mui-table-view-cell'><span >问诊内容：</span>";
+	      						s+="<span id='zixun_text'>"+data[i].zixun_text+"</span></li><li class='mui-table-view-cell'><span >问诊日期：</span>";
+	      						s+="<span id='time'>"+data[i].time+"</span></li></ul>";
+	      					}
+	      					document.getElementById("online_vis").innerHTML = s;
+	      				},
+	      				error:function(){
+	      					plus.nativeUI.toast("请检查您的网络");
+	      				}
+	      			})
+					
+					//获取处方记录
+					mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/Chufang/get_user_chufang',{
+	      				data:{
+	      					user_phone:user_phone
+	      				}, 
+	      				dataType:'json',
+	      				type:'POST',
+	      				timeout:10000,
+	      				success:function(data){
+	      					var s="";
+	      					for(var i=0;i<data.length;i++){
+	      						s+="<ul class='mui-table-view mui-card'><li class='mui-table-view-cell'><span>医院名称：</span>";
+	      						s+="<span id='hos_name'>"+data[i].hos_name+"</span></li><li class='mui-table-view-cell'><span>医生姓名：</span>";
+	      						s+="<span id='doc_name'>"+data[i].doc_name+"</span></li><li class='mui-table-view-cell'><span>诊断：</span>";
+	      						s+="<span id='zhenduan'>"+data[i].zhenduan+"</span></li><li class='mui-table-view-cell'><span>建议：</span>";
+	      						s+="<span id='jianyi'>"+data[i].jianyi+"</span></li><li class='mui-table-view-cell'><span>处方：</span>";
+	      						s+="<span id='chufang'>"+data[i].chufang+"</span></li><li class='mui-table-view-cell'><span>检验：</span>";
+	      						s+="<span id='jianyan'>"+data[i].jianyan+"</span></li><li class='mui-table-view-cell'>";
+	      						s+="<span>相关资料：</span><p id='chufang_img'>";
+	      						//图片展示
+//	      						alert(data[i].img.length);
+								if(data[i].img){
+									for(var j=0;j<data[i].img.length;j++){
+										s+="<img src='"+data[i].img[j]+"' data-preview-src='' data-preview-group='1' />";
+									}
+								}
+	      						
+								s+="</p></li></ul>";
+	      					}
+	      					document.getElementById("chufangdiv").innerHTML = s;
+	      				},
+	      				error:function(){
+	      					plus.nativeUI.toast("请检查您的网络");
+	      				}
+	      			}) 
+					
+				} else {
+					plus.ui.toast("请先登录");
+					var self = plus.webview.currentWebview();
+					var w = plus.webview.create('/login/login.html');
+					w.show("pop-in");
+					self.close();
+				}
+				var relative_id = 0;
+				var detailPage = null;
+				mui(".outline_history").on('tap', '.detail_outline', function(event) {
+					var seecaseID = this.getAttribute('seecaseID');
+					mui.openWindow({
+						id: 'outline_detail',
+						url:'outline_detail.html',
+						extras:{
+							seecaseID: seecaseID,
+							relative_id: relative_id
+						},
+						show: {
+							aniShow: 'pop-in'
+						}
+					});
+				});
+				
+				//console.log(relative_id);
+				add_outline.addEventListener('tap', function(event) {
+					mui.openWindow({
+						url: 'outline_add.html',
+						id: 'outline_add',
+						extras:{
+							relative_id:relative_id
+						},
+						show: {
+							aniShow: 'pop-in'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				}, false);
+			});
+		</script>
+		<script src="../js/mui.zoom.js"></script>
+		<script src="../js/mui.previewimage.js"></script>
+		<script>
+			mui.previewImage();
+		</script>
+	</body>
+
+</html>

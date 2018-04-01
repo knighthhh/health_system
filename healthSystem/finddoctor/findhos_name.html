@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.indexedlist.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			html,
+			body {
+				height: 100%;
+				overflow: hidden;
+			}
+			.mui-bar {
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+			
+		</style>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.indexedlist.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				preloadPages:[
+				{
+					url:'docHP.html',
+					id:'docHP.html'
+				}
+				],
+			});
+			mui.plusReady(function(){
+				mui.get('http://'+serverName+'/health/management/Application/index.php/Connector/Doc/getDocName',{
+					
+				},function(data){
+					var nav = document.getElementById("nav");
+					var item = '';
+					var charter =document.getElementById("charter");
+					var item2 = '';
+					for(i=0;i<data.length;i++){
+						item2 = item2 + '<a>'+data[i][0]+'</a>';
+						item = item + '<li data-group="'+data[i][0]+'" class="mui-table-view-divider mui-indexed-list-group">'+data[i][0]+'</li>';
+						for(j=0;j<data[i].doc.length;j++){
+							item = item + '<li data-tags="asd" doc_id="'+data[i].doc[j].doc_id+'" class="mui-table-view-cell mui-indexed-list-item">'+data[i].doc[j].doc_name+'</li>';
+					}
+					//console.log(data.length);
+					}
+					nav.innerHTML = item;
+					charter.innerHTML = item2;
+					var header = document.querySelector('header.mui-bar');
+					var list = document.getElementById('list');
+					//calc hieght
+					list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
+					//create
+					window.indexedList = new mui.IndexedList(list);
+					
+				},'json');
+				//console.log("s");
+				var docHP = null;
+				mui('#nav').on('tap', '.mui-table-view-cell', function() {
+							var docID = this.getAttribute('doc_id');
+							//获得医生详情页面
+							if(!docHP){
+								docHP = plus.webview.getWebviewById('docHP.html');
+							}
+							//通知自定义事件
+							mui.fire(docHP,'docID',{
+								docID:docID
+							});
+							mui.openWindow({
+								id:'docHP.html',
+								show:{
+									aniShow:'pop-in'
+								}
+							});
+				});
+			});
+			
+			mui.ready(function() {
+				
+			});
+		</script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">按名字找</h1>
+		</header>
+		<div class="mui-content">
+			<div id='list' class="mui-indexed-list">
+				<div class="mui-indexed-list-search mui-input-row mui-search">
+					<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索医院名字">
+				</div>
+				<div id="charter" class="mui-indexed-list-bar">
+					
+				</div>
+				<div class="mui-indexed-list-alert"></div>
+				<div class="mui-indexed-list-inner">
+					<div class="mui-indexed-list-empty-alert">没有数据</div>
+					<ul id="nav" class="mui-table-view">
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+
+</html>

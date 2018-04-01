@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">修改个人信息</h1>
+		</header>
+		<div class="mui-content">	
+				<form class="mui-input-group public-edit outline_add">
+					<div class="mui-input-row">
+						<label>姓　　名：</label>
+						<input class="mui-input-clear" id="name" type="text">
+					</div>
+					<div class="mui-input-row">
+						<label>昵　　称：</label>
+						<input class="mui-input-clear" id="nickname" type="text">
+					</div>
+					<div class="mui-input-row">
+						<label>年　　龄：</label>
+						<input class="mui-input-clear" id="age"  type="text">
+					</div>
+					<div class="mui-input-row">
+						<label>性　　别：</label>
+						<input class="mui-input-clear" id="sex" type="text">
+					</div>
+					<div class="mui-input-row">
+						<label>民　　族：</label>
+						<input class="mui-input-clear" id="nation" type="text">
+					</div>
+					<div class="mui-input-row">
+						<label>出生日期：</label>
+						<input class="mui-input-clear" id="date" type="text">
+					</div>
+					<div class="mui-input-row">
+						<label>证件类型：</label>
+						<!--<input class="mui-input-clear" id="" type="text">-->
+							<select id="paper">
+								<option value="身份证">身份证</option>
+								<option value="学生证">学生证</option>
+								<option value="港澳通行证">港澳通行证</option>
+								<option value="军人证">军人证</option>
+							</select>
+					</div>
+					<div class="mui-input-row">
+						<label>证件号码：</label>
+						<input class="mui-input-clear" id="number" type="text">
+					</div>
+					<div class="mui-input-row">
+						<label>所在城市：</label>
+						<input class="mui-input-clear" id="city" type="text">
+					</div>
+					<div class="mui-input-row">
+						<label>职　　业：</label>
+						<input class="mui-input-clear" id="job" type="text">
+					</div>
+					<div class="mui-input-row">
+						<label>婚姻状况：</label>
+						<!--<input class="mui-input-clear" id="marriage" type="text">-->
+							<select id="marriage">
+								<option value="未婚">未婚</option>
+								<option value="已婚">已婚</option>
+							</select>
+					</div>
+					<div class="mui-input-row">
+						<label>文化程度：</label>
+						<!--<input class="mui-input-clear" id="edu" type="text">-->
+							<select id="edu">
+								<option value="初中或以下">初中或以下</option>
+								<option value="高中">高中</option>
+								<option value="本科">本科</option>
+								<option value="硕士">硕士</option>
+								<option value="博士或以上">博士或以上</option>
+							</select>
+					</div>
+					<div class="mui-input-row">
+						<label>QQ号码   ：</label>
+						<input class="mui-input-clear" id="qq" type="text">
+					</div>
+					<div class="mui-input-row">
+						<label>微　　信：</label>
+						<input class="mui-input-clear" id="wechat" type="text">
+					</div>
+					<div class="mui-button-row">
+						<button type="button" id="submit" class="mui-btn mui-btn-primary">确认修改</button>&nbsp;&nbsp;
+						<button type="button" class="mui-btn mui-btn-danger" onclick="mui.back()">取消</button>
+					</div>
+				</form>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function () {
+			    var self = plus.webview.currentWebview();
+			    var user_phone = self.user_phone;
+			    //获取用户个人信息
+				mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/User/getUserData',{
+						user_phone:user_phone
+				},function(data){
+						document.getElementById("name").value = data.user_name;
+						document.getElementById("sex").value = data.user_sex;
+						document.getElementById("date").value = data.user_date;
+						document.getElementById("nickname").value = data.user_nickname;
+						document.getElementById("age").value = data.user_age;
+						document.getElementById("nation").value = data.nation;
+						var option = document.getElementById("paper").options;
+						for(var i=0;i<option.length;i++){
+							if(data.papers_type == option[i].value){
+								option[i].selected = 'selected';
+							}
+						}
+						var option = document.getElementById("marriage").options;
+						for(var i=0;i<option.length;i++){
+							if(data.marriage == option[i].value){
+								option[i].selected = 'selected';
+							}
+						}
+						var option = document.getElementById("edu").options;
+						for(var i=0;i<option.length;i++){
+							if(data.education == option[i].value){
+								option[i].selected = 'selected';
+							}
+						}
+						document.getElementById("number").value = data.papers_num;
+						document.getElementById("city").value = data.user_city;
+						document.getElementById("job").value = data.profession;
+						document.getElementById("qq").value = data.user_qq;
+						document.getElementById("wechat").value = data.user_weixin;
+					},'json'
+				);
+				
+				//提交数据
+				document.getElementById("submit").addEventListener('tap',function(e){
+					mui.post('http://' + serverName + '/health/management/Application/index.php/Connector/User/editUserData',{
+							user_phone:user_phone,
+							user_name:document.getElementById("name").value,
+							user_sex:document.getElementById("sex").value,
+							user_date:document.getElementById("date").value,
+							user_nickname:document.getElementById("nickname").value,
+							user_age:document.getElementById("age").value,
+							nation:document.getElementById("nation").value,
+							papers_type:document.getElementById("paper").value,
+							papers_num:document.getElementById("number").value,
+							user_city:document.getElementById("city").value,
+							profession:document.getElementById("job").value,
+							marriage:document.getElementById("marriage").value,
+							education:document.getElementById("edu").value,
+							user_qq:document.getElementById("qq").value,
+							user_weixin:document.getElementById("wechat").value,
+						},function(data){
+							if(data.result==1){
+								plus.nativeUI.toast("修改成功");
+								var My_file = plus.webview.getWebviewById('My_file');
+						        My_file.reload();
+						        mui.back();
+							}else{
+								plus.nativeUI.toast("修改失败");
+							}
+						},'json'
+					);
+				});
+			});
+		</script>
+	</body>
+
+</html>
+

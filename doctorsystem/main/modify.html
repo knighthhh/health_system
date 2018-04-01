@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/fast_question.css" />
+		<style type="text/css">
+			.basetext .mui-input-row {
+				height: 50px;
+			}
+			
+			.mui-card {
+				color: #A9A9A9;
+			}
+			
+			.mui-card input {
+				color: #A9A9A9;
+				font-size: 16px;
+			}
+			
+			.mui-card input[type=text] {
+				padding: 25px 15px;
+			}
+			
+			.others {
+				padding: 15px 15px;
+				color: #A9A9A9;
+			}
+			
+			.others-1 {
+				display: inline-block;
+				margin: 15px 15px;
+				color: #A9A9A9;
+			}
+			
+			.others-2 {
+				padding: 5px 15px;
+			}
+			
+			.ChooseSex .mui-radio {
+				float: right;
+			}
+			
+			.ChooseSex .mui-radio input[type=radio]:checked:before {
+				content: '\e442';
+			}
+		</style>
+	</head>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript">
+		mui.init();
+		mui.plusReady(function() {
+			var megsubmit = document.getElementById('modmeg');
+			megsubmit.addEventListener('tap', function(event) {
+				//提交到数据库
+			}, false);
+
+		});
+	</script>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav public-color">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">修改个人信息</h1>
+		</header>
+		<div class="mui-content">
+			<ul></ul>
+			<form class="mui-input-group public-edit outline_add">
+				<div class="mui-input-row">
+					<label>所属医院：</label>
+					<input class="mui-input-clear" placeholder="医院.value" type="text">
+				</div>
+				<div class="mui-input-row">
+					<label>所属科室：</label>
+					<input class="mui-input-clear" placeholder="科室.value" type="text">
+				</div>
+				<div class="mui-input-row">
+					<label>擅长：</label>
+					<input class="mui-input-clear" placeholder="擅长.value" type="text">
+				</div>
+				<div class="mui-input-row">
+					<label>咨询价格：</label>
+					<input class="mui-input-clear" placeholder="价格.value" type="text">
+				</div>
+				<div class="mui-input-row">
+					<label>支付宝：</label>
+					<input class="mui-input-clear" placeholder="支付宝.value" type="text">
+				</div>
+
+				
+				<div class="submit" id="modmeg">
+					<span class="mui-btn mui-btn-success ">
+					修改
+					</span>
+				</div>
+
+		</div>
+
+		<script src="../js/mui.min.js"></script>
+
+	</body>
+
+</html>

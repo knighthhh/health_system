@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../js/mui.min.js"></script>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/search_info.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont_se.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont_money.css" />
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function (){
+				var self = plus.webview.currentWebview();
+				var searchtext = self.searchtext;
+				mui.post('http://'+serverName+'/health/management/application/index.php/Connector/Search/searchdep',{
+						searchtext:searchtext
+					},function(data){
+						if(data.result!=0){
+							var s="";
+							for(var i=0;i<data.length;i++){
+								s+="<li id='"+data[i].doc_id+"' class='mui-table-view-cell mui-media '><a class=''><div class='mui-row '><div class='mui-pull-left mui-col-xs-3 '>";
+								s+="<img src='"+data[i].doc_img+"' style='width: 100%' /></div><div class='mui-col-xs-1'></div><div class='mui-col-xs-8'>";
+								s+="<h4 class='dt_title'>"+data[i].doc_name+" 医生</h4><div class='dt_from'><p><span class='mui-icon iconfont icon-iconaddress i-color'></span>";
+								s+="<span>"+data[i].hos_name+"</span></p>";
+								s+="<p><span class='mui-icon iconfont icon-iconaddress i-color'></span>所属科室：<span>"+data[i].dep_name+"</span> </p><p class='mui-ellipsis'> <span class='iconfont icon-dianzan i-color'></span>擅长：<span>"+data[i].doc_especial+"</span></p></div></p></div></div>";
+	//							s+="<p class='mui-ellipsis'> 擅长：<span>"+data[i].doc_especial+"</span></p>";
+								s+="<span class='iconfont icon-jinqian1 i-color'></span><span class='icon-title'> "+data[i].doc_fee+"/小时</span>";
+								s+="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span class='iconfont icon-pinglun2 i-color'></span><span class='icon-title'> "+data[i].doc_rece+"</span>";
+	//							s+="<span class='iconfont icon-dianzan i-color'></span><span class='icon-title'>"+data[i].doc_hot+"</span>";
+								s+="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span class='iconfont icon-guanzhu1 i-color'></span><span class='icon-title'> "+data[i].doc_attention+"</span>";
+							}
+							var searchdep =document.getElementById("searchdep");
+							searchdep.innerHTML = s;
+						}else{
+							//提示没有搜索结果
+							plus.nativeUI.toast("结果不存在");
+						}
+					},'json'
+				);
+				
+				//批量监听科室列表点击
+				mui('#searchdep').on('tap', '.mui-table-view-cell', function() {
+					var docID = this.getAttribute('id');
+					//获得医生详情页面
+					docHP = plus.webview.getWebviewById('docHP.html');
+					//通知自定义事件
+					mui.fire(docHP,'docID',{
+						docID:docID
+					});
+					mui.openWindow({
+						id:'docHP.html',
+						show:{
+							aniShow:'pop-in'
+						}
+					});
+				}); 
+			})
+		</script>
+	</head>
+
+	<body>
+		<div class="mui-content ">
+			<div class="info_dt">
+				<ul id="searchdep" class="mui-table-view mui-table-view-chevron">
+				
+				</ul>
+			</div>
+		</div>
+		<script>
+			//下拉刷新关了
+//			mui.init({
+//				pullRefresh: {
+//					container: '#pullrefreshr',
+//					down: {
+//						height: 60, //可选,默认50.触发下拉刷新拖动距离,
+//						callback: pullfreshfunction
+//					},
+//				}
+//			});
+//
+//			function pullfreshfunction() {
+//				setTimeout(function() {
+//					var table = document.body.querySelector('.mui-table-view');
+//					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+//					for(var i = cells.length, len = i + 1; i < len; i++) {
+//						var li = document.createElement('li');
+//						li.className = 'mui-table-view-cell';
+//						li.innerHTML = '<a class=""><h4 class="ks_title">上海五官科医院耳鼻喉科</h4><p>中耳炎，耳鸣，耳聋，鼻窦炎,耳部整形</p></a>';
+//						//下拉刷新，新纪录插到最前面；
+//						table.insertBefore(li, table.firstChild);
+//					}
+//					mui('#pullrefreshr').pullRefresh().endPulldownToRefresh(); //refresh completed
+//				}, 1500);
+//			}
+		</script>
+	</body>
+
+</html>

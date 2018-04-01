@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.indexedlist.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			html,
+			body {
+				height: 100%;
+				overflow: hidden;
+			}
+			.mui-bar {
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+			.mui-indexed-list-bar {
+				width: 0px;
+				background-color: lightgrey;
+				position: absolute;
+				height: 100%;
+				z-index: 10;
+				right: 0px;
+				-webkit-transition: .2s;
+			}
+			
+		</style>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.indexedlist.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				preloadPages:[
+				{
+					url:'hosHP.html',
+					id:'hosHP.html'
+				}
+				],
+			});
+			mui.plusReady(function(){
+				mui.get('http://'+serverName+'/health/management/Application/index.php/Connector/Hos/getHotHos',{
+					
+				},function(data){
+					var nav = document.getElementById("nav");
+					var item = '';
+					for(i=0;i<data.length;i++){
+						item = item + '<li hos_id="' + data[i].hos_id + '" class="mui-table-view-cell mui-media mui-indexed-list-item" id="hosHP"><a><div class="mui-row "><div class="mui-pull-left mui-col-xs-3 " ><img style="width:60px;height:60px;" src="' + data[i].hos_navigate_img +
+							'" style="width: 100%" /></div><div class="mui-col-xs-9"><h4 class="hp_title">' + data[i].hos_name + '</h4><p class="mui-ellipsis"><span class="iconfont icon-iconaddress i-color"></span><span class="icon-title">' + data[i].hos_address +
+							'</span></p><p><span class="iconfont icon-dengji i-color"></span><span class="icon-title">' + data[i].hos_level +
+							' </span><span class="iconfont icon-guanzhu1 i-color"></span> <span class="icon-title">' + data[i].hos_hot + '</span></p></div></div></a></li>';
+						//item = item + '<li data-tags="asd" hos_id="'+data[i].hos_id+'" class="mui-table-view-cell mui-indexed-list-item">'+data[i].hos_name+'</li>';
+					}
+//					console.log(item);
+					nav.innerHTML = item;
+					
+					var header = document.querySelector('header.mui-bar');
+					var list = document.getElementById('list');
+					//calc hieght
+					list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
+					//create
+					window.indexedList = new mui.IndexedList(list);
+					
+				},'json');
+				//console.log("s");
+				var hosHP = null;
+				mui('#nav').on('tap', '.mui-table-view-cell', function() {
+					var hosID = this.getAttribute('hos_id');
+					//获得医院详情页面
+					if(!hosHP) {
+						hosHP = plus.webview.getWebviewById('hosHP.html');
+					}
+					//通知自定义事件
+					mui.fire(hosHP, 'hosID', {
+						hosID: hosID
+					});
+					mui.openWindow({
+						id: 'hosHP.html',
+						show: {
+							aniShow: 'pop-in'
+						}
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">按院名找</h1>
+		</header>
+		<div class="mui-content">
+			<div id='list' class="mui-indexed-list">
+				<div class="mui-indexed-list-search mui-input-row mui-search">
+					<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索医院名称">
+				</div>
+				<div id="charter" class="mui-indexed-list-bar"></div>
+				<div class="mui-indexed-list-alert"></div>
+				<div class="mui-indexed-list-inner">
+					<div class="mui-indexed-list-empty-alert">加载中</div>
+					<ul id="nav" class="mui-table-view">
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+
+</html>

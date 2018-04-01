@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="../../js/mui.min.js"></script>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont_se.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont_money.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/search_info.css" />
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				preloadPages:[
+				{
+					url:'docHP.html',
+					id:'docHP.html'
+				}
+				]
+			});
+			mui.plusReady(function (){
+				var self = plus.webview.currentWebview();
+				var searchtext = self.searchtext;
+				//查询医生
+				mui.post('http://'+serverName+'/health/management/application/index.php/Connector/Search/searchdoc',{
+						searchtext:searchtext
+					},function(data){
+						if(data.result!=0){
+							var s="";
+							for(var i=0;i<data.length;i++){
+								s+="<li id='"+data[i].doc_id+"' class='mui-table-view-cell mui-media '><a class=''><div class='mui-row '><div class='mui-pull-left mui-col-xs-3 '>";
+						s+="<img src='"+data[i].doc_img+"' style='width: 100%' /></div><div class='mui-col-xs-1'></div><div class='mui-col-xs-8'>";
+						s+="<h4 class='dt_title'>"+data[i].doc_name+"</h4><div class='dt_from'><p><span class='mui-icon iconfont icon-iconaddress i-color'></span>";
+						s+="<span>"+data[i].hos_name+"</span></p>";
+						s+="<p><span class='mui-icon iconfont icon-iconaddress i-color'></span>所属科室：<span>"+data[i].dep_name+"</span> </p></div></p></div></div>";
+						s+="<p class='mui-ellipsis'> 擅长：<span>"+data[i].doc_especial+"</span></p>";
+						s+="<span class='iconfont icon-jinqian1 i-color'></span><span class='icon-title'>"+data[i].doc_fee+"/半小时</span>";
+						s+="<span class='iconfont icon-pinglun2 i-color'></span><span class='icon-title'>"+data[i].doc_rece+"</span>";
+						s+="<span class='iconfont icon-dianzan i-color'></span><span class='icon-title'>"+data[i].doc_attention+"</span>";
+						s+="<span class='iconfont icon-guanzhu1 i-color'></span><span class='icon-title'>"+data[i].doc_hot+"</span>";
+							}
+							var searchdoc =document.getElementById("searchdoc");
+							searchdoc.innerHTML = s;
+						}else{
+							//提示没有搜索结果
+							plus.nativeUI.toast("结果不存在");
+						}
+					},'json'
+				);
+				var docHP = null;
+				//批量监听医生列表点击
+				mui('#searchdoc').on('tap', '.mui-table-view-cell', function() {
+					var docID = this.getAttribute('id');
+					//获得医生详情页面
+						if(!docHP){
+							docHP = plus.webview.getWebviewById('docHP.html');
+						}
+						//通知自定义事件
+						mui.fire(docHP,'docID',{
+							docID:docID
+						});
+						mui.openWindow({
+							id:'docHP.html',
+							show:{
+								aniShow:'pop-in'
+							}
+						});
+				}); 
+			})
+		</script>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div id="pullrefreshr" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll info_dt">
+					<ul id="searchdoc" class="mui-table-view mui-table-view-chevron">
+						<!--<li class="mui-table-view-cell mui-media ">
+							<a class=" ">
+								<div class="mui-row ">
+									<div class="mui-pull-left mui-col-xs-3 ">
+										<img src="../../img/doctor.jpeg" style="width: 100%" />
+									</div>
+									<div class="mui-col-xs-9">
+										<h4 class="dt_title">张先生</h4>
+										<div class="dt_from">
+											<p><span class="mui-icon iconfont icon-iconaddress i-color"></span><span>惠州市人民医院</span></p>
+											<p><span class="mui-icon iconfont icon-iconaddress i-color"></span>所属科室：<span>骨科,眼科</span> </p>
+										</div>
+									</div>
+								</div>
+								<p class="mui-ellipsis"> 擅长：<span>治疗各种骨科症状，眼睛疾病</span></p>
+								<span class="iconfont icon-jinqian1 i-color"></span><span class="icon-title">30/半小时</span>
+								<span class="iconfont icon-pinglun2 i-color"></span><span class="icon-title">1000</span>
+								<span class="iconfont icon-dianzan i-color"></span><span class="icon-title">1500</span>
+								<span class="iconfont icon-guanzhu1 i-color"></span><span class="icon-title">1500</span>
+							</a>
+						</li>-->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script>
+			//下拉刷新关了
+//			mui.init({
+//				pullRefresh: {
+//					container: '#pullrefreshr',
+//					down: {
+//						height: 60, //可选,默认50.触发下拉刷新拖动距离,
+//						callback: pullfreshfunction
+//					},
+//				}
+//			});
+//
+//			function pullfreshfunction() {
+//				setTimeout(function() {
+//					var table = document.body.querySelector('.mui-table-view');
+//					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+//					for(var i = cells.length, len = i + 1; i < len; i++) {
+//						var li = document.createElement('li');
+//						li.className = 'mui-table-view-cell';
+//						li.innerHTML = '<a class=" "><div class="mui-row "><div class="mui-pull-left mui-col-xs-3 "><img src="../../img/doctor.jpeg" style="width: 100%" /></div><div class="mui-col-xs-9"><h4 class="dt_title">张先生</h4><div class="dt_from"><p><span class="mui-icon iconfont icon-iconaddress i-color"></span><span>惠州市人民医院</span></p><p><span class="mui-icon iconfont icon-iconaddress i-color"></span>所属科室：<span>骨科,眼科</span> </p></div></div></div><p class="mui-ellipsis"> 擅长：<span>治疗各种骨科症状，眼睛疾病</span></p><span class="iconfont icon-jinqian1 i-color"></span><span class="icon-title">30/半小时</span><span class="iconfont icon-pinglun2 i-color"></span><span class="icon-title">1000</span><span class="iconfont icon-dianzan i-color"></span><span class="icon-title">1500</span><span class="iconfont icon-guanzhu1 i-color"></span><span class="icon-title">1500</span></a>';
+//						//下拉刷新，新纪录插到最前面；
+//						table.insertBefore(li, table.firstChild);
+//					}
+//					mui('#pullrefreshr').pullRefresh().endPulldownToRefresh(); //refresh completed
+//				}, 1500);
+//			}
+		</script>
+	</body>
+
+</html>

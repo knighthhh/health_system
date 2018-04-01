@@ -1,0 +1,55 @@
+
+
+/*九宫格*/
+
+.mui-grid-view.mui-grid-9{
+     		background-color: #fff;
+     	}
+     	
+.ul_t1{
+	color:#FF9F22;
+}
+
+.ul_t2{
+	color:#4F92EF;
+}
+
+.ul_t3{
+	color:#4EC7EF;
+}
+
+.ul_t4{
+	color:#FECF30;
+}
+
+.ul_t5{
+	
+	color:#FF6767;
+}
+
+.ul_t6{
+	color:#8A90F9;
+}
+/*知识推送*/
+.knowledge{
+	text-align: left;
+	background: #fff;
+	padding: 8px 0px;
+	font-size: 13px;
+	color: #000;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.put-day,.day,.read,.readnumber{
+	font-size: 13px;
+	color: #8F8F94;
+	}
+.knowledge_info img{
+	width: 16%;
+}
+.knowledge_info h4{
+	color: #444444;
+}
+

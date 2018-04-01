@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/health_file.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/iconfont_health_file.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/find_doctor.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+		<style type="text/css">
+			
+		</style>
+	</head>
+		<script type="text/javascript" src="../js/mui.min.js" ></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		mui.init();
+		mui.plusReady(function() {
+					var seayy= document.getElementById('yy');
+					var seaxm = document.getElementById('xm');
+					var seajb = document.getElementById('jb');
+					seayy.addEventListener('tap',function(event){
+						mui.openWindow({
+							url: 'search_doctor_yy.html',
+							id: 'search_doctor_yy',
+							show: {
+								aniShow: 'fade-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},false);
+					seaxm.addEventListener('tap',function(event){
+						mui.openWindow({
+							url: 'search_doctor_xm.html',
+							id: 'search_doctor_xm',
+							preload: true,
+							show: {
+								aniShow: 'fade-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},false);
+					seajb.addEventListener('tap',function(event){
+						mui.openWindow({
+							url: 'search_doctor_jb.html',
+							id: 'search_doctor_jb',
+							preload: true,
+							show: {
+								aniShow: 'fade-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},false);
+					
+					//科室列表批量监听
+					mui('#depalist').on('tap', '.box-a-l', function() {
+						var dep_id = this.getAttribute('id');
+						mui.openWindow({
+							url:'/finddoctor/doclist.html',   
+						    id:'doclist',
+						    extras:{
+						    	dep_id:dep_id
+						    },
+						    show:{
+						    	aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting:{
+								autoShow:true
+							}
+						});
+					}); 
+					
+					
+					
+				});
+	</script>
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">找医生</h1>
+		</header>
+	
+		<div class="mui-content">
+		    <ul class="mui-table-view mui-grid-view mui-grid-9">
+			    <li class="mui-table-view-cell mui-media mui-col-xs-4 ">
+			        <a id="jb">
+			            <span class="mui-icon iconfont icon-yongyaojilu ul_t1"></span>
+			            <div class="mui-media-body">按疾病找</div>
+			        </a>
+			    </li>
+			    <li class="mui-table-view-cell mui-media mui-col-xs-4">
+			        <a id="xm">
+			            <span class="mui-icon iconfont icon-lishijiuzhen ul_t2"></span>
+			            	<!--<span class="mui-badge mui-badge-red">5</span></span>-->
+			            <div class="mui-media-body">按姓名找</div>
+			        </a>
+			    </li>
+			    <li class="mui-table-view-cell mui-media mui-col-xs-4">
+			        <a id="yy">
+			            <span class="mui-icon iconfont icon-dangan-copy ul_t3"></span>
+			            <div class="mui-media-body">按医院找</div>
+			        </a>
+			    </li>
+
+			
+		    </ul>	
+		    
+		    <p class="box-c-p">按科室找 </p>
+		    
+		    <div id="depalist" class="box-a">
+		    	<div id="5" class="box-a-l">
+		    		<span class="iconfont icon-1 tu-yi"></span>
+		    		<p >妇产科</p>
+		    	</div>
+		    	<div id="3" class="box-a-l">
+		    		<span class="iconfont icon-guke_iconx-copy tu-er"></span>
+		    		<p>骨科</p>
+		    	</div>
+		    	<div id="2"  class="box-a-l">
+		    		<span class="iconfont icon-neike tu-san"></span>
+		    		<p>内科</p>
+		    	</div>
+		    	<div id="11" class="box-a-l">
+		    		<span class="iconfont icon-pifuke tu-si"></span>
+		    		<p>皮肤科</p>
+		    	</div>
+		    	<div id="14" class="box-a-l">
+		    		<span class="iconfont icon-yanke1 tu-wu"></span>
+		    		<p>眼科</p>
+		    	</div>
+		    	<div id="1" class="box-a-l">
+		    		<span class="iconfont icon-color tu-liu"></span>
+		    		<p>外科</p>
+		    	</div>
+		    	<div id="12" class="box-a-l">
+		    		<span class="iconfont icon-color1 tu-qi"></span>
+		    		<p>儿科</p>
+		    	</div>
+		    	<div class="box-a-l">
+		    		<span class="iconfont icon-circle-more tu-ba"></span>
+		    		<p>更多</p>
+		    	</div>
+		 	</div>
+		</div>
+		
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+	</body>
+
+</html>

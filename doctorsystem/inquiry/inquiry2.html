@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="../js/mui.min.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/header.css"/>
+    <style>
+    	.sick{
+    		padding: 10px;
+    	}
+    	img{
+			height: 70px;
+			width: 60px;
+		}
+    </style>
+</head>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript">
+		mui.init({
+				pullRefresh: {
+					container: '#pullrefreshr',
+					down: {
+						height: 60, //可选,默认50.触发下拉刷新拖动距离,
+						callback: pullfreshfunction
+					},
+				}
+			});
+		mui.plusReady(function() {
+			var doc_phone = plus.storage.getItem('doc_phone');
+			//获取消息列表
+			mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/Inquiry/getInquiry',{	
+				data:{
+					doc_phone:doc_phone
+				},
+				dataType:'json',
+				type:'POST',
+				timeout:10000,
+				success:function(data){
+					if(data.result!=0){
+						var s="";
+						for(var i=0;i<data.length;i++){
+							s+="<li inqu_id='"+data[i]['id']+"' class='mui-table-view-cell' time='"+data[i]['time']+"' user_phone='"+data[i]['user_phone']+"'><a class='mui-navigate-right' ><div class='mui-row'><div class='mui-pull-left mui-col-xs-3 '>";
+							s+="<img src='"+data[i]['user_img']+"' style='width: 100%;border-radius: 50%' /></div><div class='mui-col-xs-9 sick'>";
+							s+="<p><span>患者姓名：</span> <span>"+data[i]['user_name']+"</span></p>";
+							s+="<p><span>咨询疾病：</span> <span>"+data[i]['zixun_illness']+"</span></p>";
+							s+="<p><span>电话：</span> <span>"+data[i]['user_phone']+"</span></p></div></div></a></li>";
+						}
+						var patient =document.getElementById("patient");
+						patient.innerHTML = s;
+					}else{
+						//提示没有搜索结果
+					}
+				},
+				error:function(){
+					plus.nativeUI.toast("请检查您的网络");
+				} 
+			})
+			
+			//批量监听
+			mui('#patient').on('tap', '.mui-table-view-cell', function() {
+				var inqu_id = this.getAttribute('inqu_id');
+				var time = this.getAttribute('time');
+				var user_phone = this.getAttribute('user_phone');
+				mui.openWindow({
+					url: 'patientmeg.html',
+					id: 'patientmeg',
+					extras:{
+						inqu_id:inqu_id,
+						user_phone:user_phone,
+						time:time
+					},
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}); 
+		});
+		function pullfreshfunction() {
+				setTimeout(function() {
+					var doc_phone = plus.storage.getItem('doc_phone');
+			//获取消息列表
+			mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/Inquiry/getInquiry',{	
+				data:{
+					doc_phone:doc_phone
+				},
+				dataType:'json',
+				type:'POST',
+				timeout:10000,
+				success:function(data){
+					if(data.result!=0){
+						var s="";
+						for(var i=0;i<data.length;i++){
+							s+="<li inqu_id='"+data[i]['id']+"' class='mui-table-view-cell' time='"+data[i]['time']+"' user_phone='"+data[i]['user_phone']+"'><a class='mui-navigate-right' ><div class='mui-row'><div class='mui-pull-left mui-col-xs-3 '>";
+							s+="<img src='"+data[i]['user_img']+"' style='width: 100%;border-radius: 50%' /></div><div class='mui-col-xs-9 sick'>";
+							s+="<p><span>患者姓名：</span> <span>"+data[i]['user_name']+"</span></p>";
+							s+="<p><span>咨询疾病：</span> <span>"+data[i]['zixun_illness']+"</span></p>";
+							s+="<p><span>电话：</span> <span>"+data[i]['user_phone']+"</span></p></div></div></a></li>";
+						}
+						var patient =document.getElementById("patient");
+						patient.innerHTML = s;
+					}else{
+						//提示没有搜索结果
+					}
+				},
+				error:function(){
+					plus.nativeUI.toast("请检查您的网络");
+				} 
+			})
+					mui('#pullrefreshr').pullRefresh().endPulldownToRefresh(); //refresh completed
+				}, 1500);
+			}
+	</script>
+<body>
+<!--<header class="mui-bar mui-bar-nav public-color">
+	    <h1 class="mui-title" style="color: #FFFFFF;">问诊列表</h1>
+	</header>-->
+		<div class="mui-content">
+				<div id="pullrefreshr" class=" mui-content mui-scroll-wrapper">
+				  <div class="mui-scroll list mui-card">
+					<ul id="patient" class="mui-table-view mui-table-view-chevron">
+						<!--<li class="mui-table-view-cell mui-media ">		
+									<a class="mui-navigate-right" id="patient" >
+										<div class="mui-row">
+											<div class="mui-pull-left mui-col-xs-3 " >
+												<img src="../img/finddoctor.jpg" style="width: 100%;border-radius: 50%;" />
+											</div>					
+											<div class="mui-col-xs-9 sick">
+													<p><span>患者：</span> <span>姚先生</span></p>
+													<p><span>提问时间：</span> <span>2017-05-23</span></p>	
+											</div>
+									</div>
+												
+									</a>
+							</li>	-->
+							
+					</ul>
+					<!--</div>-->
+</div>
+			</div>
+		</div>
+	</body>
+</html>

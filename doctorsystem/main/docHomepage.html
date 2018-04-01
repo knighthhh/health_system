@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/souye.css"/>
+	    <script src="../js/souye.js" type="text/javascript" charset="utf-8"></script>
+	    <style type="text/css">
+			.person-detail {
+				text-indent: 2em;
+			}
+			.headline{
+				color: #78E067;
+				font-size: medium;
+				font-family: "microsoft yahei";
+			}
+			.doc_detail{
+				color: #6C6C6C;
+			}
+			
+	    </style>
+	</head>
+	
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的主页</h1>
+		      <a id="xiaoxi" class=" mui-icon mui-icon-chat mui-pull-right "style="color: #FFFFFF;"></a>
+		</header>
+		
+		<div class="mui-content">
+			<!--轮播图-->
+		<!--<div id="slider" class="mui-slider" >
+		  <div class="mui-slider-group mui-slider-loop">
+		    <div class="mui-slider-item mui-slider-item-duplicate">
+		      <a href="#">
+		        <img src="../img/jiankang2.jpeg">
+		      </a>
+		    </div>
+		    <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="../img/jiankang2.jpeg">
+		      </a>
+		    </div>
+		    <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="../img/jiankang.jpeg">
+		      </a>
+		    </div>
+		    <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="../img/test.jpg">
+		      </a>
+		    </div>
+		    <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="../img/jiankang2.jpeg">
+		      </a>
+		    </div>
+		    <div class="mui-slider-item mui-slider-item-duplicate">
+		      <a href="#">
+		        <img src="../img/jiankang.jpeg">
+		      </a>
+		    </div>
+		  </div>
+		  <div class="mui-slider-indicator">
+		    <div class="mui-indicator mui-active"></div>
+		    <div class="mui-indicator"></div>
+		    <div class="mui-indicator"></div>
+		    <div class="mui-indicator"></div>
+		  </div>
+		</div>-->
+		
+	<!--轮播图-->
+			<div class="person_info">
+				
+					<ul class="mui-table-view">
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img id="doc_img" class="mui-pull-left" src="../img/inquiry.jpg">
+					            <div class="mui-media-body">
+					              		<span id="doc_name" class="name"></span> 
+					              	<hr style="border:1px dashed #CCCCCC ">
+					                <p class='mui-ellipsis'>性别：<span id="doc_sex"></span></p>
+					                <p class='mui-ellipsis'>本人电话：<span id="doc_phone"></span></p>
+					                <!--<p class='mui-ellipsis'>出生日期：<span>2010-10-10</span></p>-->
+					                
+					            </div>
+					        </a>
+					    </li> 
+					</ul>
+				
+			</div>
+
+				<div class="doc_detail">
+					  <ul class="mui-table-view">
+						<li class="mui-table-view-cell headcolor">
+				           <p class="headline" >个人介绍</p>      
+				        </li>
+				        <ul class="mui-table-view mui-table-view-chevron">
+						        <li class="mui-table-view-cell">
+						           <p class="person-detail" id="doc_introduce"></p>
+						        </li>   
+						       
+				       		</ul>
+				    </ul>
+				    <ul class="mui-table-view">
+						<li class="mui-table-view-cell headcolor">
+				           <p class="headline">我的信息</p>      
+				        </li>
+				        <ul class="mui-table-view mui-table-view-chevron">
+						        <li class="mui-table-view-cell">
+						           <span >
+						           	所属医院：
+						           </span>
+						           <span id="hos_name" >
+						           </span>
+						           
+						           
+						        </li>
+						        
+						         <li class="mui-table-view-cell">
+						           
+							           <span id="">
+							           	所属科室：
+							           </span>
+							           <span id="dep_name">
+						           	   </span>
+						           
+						           
+						        </li>
+						         <li class="mui-table-view-cell">
+							           	<span id="">
+							           	执业点：
+							           </span>
+							           <span id="doc_zhiye">
+							           </span>
+						             
+						        </li>
+						        <li class="mui-table-view-cell">			        	
+						        	   <span id="">
+							           擅长：
+							           </span>
+							           <span id="doc_especial">
+							           </span>       
+						        </li>
+						        <li class="mui-table-view-cell">			        	
+						        	   <span id="">
+							           支付宝账号：
+							           </span>
+							           <span id="doc_alipay">
+							           </span>       
+						        </li>
+						         <li class="mui-table-view-cell">			        	
+						        	   <span id="">
+							           咨询费用：
+							           </span>
+							           <span id="doc_fee">
+							           </span>     
+							           /小时
+						        </li>
+						       
+						      
+				       		</ul>
+				    </ul>
+				</div>
+				<button id="reset" type="button" class="mui-btn mui-btn-success mui-btn-block">修改我的资料</button>	
+		</div>
+		
+		
+		
+		
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script type="text/javascript">
+	    	mui.init();
+			mui.plusReady(function() {
+				var doc_id = plus.storage.getItem('doc_id');
+				var resetbtn = document.getElementById("reset");
+				//修改按钮监听
+				resetbtn.addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'homepage_deit.html',
+						id: 'homepage_deit',
+						preload: true,
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'hide'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				})
+				
+				//消息按钮监听
+				var xiaoxibtn = document.getElementById("xiaoxi");
+				xiaoxibtn.addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'xiaoxi.html',
+						id: 'xiaoxi',
+						preload: true,
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'hide'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				})
+				
+				//取个人数据
+				mui.get('http://'+serverName+'/health/management/Application/index.php/Connector/Doc/getDocDetail',{
+        			doc_id:doc_id 
+        		},function(data){
+					document.getElementById("doc_name").innerHTML = data.doc_name;
+					document.getElementById("doc_sex").innerHTML = data.doc_sex;
+					document.getElementById("doc_phone").innerHTML = plus.storage.getItem('doc_phone');
+					document.getElementById("doc_img").src = data.doc_img;
+					document.getElementById("doc_introduce").innerHTML = data.doc_introduce;
+					document.getElementById("hos_name").innerHTML = data.hos_name;
+					document.getElementById("dep_name").innerHTML = data.dep_name;
+					document.getElementById("doc_zhiye").innerHTML = data.doc_zhiye;
+					document.getElementById("doc_especial").innerHTML = data.doc_especial;
+					document.getElementById("doc_alipay").innerHTML = data.doc_alipay;
+					document.getElementById("doc_fee").innerHTML = data.doc_fee;
+        		},'json');
+			});
+
+	</script>
+	</body>
+
+</html>

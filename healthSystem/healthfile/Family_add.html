@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">添加家族史成员</h1>
+		</header>
+		<div class="mui-content">
+			
+			<div class="friendadd">
+				<form class="mui-input-group public-edit outline_add">
+					<div class="">
+						<div class="mui-input-row">
+							<label>关系：</label>
+							<input id="relation" class="mui-input-clear"  type="text">
+						</div>
+					</div>
+					<div class="">
+						<div class="mui-input-row">
+							<label>病史：</label>
+							<input id="sick" class="mui-input-clear"  type="text">
+						</div>
+					</div>
+					<div class="mui-button-row">
+						<button id="submit" type="button" class="mui-btn mui-btn-primary">确认</button>&nbsp;&nbsp;
+						<button type="button" class="mui-btn mui-btn-danger" onclick="mui.back()">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function () {
+				var user_phone = plus.storage.getItem('user_phone');
+			    document.getElementById("submit").addEventListener('tap',function(e){
+				mui.post('http://' + serverName + '/health/management/Application/index.php/Connector/Health/addFamily',{
+						user_phone:user_phone,
+						relation:document.getElementById("relation").value,
+    					sick:document.getElementById("sick").value,
+					},function(data){
+						if(data.result==1){
+								plus.nativeUI.toast("添加成功");
+								var My_file = plus.webview.getWebviewById('Family_history');
+						        My_file.reload();
+						        mui.back();
+							}else{
+								plus.nativeUI.toast("添加失败");
+							}
+					},'json'
+				);
+			});
+			})
+			
+		</script>
+	</body>
+
+</html>
