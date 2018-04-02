@@ -1,8 +1,8 @@
 # health_system
 Web APP for palm health
 
-需要修改的配置信息：
-1.index.php 的 SITE_URL 设置为你的ip地址
+需要修改的配置信息：<br/>
+1.index.php 的 SITE_URL 设置为你的ip地址<br/>
 2.Common/Conf/config.php 设置数据库的信息
 3.helthSystem/js/common.js 设置IP信息
 4.doctorsystem/js/common.js 设置IP信息
