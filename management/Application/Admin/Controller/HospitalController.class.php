@@ -2,9 +2,10 @@
 namespace Admin\Controller;
 
 use Think\Controller;
+
 /*
-*  医院信息管理
-*/
+ *  医院信息管理
+ */
 class HospitalController extends BaseController
 {
     public function listHos()
@@ -63,7 +64,7 @@ class HospitalController extends BaseController
         $id    = I('get.id'); //获取医院ID
         $model = D('hospital_info');
         if (IS_POST) {
-            
+
             if ($model->create(I('post.'), 2)) {
                 if (FASLE !== $model->save()) {
                     $this->success('操作成功!', U('listHos'));
@@ -74,8 +75,8 @@ class HospitalController extends BaseController
             $this->error($error);
         }
         //取出该医院的数据
-        $data = $model->find($id);
-        $address = explode(" ",$data['hos_address']);
+        $data                = $model->find($id);
+        $address             = explode(" ", $data['hos_address']);
         $data['hos_address'] = $address;
         //dump($data['hos_address'][0]);die;
         //取出该医院的图片显示到修改表单上
@@ -91,11 +92,12 @@ class HospitalController extends BaseController
     }
 
     //批量导入医院数据（上传EXCEL文件）
-    public function uploadExcel(){
-        if($_FILES){
+    public function uploadExcel()
+    {
+        if ($_FILES) {
             //dump($_FILES);die;
             $data = array();
-            $data = uploadExcel('excelData','HosExcel');
+            $data = uploadExcel('excelData', 'HosExcel');
             foreach ($data as $k => $v) {
                 foreach ($v as $k1 => $v1) {
                     switch ($k1) {
@@ -127,13 +129,13 @@ class HospitalController extends BaseController
                             break;
                     }
                 }
-                 $info[$k]['hos_time'] = date("Y-m-d H:i:s");
+                $info[$k]['hos_time'] = date("Y-m-d H:i:s");
             }
             $model = D('hospital_info');
-            if($model->addAll($info)){
+            if ($model->addAll($info)) {
                 $this->success('操作成功!', U('listHos'));
                 exit;
-            }else{
+            } else {
                 $error = $model->getError();
                 $this->error($error);
             }
@@ -141,10 +143,11 @@ class HospitalController extends BaseController
         $this->display();
     }
 
+
     /**
     医院科室管理
-    **/
-    
+     **/
+
     public function listDep()
     {
         $hos_id = I('get.hos_id');
@@ -184,15 +187,15 @@ class HospitalController extends BaseController
         $hos_id   = I('get.hos_id');
         if (IS_POST) {
             $_POST['dep_time'] = date('Y-m-d H:i:s');
-            if($info = $depModel->create(I('post.'),2)){
-                if(FALSE!==$depModel->save()){
+            if ($info = $depModel->create(I('post.'), 2)) {
+                if (false !== $depModel->save()) {
                     $this->success('操作成功!', U('listDep', array('hos_id' => $hos_id)));
                     exit;
                 }
             }
             $error = $model->getError();
             $this->error($error);
-            
+
         }
         //取出该医院的科室信息
         $data = $depModel->where(array(
@@ -207,11 +210,12 @@ class HospitalController extends BaseController
         ));
         $this->display();
     }
-    public function delDep(){
+    public function delDep()
+    {
         $hos_id = I('get.hos_id');
-        $id= I('get.id');//此ID为hos_dep的主键ID值
-        $model = D('hos_dep');
-        if(false !== $model->delete($id)){
+        $id     = I('get.id'); //此ID为hos_dep的主键ID值
+        $model  = D('hos_dep');
+        if (false !== $model->delete($id)) {
             $this->success('操作成功!', U('listDep', array('hos_id' => $hos_id)));
             exit;
         }

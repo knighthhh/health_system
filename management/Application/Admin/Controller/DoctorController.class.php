@@ -104,7 +104,7 @@ class DoctorController extends BaseController
                         		'dep_name' => array('like',"%$v1%")
                         		))->find();
                         	//if($depa_id){
-                        		$info[$k]['depa_id'] = $depa_id['dep_id'];
+                        	$info[$k]['depa_id'] = $depa_id['dep_id'];
                         	//}
                         }
                         break;

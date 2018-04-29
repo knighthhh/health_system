@@ -27,7 +27,6 @@
 			var depID = self.depID;
 			//从疾病详情页面跳转过来
 			if(depID){
-				console.log("asdsd");
 				mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/Hos/getDepHos',{
 						depID:depID
 				},function(data){
@@ -60,12 +59,16 @@
 							//获得服务器响应
 							var listHos = document.getElementById("listHos");
 							var item = '';
-							for(i = 0; i < data.length; i++) {
-								//console.log(data[i].hos_navigate_img);
-								item = item + '<li hos-id="' + data[i].hos_id + '" class="mui-table-view-cell mui-media" id="hosHP"><a><div class="mui-row "><div class="mui-pull-left mui-col-xs-3 " ><img style="width:60px;height:60px;" src="' + data[i].hos_navigate_img +
-									'" style="width: 100%" /></div><div class="mui-col-xs-9"><h4 class="hp_title">' + data[i].hos_name + '</h4><p class="mui-ellipsis"><span class="iconfont icon-iconaddress i-color"></span><span class="icon-title">' + data[i].hos_address +
-									'</span></p><p><span class="iconfont icon-dengji i-color"></span><span class="icon-title">' + data[i].hos_level +
-									' </span><span class="iconfont icon-guanzhu1 i-color"></span> <span class="icon-title">' + data[i].hos_hot + '</span></p></div></div></a></li>';
+//							console.log(lat);
+//							console.log(longt);
+//							return false;
+							if(data){
+								for(i = 0; i < data.length; i++) {
+									item = item + '<li hos-id="' + data[i].hos_id + '" class="mui-table-view-cell mui-media" id="hosHP"><a><div class="mui-row "><div class="mui-pull-left mui-col-xs-3 " ><img style="width:60px;height:60px;" src="' + data[i].hos_navigate_img +
+										'" style="width: 100%" /></div><div class="mui-col-xs-9"><h4 class="hp_title">' + data[i].hos_name + '</h4><p class="mui-ellipsis"><span class="iconfont icon-iconaddress i-color"></span><span class="icon-title">' + data[i].hos_address +
+										'</span></p><p><span class="iconfont icon-dengji i-color"></span><span class="icon-title">' + data[i].hos_level +
+										' </span><span class="iconfont icon-guanzhu1 i-color"></span> <span class="icon-title">' + data[i].hos_hot + '</span></p></div></div></a></li>';
+								}
 							}
 							listHos.innerHTML = item;
 							plus.nativeUI.closeWaiting();
@@ -127,7 +130,7 @@
 						})(mui, document);
 				}
 				//获取位置信息
-				plus.nativeUI.showWaiting();
+				//plus.nativeUI.showWaiting();
 				plus.geolocation.getCurrentPosition( geoInf, function ( e ) {
 					plus.nativeUI.alert( "获取位置信息失败："+e.message );
 				}, {geocode:true} );
@@ -150,7 +153,8 @@
 				mui.openWindow({
 					id: 'hosHP.html',
 					show: {
-						aniShow: 'pop-in'
+						aniShow: 'pop-in',
+						duration:100
 					}
 				});
 			});

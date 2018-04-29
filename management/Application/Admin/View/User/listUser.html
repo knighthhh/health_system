@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="{$Think.const.ADMIN_CSS_URL}pintuer.css">
 <link rel="stylesheet" href="{$Think.const.ADMIN_CSS_URL}admin.css">
 <link rel="stylesheet" href="{$Think.const.ADMIN_CSS_URL}jquery-ui.min.css">
+<link rel="stylesheet" href="{$Think.const.ADMIN_LAYUI_URL}css/layui.css">
+<link rel="stylesheet" href="{$Think.const.ADMIN_CSS_URL}font-awesome.min.css">
 <script src="{$Think.const.ADMIN_JS_URL}jquery.js"></script>
 <script src="{$Think.const.ADMIN_JS_URL}jquery-ui.min.js"></script>
 <script src="{$Think.const.ADMIN_JS_URL}pintuer.js"></script>
@@ -19,39 +21,23 @@
 	.dialogtable td{border: solid 1px #ccc; padding: 8px;valign:middle;}
 	.button.border-green{ color:#22CC77;}
 	.pagelist span.current{background: #22CC77}
+	.level li{float:left;}
+	.bread{}
 </style>
 </head>
 <body>
 <form method="post" action="__SELF__" id="listform">
   <div class="panel admin-panel">
-    <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+    <!-- <div class="panel-head">
+	    <strong class="icon-reorder"> 内容列表</strong>
+	</div> -->
     <div class="padding border-bottom">
       <ul class="search" style="padding-left:10px;">
-        <li> <a class="button border-green icon-plus-square-o" href="__MODULE__/User/add"> 添加用户</a> </li>
-        <li>搜索：</li>
-        <li>首页
-          <select name="s_ishome" class="input" onchange="changesearch()" style="width:60px; line-height:17px; display:inline-block">
-            <option value="">选择</option>
-            <option value="1">是</option>
-            <option value="0">否</option>
-          </select>
-          &nbsp;&nbsp;
-          推荐
-          <select name="s_isvouch" class="input" onchange="changesearch()"  style="width:60px; line-height:17px;display:inline-block">
-            <option value="">选择</option>
-            <option value="1">是</option>
-            <option value="0">否</option>
-          </select>
-          &nbsp;&nbsp;
-          置顶
-          <select name="s_istop" class="input" onchange="changesearch()"  style="width:60px; line-height:17px;display:inline-block">
-            <option value="">选择</option>
-            <option value="1">是</option>
-            <option value="0">否</option>
-          </select>
         <li>
-          <input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
-          <a href="javascript:void(0)" class="button border-green icon-search" onclick="changesearch()" > 搜索</a></li>
+        <a class="layui-btn layui-btn-primary" href="__MODULE__/User/add"><i class="layui-icon">&#xe654;</i>  添加用户</a> </li>
+        <li style="margin-left: 500px">
+          <input type="text" placeholder="请输入用户手机号" name="searchValue" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <a class="layui-btn layui-btn" style="cursor:pointer" onclick="$('#listform').submit()"><i class="layui-icon">&#xe615;</i>  搜索</a>	
       </ul>
     </div>
     <table class="table table-hover text-center">
@@ -64,6 +50,16 @@
         <th width="20%">注册时间</th>
         <th width="30%">操作</th>
       </tr>
+      <?php if(empty($data)): ?>
+      		<tr>
+      			<td></td>
+      			<td></td>
+      			<td></td>
+      			<td>
+      				<div style="padding:20px"><i class="layui-icon" style="font-size: 30px; color: #22CC77;">&#xe650;</i>空空如也~</div>
+      			</td>
+      		</tr>
+      <?php endif; ?>
     <?php foreach ($data as $k => $v): ?>
         <tr>
           <td style="text-align:left; padding-left:20px;"><input type="checkbox" name="user_id[]" value="<?php echo $v['user_id']; ?>" /><?php echo $v['user_id']; ?></td>
@@ -73,13 +69,15 @@
           <td><?php echo $v['user_sex']; ?></td>
           <td><?php echo $v['user_time']; ?></td>
           <td>
-          <a style="cursor:pointer" onclick="showDialog(<?php echo $v['user_id']; ?>)">查看</a>
-          <a href="__MODULE__/User/edit/user_id/<?php echo $v['user_id']; ?>">修改</a> 
-          <a style="cursor:pointer" onclick="del(<?php echo $v['user_id']; ?>)"> 删除</a></br>
-          <a href="__MODULE__/HistoryVis/listHis/user_id/<?php echo $v['user_id']; ?>/relative_id/0">历史就诊</a>
-          <a href="__MODULE__/User/edit/user_id/<?php echo $v['user_id']; ?>">用药日记</a>
-          <a href="__MODULE__/relative/listRela/user_id/<?php echo $v['user_id']; ?>">亲友管理</a>
-          </td>
+          <a class="layui-btn layui-btn-primary layui-btn-mini" style="cursor:pointer" onclick="showDialog(<?php echo $v['user_id']; ?>)"><i class="layui-icon">&#xe615;</i>　查　看</a>
+          <a class="layui-btn layui-btn layui-btn-mini" href="__MODULE__/User/edit/user_id/<?php echo $v['user_id']; ?>"><i class="layui-icon">&#xe642;</i>　修　改</a> 
+          <a class="layui-btn layui-btn-danger layui-btn-mini" style="cursor:pointer" onclick="del(<?php echo $v['user_id']; ?>)"> <i class="layui-icon">&#xe640;</i>　删　除</a></br>
+          <div style="margin-top: 10px;margin-left: 0px">
+          	  <a class="layui-btn layui-btn-primary layui-btn-mini" href="__MODULE__/HistoryVis/listHis/user_id/<?php echo $v['user_id']; ?>/relative_id/0"><i class="layui-icon">&#xe642;</i>历史就诊</a>
+			  <a class="layui-btn layui-btn-danger layui-btn-mini" href="__MODULE__/User/edit/user_id/<?php echo $v['user_id']; ?>"><i class="layui-icon">&#xe63c;</i>用药日记</a>
+			  <a class="layui-btn layui-btn-normal layui-btn-mini" href="__MODULE__/relative/listRela/user_id/<?php echo $v['user_id']; ?>"><i class="layui-icon">&#xe612;</i>亲友管理</a>
+          </div>
+		  </td>
           <td colspan="0">
           	<!-- 详情页面 -->
         	<div id="dialog<?php echo $v['user_id']; ?>" style="display:none;" title="详情信息">
@@ -165,7 +163,7 @@
       <tr>
         <td style="text-align:left; padding:19px 0;padding-left:20px;"><input type="checkbox" id="checkall"/>
           全选 </td>
-        <td colspan="7" style="text-align:left;padding-left:20px;"><a href="javascript:void(0)" class="button border-red icon-trash-o" style="padding:5px 15px;" onclick="DelSelect()"> 删除</a> <a href="javascript:void(0)" style="padding:5px 15px; margin:0 10px;" class="button border-blue icon-edit" onclick="sorts()"> 排序</a>
+        <td colspan="7" style="text-align:left;padding-left:20px;"><a href="javascript:void(0)" class="button border-red icon-trash-o" style="padding:5px 15px;" onclick="DelSelect()"> 删除</a>
       </tr>
       <tr>
       	<td colspan="8">
@@ -176,25 +174,23 @@
       </tr>
     </table>
 </form>
+<script src="{$Think.const.ADMIN_LAYUI_URL}lay/dest/layui.all.js"></script>
 <script type="text/javascript">
 
-//搜索
-function changesearch(){	
-		
-}
 //详情列表框
 function showDialog(id) {
-    $("#dialog"+id).dialog({
-		  height:"auto",
-	      width: "auto",
-	      position: {my: "right bottom", at: "center",  collision:"fit"},
-	      modal:false,//是否模式对话框
-	      draggable:true,//是否允许拖拽
-	      resizable:true,//是否允许拖动
-	      title:"详细信息",//对话框标题
-	      show:"slide",
-	      hide:""
-	});
+	layer.open({
+        type: 1,
+        area: ['450px', '460px'],
+        content: $("#dialog"+id),
+        shade:0,
+        skin:'layui-layer-lan',
+        offset: ['10px', '200px'],
+        cancel:function(index, layero){
+          $("#dialog"+id).css('display','none');
+          layer.close(index);
+        }
+    });	
   };
 //单个删除
 function del(user_id){
@@ -205,7 +201,7 @@ function del(user_id){
 
 //全选
 $("#checkall").click(function(){ 
-  $("input[name='hos_id[]']").each(function(){
+  $("input[name='user_id[]']").each(function(){
 	  if (this.checked) {
 		  this.checked = false;
 	  }
@@ -218,15 +214,22 @@ $("#checkall").click(function(){
 //批量删除
 function DelSelect(){
 	var Checkbox=false;
-	 $("input[name='hos_id[]']").each(function(){
+	var user_id = new Array();
+	 $("input[name='user_id[]']").each(function(){
 	  if (this.checked==true) {		
 		Checkbox=true;	
 	  }
 	});
 	if (Checkbox){
 		var t=confirm("您确认要删除选中的内容吗？");
-		if (t==false) return false;		
-		$("#listform").submit();		
+		if (t==false) return false;
+		var i = 0;
+		$("input[name='user_id[]']:checked").each(function(){
+			user_id[i] = this.value;
+			i++;
+		});
+		window.location="__MODULE__/User/delete/user_id/"+user_id;	
+		//$("#listform").submit();		
 	}
 	else{
 		alert("请选择您要删除的内容!");

@@ -1,0 +1,93 @@
+[ 2017-09-20T17:51:33+08:00 ] 117.136.79.142 /health/management/Application/index.php/Connector/User/login
+INFO: [ app_init ] --START--
+INFO: [ app_init ] --END-- [ RunTime:0.002236s ]
+INFO: [ path_info ] --START--
+INFO: [ path_info ] --END-- [ RunTime:0.000034s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000066s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000124s ]
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:0.000059s ]
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'localhost' (using password: YES) /phpstudy/www/health/management/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+ERR: Access denied for user 'root'@'localhost' (using password: YES)
+
+[ 2017-09-20T17:51:33+08:00 ] 117.136.79.142 /health/management/Application/index.php/Connector/Hos/getHotHos
+INFO: [ app_init ] --START--
+INFO: [ app_init ] --END-- [ RunTime:0.000357s ]
+INFO: [ path_info ] --START--
+INFO: [ path_info ] --END-- [ RunTime:0.000031s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000085s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000142s ]
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:0.000064s ]
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'localhost' (using password: YES) /phpstudy/www/health/management/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+ERR: Access denied for user 'root'@'localhost' (using password: YES)
+
+[ 2017-09-20T17:51:33+08:00 ] 117.136.79.142 /health/management/Application/index.php/Connector/Doc/getHotDoc
+INFO: [ app_init ] --START--
+INFO: [ app_init ] --END-- [ RunTime:0.000321s ]
+INFO: [ path_info ] --START--
+INFO: [ path_info ] --END-- [ RunTime:0.000031s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000046s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000102s ]
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:0.000077s ]
+NOTIC: [2048] Declaration of Admin\Model\DoctorInfoModel::_after_insert() should be compatible with that of Think\Model::_after_insert() /phpstudy/www/health/management/Application/Admin/Model/DoctorInfoModel.class.php 第 7 行.
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'localhost' (using password: YES) /phpstudy/www/health/management/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+ERR: Access denied for user 'root'@'localhost' (using password: YES)
+
+[ 2017-09-20T17:51:33+08:00 ] 117.136.79.142 /health/management/Application/index.php/Connector/User/getuserInfo
+INFO: [ app_init ] --START--
+INFO: [ app_init ] --END-- [ RunTime:0.000325s ]
+INFO: [ path_info ] --START--
+INFO: [ path_info ] --END-- [ RunTime:0.000032s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000051s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000117s ]
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:0.000086s ]
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'localhost' (using password: YES) /phpstudy/www/health/management/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+ERR: Access denied for user 'root'@'localhost' (using password: YES)
+
+[ 2017-09-20T17:51:36+08:00 ] 117.136.79.142 /health/management/Application/index.php/Connector/Tuijian/tuijian_doc
+INFO: [ app_init ] --START--
+INFO: [ app_init ] --END-- [ RunTime:0.000208s ]
+INFO: [ path_info ] --START--
+INFO: [ path_info ] --END-- [ RunTime:0.000020s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000027s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000060s ]
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:0.000057s ]
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'localhost' (using password: YES) /phpstudy/www/health/management/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+ERR: Access denied for user 'root'@'localhost' (using password: YES)
+
+[ 2017-09-20T20:21:46+08:00 ] 101.226.68.215 /health/management/Application/index.php/Connector/Doc/getHotDoc
+INFO: [ app_init ] --START--
+INFO: [ app_init ] --END-- [ RunTime:0.000270s ]
+INFO: [ path_info ] --START--
+INFO: [ path_info ] --END-- [ RunTime:0.000037s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000038s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000093s ]
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:0.000041s ]
+NOTIC: [2048] Declaration of Admin\Model\DoctorInfoModel::_after_insert() should be compatible with that of Think\Model::_after_insert() /phpstudy/www/health/management/Application/Admin/Model/DoctorInfoModel.class.php 第 7 行.
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'localhost' (using password: YES) /phpstudy/www/health/management/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+ERR: Access denied for user 'root'@'localhost' (using password: YES)
+
+[ 2017-09-20T21:37:05+08:00 ] 113.108.10.5 /health/management/Application/index.php/Connector/Tuijian/tuijian_doc
+INFO: [ app_init ] --START--
+INFO: [ app_init ] --END-- [ RunTime:0.000244s ]
+INFO: [ path_info ] --START--
+INFO: [ path_info ] --END-- [ RunTime:0.000024s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000030s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000070s ]
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:0.000039s ]
+NOTIC: [2] mysql_connect(): Access denied for user 'root'@'localhost' (using password: YES) /phpstudy/www/health/management/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+ERR: Access denied for user 'root'@'localhost' (using password: YES)
+

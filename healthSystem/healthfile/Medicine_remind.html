@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/iconfont_health_file.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" ></a>
+		    <h1 class="mui-title">用药提醒</h1>
+		</header>
+		<div class="mui-content">
+			<ul id="tixinglist" class="mui-table-view">
+				<!--<li class='mui-table-view-cell'>	
+					<div id='detail' class='mui-pull-left'>
+						<span class='mui-icon iconfont icon-yongyaotixing ul_t5' style='font-size: x-large;'></span>
+						<span style='border-right: 1px solid #C0C0C0;padding-right:5px ;'>07:00</span>
+						<span style='color: #C0C0C0;font-size: smaller;'></span>
+					</div>
+					<div class='mui-switch mui-active mui-pull-right' style='left: 225px;'>
+						<div class='mui-switch-handle'></div>
+					</div>
+					<span id='' class='mui-icon  mui-icon-trash mui-pull-right' style='border-left: 1px solid #C0C0C0;padding-left: 5px;'></span>
+				</li>-->
+			</ul>
+			<div class="mui-row" style="margin-top:150px; ">
+				<div class="mui-col-xs-4 mui-col-sm-4">
+				</div>
+				<div id="add" class="mui-col-xs-4 mui-col-sm-4  add_img">
+						<img src="../img/add.png" style=""/>
+				</div>
+				
+				<div class=" mui-col-xs-4 mui-col-sm-4">
+				</div>
+			</div>
+			
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			addbtn = document.getElementById("add");
+			addbtn.addEventListener('tap',function(){
+				
+				mui.openWindow({
+					url:'Medicine_add_remind.html',
+					id:'Medicine_add_reminde'
+				})
+			})
+			
+			//取提醒记录
+			mui.plusReady(function(){
+				var user_phone = plus.storage.getItem('user_phone');
+				mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/tixing',{
+	  				data:{
+	  					user_phone:user_phone
+	  				},
+	  				dataType:'json',
+	  				type:'POST',
+	  				timeout:10000,
+	  				success:function(data){
+	  					//return false;
+	  					if(data.result!=0){
+	  						var s="";
+							for(var i=0;i<data.length;i++){
+								s+="<li class='mui-table-view-cell'><div id='"+data[i].tixing_id+"' class='mui-pull-left'>";
+								s+="<span class='mui-icon iconfont icon-yongyaotixing ul_t5' style='font-size: x-large;'></span>";
+								s+="<span style='border-right: 1px solid #C0C0C0;padding-right:5px;'>"+data[i].tixing_time+"</span>";
+								s+="<span style='color: #C0C0C0;font-size: smaller;'></span></div>";
+								s+="<div class='mui-switch mui-active mui-pull-right' style='left: 225px;'><div class='mui-switch-handle'></div></div>";
+								s+="<span id='"+data[i].tixing_id+'a'+"' class='mui-icon  mui-icon-trash mui-pull-right' style='border-left: 1px solid #C0C0C0;padding-left: 5px;'></span></li>";
+					
+							}
+							var tixinglist =document.getElementById("tixinglist");
+							tixinglist.innerHTML = s;
+							mui('.mui-content .mui-switch')['switch']();
+	  					}else{
+	  						plus.ui.toast(data.data);
+	  					}
+	  				},
+	  				error:function(){
+	  					plus.nativeUI.toast("请检查您的网络");
+	  				}
+	  			})
+				
+				mui('#tixinglist').on('tap', '.mui-pull-left', function() {
+					var tx_id = this.getAttribute('id');
+					mui.openWindow({
+						url: 'Medicine_detail.html',
+						id: 'Medicine_detail',
+						extras:{
+					    	tx_id:tx_id
+					    },
+						show: {
+							aniShow: 'pop-in'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				}); 
+				
+			})
+			
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont_foot.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont_money.css" />
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.zoom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.previewimage.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js"></script>
+		<link rel="stylesheet" href="../css/souye.css" />
+		<link rel="stylesheet" type="text/css" href="../css/preImage.css" />
+		<script type="text/javascript" charset="utf-8">
+			window.onload = function() {
+
+				mui.previewImage();
+
+				var doc_phone = null;
+				var doc_name = null;
+				var user_phone = null;
+
+				mui.plusReady(function() {
+					user_phone = plus.storage.getItem('user_phone');
+				});
+				var doc_id = null;
+				//添加detailPage自定义事件监听
+				window.addEventListener('docID', function(event) {
+					//获得医生ID参数
+					doc_id = event.detail.docID;
+					//根据id向服务器请求医生详情
+					mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/Doc/getDocDetail', {
+						doc_id: doc_id
+					}, function(data) {
+						var docInfo = document.getElementById('docInfo');
+						var li = '';
+						li = li + '<li class="mui-table-view-cell"><div><img class="mui-pull-left" style="width:80px;height:80px;border-radius:100px;" src="' + data.doc_img + '"></div><div style="float:left;margin-left:20px" class=""><h4>' + data.doc_name +
+							'</h4><p>所属医院：' + data.hos_name + '</p><p>擅长: ' + data.doc_especial + '</p><p>关注量: ' + data.doc_attention + '</p></div></li>';
+
+						docInfo.innerHTML = li;
+
+						//显示医生简介
+						var doc_introduce = document.getElementById("doc_introduce");
+						var s = "";
+						s = "<p style='font-size: 15px;text-align: center;'>" + data.doc_introduce + "</p>";
+						doc_introduce.innerHTML = s;
+						doc_phone = data.doc_phone;
+						doc_name = data.doc_name;
+
+						//显示咨询金钱
+						document.getElementById("zixun").innerHTML = "咨询(" + data.doc_fee + "元/小时)";
+
+						//显示评价
+						get_pingjia();
+					}, 'json');
+
+					//患者评价详情（因为获取不到doc_phone）,封装后使用
+					function get_pingjia() {
+						mui.ajax('http://' + serverName + '/health/management/Application/index.php/Connector/User/get_pingjia', {
+							data: {
+								doc_phone: doc_phone
+							},
+							dataType: 'json',
+							type: 'POST',
+							timeout: 10000,
+							success: function(data) {
+								var s = "";
+								if(data['result'] != 0) {
+									for(var i = 0; i < data.length; ++i) {
+										s += "<li class='mui-table-view-cell'><a class='mui-navigate-right'><div class='box-c-a-r'>";
+										s += "<h4>" + data[i].user_name + "</h4>";
+										s += "<p style='font-size: 15px;'>" + data[i].pingjia_text + "</p>";
+										s += "</div><p>" + data[i].time + "</p></a></li>";
+									}
+								}
+								document.getElementById("pingjia").innerHTML = s;
+							},
+							error: function() {
+								plus.nativeUI.toast("请检查您的网络");
+							}
+						})
+					}
+
+					//咨询按钮监听
+					var zixun = document.getElementById("zixun");
+					zixun.addEventListener('tap', function() {
+						if(islogin()) {
+							mui.openWindow({
+								url: 'pay.html',
+								id: 'pay',
+								extras: {
+									doc_phone: doc_phone
+								},
+								show: {
+									aniShow: 'pop-in'
+								},
+								styles: {
+									popGesture: 'hide'
+								},
+								waiting: {
+									autoShow: true
+								}
+							});
+						} else {
+							mui.openWindow({
+								url: '/login/login.html',
+								id: 'login',
+								preload: true,
+								show: {
+									aniShow: 'pop-in'
+								},
+								waiting: {
+									autoShow: false
+								}
+							});
+							plus.nativeUI.toast("请先登录");
+						}
+					});
+
+					//关注按钮监听
+					var attention = document.getElementById("attention");
+					attention.addEventListener('tap', function() {
+						var attention_html = document.getElementById("docInfo").getElementsByTagName('p')[2];
+						if(islogin()) {
+							mui.ajax('http://' + serverName + '/health/management/Application/index.php/Connector/User/attention_doc', {
+								data: {
+									doc_phone: doc_phone,
+									user_phone: user_phone
+								},
+								dataType: 'json',
+								type: 'POST',
+								timeout: 10000,
+								success: function(data) {
+									//{"reslut":1}表示成功
+									plus.nativeUI.toast(data.data);
+									var newnum = parseInt(attention_html.innerHTML.substring(4)) + 1
+									attention_html.innerHTML = "关注量：" + newnum;
+								},
+								error: function() {
+									plus.nativeUI.toast("请检查您的网络");
+								}
+							})
+						} else {
+							mui.openWindow({
+								url: '/login/login.html',
+								id: 'login',
+								preload: true,
+								show: {
+									aniShow: 'pop-in'
+								},
+								waiting: {
+									autoShow: false
+								}
+							});
+							plus.nativeUI.toast("请先登录");
+						}
+
+					});
+				});
+				//医生简介详情
+				document.getElementById("doc_introduce").addEventListener('tap', function() {
+					console.log(doc_id);
+					mui.openWindow({
+						url: 'doc_brief.html',
+						id: 'doc_brief',
+						extras: {
+							doc_id: doc_id
+						},
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'hide'
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				});
+			}
+		</script>
+	</head>
+	<header class="mui-bar mui-bar-nav public-color">
+		<h1 class="mui-title" style="color: #FFFFFF;">Hospital Homepage</h1>
+	</header>
+	<header class="mui-bar mui-bar-nav public-color">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title" style="color: #FFFFFF;"> 医生主页</h1>
+	</header>
+
+	<body>
+
+		<div class="mui-content">
+			<ul id="docInfo" class="mui-table-view mui-table-view">
+			</ul>
+
+			<div class="box-c ">
+				<p class="box-c-p ">- 医生简介 -</p>
+				<ul class="mui-table-view jianjie">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate">
+							<div id="doc_introduce" class="box-c-a-r">
+								<!--<p style="font-size: 15px;text-align: center;"></p>-->
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="box-c ">
+				<p class="box-c-p ">- 患者评价 -</p>
+				<ul id="pingjia" class="mui-table-view jianjie">
+					<!--<li class="mui-table-view-cell">
+				<a class="mui-navigate-right">
+					<div class="box-c-a-r" >
+						<h4>冠心病做支架手术</h4>
+						<p style="font-size: 13px;">王**先生</p>
+						<p style="font-size: 15px;text-align: center;">王哲医生给我家老人看病态度非常好，医德高尚。</p>
+					</div>
+					<p >2014.09</p>
+				</a>
+			</li>-->
+				</ul>
+			</div>
+
+			<!--<div class="box-c">
+		<p class="box-c-p">- 问诊记录 -</p>
+			<div id="demo" style="overflow:hidden; position:relative; height:180px;width:100%;">
+				<div id="demo1">
+					<div class="box-c-a">
+						<div class="box-c-a-l">
+							<img src="../img/doctor.jpeg" />
+						</div>
+						<div class="box-c-a-r">
+							<h4>王哲医生  惠州第一人民医院</h4>
+							<p style="font-size: 13px;">接诊了王**患者</p>
+							
+						</div>
+					</div>
+					
+					<div class="box-c-a">
+						<div class="box-c-a-l">
+							<img src="../img/doctor.jpeg" />
+						</div>
+						<div class="box-c-a-r">
+							<h4 >王哲医生  惠州第一人民医院</h4>
+							<p style="font-size: 13px;">接诊了姚**患者</p>
+							
+						</div>
+					</div>
+					<div class="box-c-a">
+						<div class="box-c-a-l">
+							<img src="../img/doctor.jpeg" />
+						</div>
+						<div class="box-c-a-r">
+							<h4 >王哲医生  惠州第一人民医院</h4>
+							<p style="font-size: 13px;">接诊了黄**患者</p>
+						</div>
+					</div>
+				</div>	
+				<div id="demo2"></div>
+			</div>	-->
+
+		</div>
+		</div>
+		<div class="mui-card-footer">
+			<button id="zixun" type="button" class="mui-btn public-color mui-pull-left" style="color: #FFFFFF;margin-left: 10%;width: 120px;">咨询</button>
+
+			<button id="attention" type="button" class="mui-btn public-color mui-pull-right" style="color: #FFFFFF;margin-right: 10% ; width: 120px;">关注</button>
+		</div>
+	</body>
+
+</html>

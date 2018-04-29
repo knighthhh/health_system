@@ -3,10 +3,10 @@
 	require_once("include/config.php");
 	require_once("include/httpUtil.php");
 
-	$mysql_server_name=""; //数据库服务器名称
-    $mysql_username=""; // 连接数据库用户名
-    $mysql_password=""; // 连接数据库密码
-    $mysql_database=""; // 数据库的名字
+	$mysql_server_name="127.0.0.1"; //数据库服务器名称
+    $mysql_username="haha"; // 连接数据库用户名
+    $mysql_password="haha"; // 连接数据库密码
+    $mysql_database="healthsystem"; // 数据库的名字
     
     // 连接到数据库
     $conn=mysql_connect($mysql_server_name, $mysql_username,$mysql_password);

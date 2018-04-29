@@ -389,7 +389,7 @@
 			var doc_phone = plus.storage.getItem('doc_phone');
 			
 			//查基础信息
-			mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/getuserInfo',{
+			mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/get_userdangan',{
   				data:{
   					user_phone:user_phone
   				},
@@ -397,14 +397,19 @@
   				type:'POST',
   				timeout:10000,
   				success:function(data){
-  					document.getElementById("user_name").innerHTML = data.user_name;
-  					document.getElementById("user_sex").innerHTML = data.user_sex;
-  					document.getElementById("user_phone").innerHTML = user_phone;
-  					document.getElementById("user_age").innerHTML = data.user_age;
-  					document.getElementById("user_city").innerHTML = data.user_city;
-  					document.getElementById("user_profession").innerHTML = data.profession;
-  					document.getElementById("user_nation").innerHTML = data.nation;
-  					document.getElementById("user_marriage").innerHTML = data.marriage;
+  					if(data.dangan == 1){
+  						document.getElementById("user_name").innerHTML = data.user_name;
+	  					document.getElementById("user_sex").innerHTML = data.user_sex;
+	  					document.getElementById("user_phone").innerHTML = user_phone;
+	  					document.getElementById("user_age").innerHTML = data.user_age;
+	  					document.getElementById("user_city").innerHTML = data.user_city;
+	  					document.getElementById("user_profession").innerHTML = data.profession;
+	  					document.getElementById("user_nation").innerHTML = data.nation;
+	  					document.getElementById("user_marriage").innerHTML = data.marriage;
+  					}else{
+  						plus.nativeUI.toast("该患者不允许医生查看档案");
+  					}
+  					
   				},
   				error:function(){
   					plus.nativeUI.toast("请检查您的网络");

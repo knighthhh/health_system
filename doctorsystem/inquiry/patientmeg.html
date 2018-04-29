@@ -271,6 +271,21 @@
 						autoShow: true
 					}
 				});
+				//回答的帖子数加1，绩效改变
+				mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/Tuijian/tiezi_num',{	
+					data:{
+						doc_phone:doc_phone
+					},
+					dataType:'json',
+					type:'POST',
+					timeout:10000,
+					success:function(data){
+						//{"reslut":1}表示成功
+					},
+					error:function(){
+					}
+				})
+				
 				//“我的医生”添加记录
 				mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/mydoc',{	
 					data:{
@@ -306,7 +321,7 @@
 				//刷新我的患者列表
 				plus.webview.getWebviewById('message/Message.html').reload();
 				
-				//10秒后关闭页面
+				//1秒后关闭页面
 				setTimeout(function(){
 //					var self = plus.webview.currentWebview();
 					self.close();	 

@@ -11,6 +11,14 @@ class IllnessModel extends Model
     {
     	/* 分页 */
         $count = $this->count();
+        /*搜索*/
+        $where = array();
+        $searchValue = I('post.searchValue');
+        if($searchValue){
+            $where['a.illness_name'] = array('like',"%$searchValue%");
+            $where['c.dep_name'] = array('like',"%$searchValue%");
+            $where['_logic'] = 'or';
+        }
         //实例化翻页类对象
         $pageObj = new \Think\Page($count, $perPage);
         //设置翻页样式
@@ -21,11 +29,8 @@ class IllnessModel extends Model
         $data       = $this
             ->field('a.*,c.dep_name')
             ->alias('a')
-            //->join('__HOSPITAL_INFO__ b on a.hos_id=b.hos_id','LEFT')
             ->join('__DEPARTMENT_INFO__ c on a.two_depa_id=c.dep_id','LEFT')
-            // ->where(array(
-            //    'a.hos_id'=>array('eq',$hos_id)
-            //    ))
+            ->where($where)
             ->limit($pageObj->firstRow . "," . $pageObj->listRows)
             ->select();
         return array(

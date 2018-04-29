@@ -5,7 +5,7 @@
 		"iPad"
 	],
 	"id": "H5B6A9DFB",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "掌上健康医生版",/*应用名称，程序桌面图标名称*/
+	"name": "doctorSystem",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0",/*应用版本名称*/
 		"code": ""
@@ -198,8 +198,8 @@
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
 					"hdpi": "C:/Users/eric/Desktop/qidong_doc.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "C:/Users/eric/Desktop/qidong_doc.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "C:/Users/eric/Desktop/qidong_doc.png"
+					"xhdpi": "E:/WWW/health/healthSystem/img/qidong.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "E:/WWW/health/healthSystem/img/qidong.png"
 
 				}
 			}
@@ -396,7 +396,8 @@
 					"fonts/mui.ttf",
 					"fonts/iconfont_foot.ttf",
 					"img/doctor.jpeg",
-					"js/common.js"
+					"js/common.js",
+					"inquiry/inquiry2.html"
 				],
 				"refer": [
 					"inquiry/mydoctor.html",
@@ -1127,6 +1128,16 @@
 				"refer": [
 					"message/chat.html"
 				],
+				"priority": 0
+			},
+			"inquiry/inquiry2.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/header.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

@@ -17,7 +17,7 @@ class LoginController extends Controller
 				if($admin['mg_password'] == $password){
 					cookie('id',$admin['mg_id'],3600*24);
 					cookie('mg_admin',$admin['mg_admin'],3600*24);
-					$this->success('操作成功!', U('Index/index'));
+					redirect(U('Index/index'));
                 	exit;
 				}else{
 					$this->error('帐号或密码错误!', U('Login/login'));
@@ -29,6 +29,12 @@ class LoginController extends Controller
 			}
 		}
 		$this->display();
+	}
+
+	//退出登录
+	public function logout(){
+		cookie('id',null);
+		redirect(U('Login/login'));
 	}
 
 	public function top(){

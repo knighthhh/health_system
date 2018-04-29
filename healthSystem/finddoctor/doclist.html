@@ -64,11 +64,31 @@
 	    		preloadPages:[{
 	    			url:'docHP.html',
 	    			id:'docHP'
-	    		}]
+	    		}],
+	    		pullRefresh : {
+				    container:"#doclist",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+				    down : {
+				      style:'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+				      color:'#2BD009', //可选，默认“#2BD009” 下拉刷新控件颜色
+				      offset:'0px', //可选 默认0px,下拉刷新控件的起始位置
+				      callback :function(){//必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+				      		if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
+									plus.nativeUI.toast('似乎已断开与互联网的连接', {
+										verticalAlign: 'top'
+									});
+									return;
+							}
+				      		plus.webview.getWebviewById('doclist').reload();
+				      		mui('#doclist').pullRefresh().endPulldown();
+				      		
+				      } 
+					}
+  				}
 	    	});
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				var dep_id = self.dep_id;
+				var diqu = self.diqu;
 				var dep_name = document.getElementById("dep_name");
 				//标题
 				mui.post('http://'+serverName+'/health/management/application/index.php/Connector/Depa/getdepname',{
@@ -78,10 +98,11 @@
 					},'json'
 				);
 				
-				//所有该科室的医生列表
+				//融入医生绩效的获取医生列表
 				var doclist = document.getElementById("doclist");
-				mui.post('http://'+serverName+'/health/management/application/index.php/Connector/Depa/getalldoc',{
-						dep_id:dep_id
+				mui.post('http://'+serverName+'/health/management/application/index.php/Connector/Tuijian/get_dep_doc',{
+						dep_id:dep_id,
+						diqu:diqu
 				},function(data){
 					var s="";
 					for(var i=0;i<data.length;++i){
@@ -98,8 +119,36 @@
 //								s+="<span><button id='"+data[i].doc_phone+"' type='button' class='mui-btn mui-btn-success mui-btn-outlined mui-pull-right consult_button'>去咨询</button></span>";
 					}
 					doclist.innerHTML = s;
+					if(data.result == 0){
+						plus.ui.toast(data.data);
+					}
 					},'json'
 				);
+				
+				
+				//之前获取科室医生列表的写法
+//				//所有该科室的医生列表
+//				var doclist = document.getElementById("doclist");
+//				mui.post('http://'+serverName+'/health/management/application/index.php/Connector/Depa/getalldoc',{
+//						dep_id:dep_id
+//				},function(data){
+//					var s="";
+//					for(var i=0;i<data.length;++i){
+//						s+="<li id='"+data[i].doc_id+"' class='mui-table-view-cell mui-media '><a class=''><div class='mui-row '><div class='mui-pull-left mui-col-xs-3 '>";
+//						s+="<img src='"+data[i].doc_img+"' style='width: 100%' /></div><div class='mui-col-xs-1'></div><div class='mui-col-xs-8'>";
+//						s+="<h4 class='dt_title'>"+data[i].doc_name+" 医生</h4><div class='dt_from'><p><span class='mui-icon iconfont icon-iconaddress i-color'></span>";
+//						s+="<span>"+data[i].hos_name+"</span></p>";
+//						s+="<p><span class='mui-icon iconfont icon-iconaddress i-color'></span>所属科室：<span>"+data[i].dep_name+"</span> </p><p class='mui-ellipsis'> <span class='iconfont icon-dianzan i-color'></span>擅长：<span>"+data[i].doc_especial+"</span></p></div></p></div></div>";
+////							s+="<p class='mui-ellipsis'> 擅长：<span>"+data[i].doc_especial+"</span></p>";
+//						s+="<span class='iconfont icon-jinqian1 i-color'></span><span class='icon-title'> "+data[i].doc_fee+"/小时</span>";
+//						s+="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span class='iconfont icon-pinglun2 i-color'></span><span class='icon-title'> "+data[i].doc_rece+"</span>";
+////							s+="<span class='iconfont icon-dianzan i-color'></span><span class='icon-title'>"+data[i].doc_hot+"</span>";
+//						s+="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span class='iconfont icon-guanzhu1 i-color'></span><span class='icon-title'> "+data[i].doc_attention+"</span>";
+////								s+="<span><button id='"+data[i].doc_phone+"' type='button' class='mui-btn mui-btn-success mui-btn-outlined mui-pull-right consult_button'>去咨询</button></span>";
+//					}
+//					doclist.innerHTML = s;
+//					},'json'
+//				);
 					
 				//批量监听医生列表点击
 				var docHP = null;
@@ -119,8 +168,28 @@
 							aniShow:'pop-in'
 						}
 					});
+					
+					//如果是登录状态，则更新算法表，患者对该医生感兴趣
+					if(islogin){
+						var user_phone = plus.storage.getItem('user_phone');
+						mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/Tuijian/user_doc',{
+		      				data:{
+		      					doc_id:docID,
+		      					user_phone:user_phone
+		      				},
+		      				dataType:'json',
+		      				type:'POST',
+		      				timeout:10000,
+		      				success:function(data){
+		      					
+		      				},
+		      				error:function(){
+		      					
+		      				}
+		      			})
+					}
+					
 				}); 
-				
 					
 			});
 

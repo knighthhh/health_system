@@ -28,8 +28,8 @@ class HosController extends Controller{
         //echo json_encode($_GET);die;
         $model = D('Hospital_info');
         $ic = C('IMAGE_CONFIG');
-        //获得该用户半径10千米范围内的经纬度
-        $res = getAround($lat,$lng,10000);
+        //获得该用户半径50千米范围内的经纬度
+        $res = getAround($lat,$lng,50000);
         //dump($res);die;
         //dump($ic['viewPath']);
         $data = $model->where(array(

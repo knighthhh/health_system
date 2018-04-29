@@ -5,6 +5,11 @@ use Think\Controller;
 
 class UserController extends Controller
 {
+	private $zixun = 0.571;
+	private $guanzhu = 0.095;
+	private $chufang = 0.250;
+	private $tiezi = 0.084;
+	
     public function reg()
     {
         if (!$_POST['user_phone'] || !$_POST['user_password']) {
@@ -190,7 +195,6 @@ class UserController extends Controller
         $model = D('health_know');
         $data  = $model
             ->order('know_see desc')
-            ->limit(5)
             ->select();
         foreach ($data as $k => $v) {
             $data[$k]['know_content'] = htmlspecialchars_decode($v['know_content']);
@@ -450,7 +454,42 @@ class UserController extends Controller
 		}
 		echo json_encode($res);
     }
-    
+    //判断是否关注医生
+    public function isAttention(){
+        $data1['doc_phone']=I('post.doc_phone');
+        $data2['user_phone']=I('post.user_phone');
+        //我关注的医生表查询记录
+        $mess=M('attention_doc')
+               ->where(array(
+                    'doc_phone' => array('eq', $data1['doc_phone']),
+                    'user_phone' => array('eq', $data2['user_phone'])
+                 ))
+               ->find();
+        if($mess){
+            $res['result']=2;
+        }else{
+            $res['result']=1;
+        }
+        echo json_encode($res);
+    }
+	//判断是否关注医院
+    public function isAttentionHos(){
+        $data1['hos_id']=I('post.hos_id');
+        $data2['user_phone']=I('post.user_phone');
+        //我关注的医生表查询记录
+        $mess=M('attention_hos')
+               ->where(array(
+                    'hos_id' => array('eq', $data1['hos_id']),
+                    'user_phone' => array('eq', $data2['user_phone'])
+                 ))
+               ->find();
+        if($mess){
+            $res['result']=2;
+        }else{
+            $res['result']=1;
+        }
+        echo json_encode($res);
+    }
     //关注医生
     public function attention_doc(){
     	$data1['doc_phone']=I('post.doc_phone');
@@ -464,7 +503,7 @@ class UserController extends Controller
 		       ->find();
 		//没有记录，添加关注，有记录，不添加新的关注
 		if($mess){
-			$res['result']=0;
+			$res['result']=2;
 			$res['data']='您已关注过';
 		}else{
 			//关注表添加记录
@@ -473,10 +512,13 @@ class UserController extends Controller
 			$data3['atten_time']=date('Y-m-d H:i:s');
 			M('attention_doc')->add($data3);
 			
-			//医生关注量加1
+			//医生关注量加1，修改医生绩效
 			$findres=M('doctor_info')->where($data1)->find();
 			$save1['doc_attention']=$findres['doc_attention']+1;
+			$save1['doc_R']			= $findres['doc_rece']*$this->zixun + $save1['doc_attention']*$this->guanzhu + $findres['doc_chufang_num']*$this->chufang + $findres['doc_tiezi_num']*$this->tiezi;
 			$jieguo=M('doctor_info')->where($data1)->save($save1);
+			
+			
 			if($jieguo){
 				$res['result']=1;
 				$res['data']='关注成功';
@@ -484,7 +526,9 @@ class UserController extends Controller
 				$res['result']=0;
 				$res['data']='关注失败,请检查您的网络';
 			}
-		}     
+		}  
+		
+		
 		echo json_encode($res);
     }
     
@@ -501,7 +545,7 @@ class UserController extends Controller
 		       ->find();
 		//没有记录，添加关注，有记录，不添加新的关注
 		if($mess){
-			$res['result']=0;
+			$res['result']=2;
 			$res['data']='您已关注过';
 		}else{
 			//关注表添加记录
@@ -621,7 +665,68 @@ class UserController extends Controller
 	
 	//获取问诊记录
 	
-    
+	
+	
+	//用药提醒
+	public function tixing(){
+		$data['user_phone'] = I('post.user_phone');
+		$res = M('tixing')->where($data)->select();
+		if($res){
+		
+		}else{
+			$res['result'] = 0;
+		}
+		
+		echo json_encode($res);
+	}
+	
+    //加了按钮是否可以查看患者信息的健康档案
+	public function get_userdangan()
+    {
+        $data['user_phone'] = I('post.user_phone');
+        $res                = M('user_info')->where($data)->find();
+		if($res['dangan']){
+			 $ic                 = C('IMAGE_CONFIG');
+			$res['user_img']    = $ic['viewPath'] . $res['user_img'];
+			$res['result']      = 1;
+		}else{
+			$res['result']      = 0;
+		}
+       
+
+        echo json_encode($res);
+    }
+	
+	 //用户控制档案开关
+	public function dangan_on()
+    {
+		//$data['user_phone'] =15768653949;
+        $data['user_phone'] = I('post.user_phone');
+		$save['dangan'] =  I('post.dangan_switch');;
+        $mess                = M('user_info')->where($data)->save($save);
+		if($mess){
+			$res['result']      = 1;
+		}else{
+			$res['result']      = 0;
+		}
+       
+
+        echo json_encode($res);
+    }
+	
+	//用药提醒
+	public function get_tixing(){
+		$data['tixing_id'] = I('post.tx_id');
+		//$data['tixing_id'] = 1;
+		$res = M('tixing')->where($data)->find();
+		if($res){
+		
+		}else{
+			$res['result'] = 0;
+		}
+		
+		echo json_encode($res);
+	}
 }
 
 ?>

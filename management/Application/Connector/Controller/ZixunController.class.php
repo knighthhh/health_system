@@ -187,4 +187,22 @@ class ZixunController extends Controller{
 		}
 		echo json_encode($res);
 	}
+
+	public function test(){
+		$res = M('user_info')->limit(5)->select();
+	//	$res = json_encode($res);
+		print_r( $res);
+	}
+	
+	public function test2(){
+		$con = mysql_connect("localhost","root","root");
+		mysql_select_db("healthsystem",$con);
+		mysql_query("set names utf-8");
+		$res = mysql_query("select * from user_info limit 5");
+		//print_r($res);
+		while($row = mysql_fetch_array($res)){
+			print_r( $row);
+		}
+	}
+
 }

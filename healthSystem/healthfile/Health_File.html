@@ -5,8 +5,8 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
-		<script src="../js/mui.min.js"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/iconfont_foot.css" />
 		<link rel="stylesheet" type="text/css" href="../css/iconfont_health_file.css" />
@@ -16,7 +16,7 @@
 	</head>
 
 	<body>
-		<div class="mui-content">
+		<div id="pullrefresh" class="mui-content">
 			<img src="../img/healthfile.jpg" style="width: 100%;" />
 			<!--九宫格-->
 
@@ -41,9 +41,9 @@
 					</a>
 				</li>
 				<li class="mui-table-view-cell mui-media mui-col-xs-4 ">
-					<a href="#" id="friendfile">
-						<span class="mui-icon iconfont icon-group ul_t4"></span>
-						<div class="mui-media-body">亲友档案</div>
+					<a href="#" id="tixing">
+						<span class="mui-icon iconfont icon-yongyaotixing ul_t4"></span>
+						<div class="mui-media-body">用药提醒</div>
 					</a>
 				</li>
 				<li class="mui-table-view-cell mui-media mui-col-xs-4">
@@ -61,168 +61,166 @@
 			</ul>
 			<!--九宫格-->
 			<!--知识推送-->
-			<p class="knowledge">　- 知识推送 -<span style="margin-left: 230px;">更多>></span> </p>
-			   
-			<div class="knowledge_info">
-				<ul id="knowledge" class="mui-table-view">
-					<!--<li class="mui-table-view-cell mui-media">
-						<a id="know_detail" href="javascript:;">
-							<img class=" mui-pull-left" src="../img/doctor.jpeg">
-							<div class="mui-media-body">
-								<h4>幸福</h4>
-								<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-								<span class="put-day">发布日期：</span><span class="day">2017-03-15</span> <span class="mui-pull-right read">阅读量:<span class="readnumber">500</span></span>
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class=" mui-pull-left" src="../img/doctor.jpeg">
-							<div class="mui-media-body">
-								<h4>木屋</h4>
-								<p class="mui-ellipsis">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
-								<span class="put-day">发布日期：</span><span class="day">2017-03-15</span> <span class="mui-pull-right read">阅读量:<span class="readnumber">500</span></span>
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class=" mui-pull-left" src="../img/doctor.jpeg" ">
-							<div class="mui-media-body ">
-								<h4>CBD</h4>
-								<p class="mui-ellipsis ">烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-								<span class="put-day ">发布日期：</span><span class="day ">2017-03-15</span> <span class="mui-pull-right read ">阅读量:<span class="readnumber ">500</span></span>
-							</div>
-						</a>
-					</li>-->
-				</ul>
-			</div>
 			
-		</div>
-		<script type="text/javascript">
-	    	mui.init({
-	    		preloadPages:[
-	    		{
-	    			url:'know_contents.html',
-	    			id:'know_contents.html'
-	    		}
-	    		],
-	    	});
-			mui.plusReady(function() {});
-				mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/User/getKnowList', {
 
-					}, function(data) {
-						var knowledge = document.getElementById("knowledge");
-						var item = '';
-						for(var i = 0; i < data.length; i++) {
-							item = item + '<li knowID="' + data[i].know_id + '" class="mui-table-view-cell mui-media"><div class="mui-media-body"><h4>' + data[i].know_title +
-								'</h4><p class="mui-ellipsis">' + data[i].know_title + '</p><span class="put-day">发布日期：</span><span class="day">' + data[i].time + '</span> <span class="mui-pull-right read">阅读量:<span class="readnumber">'+data[i].know_see+'</span></span></div></li>';
-						}
-						//console.log(item);
-						knowledge.innerHTML = item;
-					}, 'json');
-					//跳转至健康知识详情
-					var knowHP = null;
-					mui('#knowledge').on('tap','.mui-table-view-cell',function(e){
-						var knowID = this.getAttribute('knowID');
-						//获得医生详情页面
-						if(!knowHP){
-							knowHP = plus.webview.getWebviewById('know_contents.html');
-						}
-						//通知自定义事件
-						mui.fire(knowHP,'knowID',{
-							knowID:knowID
-						});
-						mui.openWindow({
-							id:'know_contents.html',
-							show:{
-								aniShow:'pop-in'
-							}
-						});
-					});
-					var record= document.getElementById('record');	
-					var history_todoc= document.getElementById('history_todoc');	
-					var myfile= document.getElementById('myfile');	
-					var friendfile= document.getElementById('friendfile');	
-					var health_record= document.getElementById('health_record');
-				    var family_history=document.getElementById('family_history');
-					record.addEventListener('tap',function(event){
-						mui.openWindow({
-							url: 'medDiary.html',
-							id: 'medDiary',
-							show: {
-								aniShow: 'pop-in'
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
-					},false);
-					history_todoc.addEventListener('tap',function(event){
-						mui.openWindow({
-							url: 'History_todoc.html',
-							id: 'History_todoc',
-							show: {
-								aniShow: 'pop-in',
-								duration:400
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
-					},false);
-					
-					myfile.addEventListener('tap',function(event){
-						mui.openWindow({
-							url: 'My_file.html',
-							id: 'My_file',
-							show: {
-								aniShow: 'pop-in'
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
-					},false);
-					friendfile.addEventListener('tap',function(event){
-						mui.openWindow({
-							url: 'Friends_file.html',
-							id: 'Friends_file',
-							show: {
-								aniShow: 'pop-in'
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
-					},false);
-					health_record.addEventListener('tap',function(event){
-						mui.openWindow({
-							url: 'Health_record.html',
-							id: 'Health_record',
-							show: {
-								aniShow: 'pop-in'
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
-					},false);
-					family_history.addEventListener('tap',function(event){
-						mui.openWindow({
-							url: 'Family_history.html',
-							id: 'Family_history',
-							show: {
-								aniShow: 'pop-in'
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
-					},false);
-					
-				
-	</script>
-		
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {});
+			mui.init({
+
+//				pullRefresh: {
+//					container: "#pullrefresh", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+//					auto: true,
+//					down: {
+//						style: 'circle', //必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+//						callback: function() {
+//							if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
+//								plus.nativeUI.toast('似乎已断开与互联网的连接', {
+//									verticalAlign: 'top'
+//								});
+//								return;
+//							}
+//							//下拉刷新获取新的健康知识
+//							//plus.webview.getWebviewById('healthfile/Health_File.html').reload();
+//							mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/User/getKnowList', {
+//
+//							}, function(data) {
+//								mui('#pullrefresh').pullRefresh().endPulldown();
+//								var knowledge = document.getElementById("knowledge");
+//								var item = '';
+//								for(var i = 0; i < data.length; i++) {
+//									item = item + '<li knowID="' + data[i].know_id + '" class="mui-table-view-cell mui-media"><div class="mui-media-body"><h4>' + data[i].know_title +
+//										'</h4><p class="mui-ellipsis">' + data[i].know_title + '</p><span class="put-day">发布日期：</span><span class="day">' + data[i].time + '</span> <span class="mui-pull-right read">阅读量:<span class="readnumber">' + data[i].know_see + '</span></span></div></li>';
+//								}
+//								//console.log(item);
+//								knowledge.innerHTML = item;
+//							}, 'json');
+//
+//						}
+//					}
+//				}
+
+			});
+//			//获取健康知识列表
+//			mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/User/getKnowList', {
+//
+//			}, function(data) {
+//				var knowledge = document.getElementById("knowledge");
+//				var item = '';
+//				for(var i = 0; i < data.length; i++) {
+//					item = item + '<li knowID="' + data[i].know_id + '" class="mui-table-view-cell mui-media"><div class="mui-media-body"><h4>' + data[i].know_title +
+//						'</h4><p class="mui-ellipsis">' + data[i].know_title + '</p><span class="put-day">发布日期：</span><span class="day">' + data[i].time + '</span> <span class="mui-pull-right read">阅读量:<span class="readnumber">' + data[i].know_see + '</span></span></div></li>';
+//				}
+//				//console.log(item);
+//				knowledge.innerHTML = item;
+//			}, 'json');
+//			//跳转至健康知识详情
+//			var knowHP = null;
+//
+//			mui('#knowledge').on('tap', '.mui-table-view-cell', function(e) {
+//				var knowID = this.getAttribute('knowID');
+//				var knowSee = this.querySelector('.readnumber').innerHTML;
+//				var title = this.querySelector('.mui-ellipsis').innerHTML.trim();
+//				var time = this.querySelector('.day').innerHTML;
+//				//获得健康知识详情页面
+//				if(!knowHP) {
+//					knowHP = plus.webview.getWebviewById('know_contents.html');
+//				}
+//				//通知自定义事件
+//				mui.fire(knowHP, 'knowID', {
+//					knowID: knowID,
+//					knowSee: knowSee,
+//					title: title,
+//					time: time
+//				});
+//
+//				setTimeout(function() {
+//					knowHP.show("pop-in", 300);
+//				}, 100);
+//			});
+			var record = document.getElementById('record');
+			var history_todoc = document.getElementById('history_todoc');
+			var myfile = document.getElementById('myfile');
+			var tixing = document.getElementById('tixing');
+			var health_record = document.getElementById('health_record');
+			var family_history = document.getElementById('family_history');
+			record.addEventListener('tap', function(event) {
+				mui.openWindow({
+					url: 'medDiary.html',
+					id: 'medDiary',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}, false);
+			history_todoc.addEventListener('tap', function(event) {
+				mui.openWindow({
+					url: 'History_todoc.html',
+					id: 'History_todoc',
+					show: {
+						aniShow: 'pop-in',
+						duration: 400
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}, false);
+
+			myfile.addEventListener('tap', function(event) {
+				mui.openWindow({
+					url: 'file_all.html',
+					id: 'file_all',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}, false);
+			tixing.addEventListener('tap', function(event) {
+				mui.openWindow({
+					url: 'Medicine_remind.html',
+					id: 'Medicine_remind',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}, false);
+			health_record.addEventListener('tap', function(event) {
+				mui.openWindow({
+					url: 'Health_record.html',
+					id: 'Health_record',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}, false);
+			family_history.addEventListener('tap', function(event) {
+				mui.openWindow({
+					url: 'Family_history.html',
+					id: 'Family_history',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}, false);
+		</script>
+
 	</body>
+
 </html>

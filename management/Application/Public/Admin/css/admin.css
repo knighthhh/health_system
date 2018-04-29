@@ -21,12 +21,12 @@ ul,li{ list-style-type:none;}
 .leftnav{width:180px; height:100%; position:fixed; top:70px; left:0px;}
 .leftnav-title { height:50px; background:url(../images/bg.jpg) no-repeat 0 -1000px;  color:#FFF; padding-left:22px;  font-size:14px; line-height:50px;}
 .leftnav-title span{ margin-right:10px;}
-.leftnav h2{ padding:10px 0 10px 22px; transition:all .1s ease-in-out; display:block; cursor:pointer; font-weight:bold; font-size:14px; border-top:1px solid #b5cfd9;}
+.leftnav h2{ padding:10px 0 10px 22px; transition:all .1s ease-in-out; display:block; cursor:pointer; font-size:14px; border-top:1px solid #b5cfd9;}
 .leftnav h2.on{ color:#09c;}
 .leftnav .border-bottom{ border-bottom:1px solid #b5cfd9;}
 .leftnav h2 span{ margin-right:10px;}
 .leftnav h2:hover{ color:#09c;}
-.leftnav ul {display:block; border-top:1px solid #b5cfd9; padding:5px 0; opacity:1;}
+.leftnav ul {display:none; border-top:1px solid #b5cfd9; padding:5px 0; opacity:1;}
 .leftnav ul li{ list-style-type:none;  }
 .leftnav ul li a{ display:block;padding-left:30px;line-height:30px; }
 .leftnav ul li span{ margin-right:8px;}
@@ -43,7 +43,7 @@ ul,li{ list-style-type:none;}
 .form-x .tipss{ float:left; padding-left:10px; color:#888; line-height:42px;}
 .input-help { float:left; line-height:30px;}
 .input-help li{ float:left;margin-left:10px;}
-.bread{ margin-left:190px; margin-top:4px;}
+.bread{ margin-left:180px; margin-top:10px;}
 .bread li{ float:left;}
 .label label{ font-weight:normal; color:#333;}
 .form-group{ margin-bottom:12px;}

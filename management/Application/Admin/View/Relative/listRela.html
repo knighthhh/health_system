@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="{$Think.const.ADMIN_CSS_URL}pintuer.css">
 <link rel="stylesheet" href="{$Think.const.ADMIN_CSS_URL}admin.css">
 <link rel="stylesheet" href="{$Think.const.ADMIN_CSS_URL}jquery-ui.min.css">
+<link rel="stylesheet" href="{$Think.const.ADMIN_LAYUI_URL}css/layui.css">
+<link rel="stylesheet" href="{$Think.const.ADMIN_CSS_URL}font-awesome.min.css">
 <script src="{$Think.const.ADMIN_JS_URL}jquery.js"></script>
 <script src="{$Think.const.ADMIN_JS_URL}jquery-ui.min.js"></script>
 <script src="{$Think.const.ADMIN_JS_URL}pintuer.js"></script>
@@ -25,44 +27,20 @@
 <!-- 搜索表单 -->
 <form method="get" action="__SELF__" id="searchForm">
   <div class="panel admin-panel">
-    <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+    
     <div class="padding border-bottom">
       <ul class="search" style="padding-left:10px;">
-        <li> <a class="button border-green icon-plus-square-o" href="__MODULE__/Relative/add/user_id/<?php echo I('get.user_id'); ?>"> 添加</a> </li>
-        <li>搜索：</li>
-        <li>首页
-          <select name="s_ishome" class="input" onchange="changesearch()" style="width:60px; line-height:17px; display:inline-block">
-            <option value="">选择</option>
-            <option value="1">是</option>
-            <option value="0">否</option>
-          </select>
-          &nbsp;&nbsp;
-          推荐
-          <select name="s_isvouch" class="input" onchange="changesearch()"  style="width:60px; line-height:17px;display:inline-block">
-            <option value="">选择</option>
-            <option value="1">是</option>
-            <option value="0">否</option>
-          </select>
-          &nbsp;&nbsp;
-          置顶
-          <select name="s_istop" class="input" onchange="changesearch()"  style="width:60px; line-height:17px;display:inline-block">
-            <option value="">选择</option>
-            <option value="1">是</option>
-            <option value="0">否</option>
-          </select>
-      	</li>
-        <li>
-          <input type="text" placeholder="请输入所属用户手机号" name="userPhone" class="input" style="width:250px; line-height:17px;display:inline-block" value="<?php echo I('get.userPhone'); ?>" />
-          <a href="javascript:void(0)" class="button border-green icon-search" onclick="$('#submit').click()" > 搜索</a>
-        </li>
+        <li> <a class="layui-btn layui-btn-primary" href="__MODULE__/Relative/add/user_id/<?php echo I('get.user_id'); ?>"><i class="layui-icon">&#xe654;</i> 添加</a> </li>
+        <li style="margin-left: 500px">
+          <input type="text" placeholder="请输入手机号" name="searchValue" class="input" style="width:250px; line-height:17px;display:inline-block" value="<?php echo I('get.searchValue'); ?>" />
+          <a class="layui-btn layui-btn" style="cursor:pointer" onclick="$('#searchForm').submit()"><i class="layui-icon">&#xe615;</i>  搜索</a>
       </ul>
     </div>
 	</div>
-	<input id="submit" type="submit" value="搜索" style="display:none"/>
 </form>
     <table class="table table-hover text-center">
       <tr>
-        <th width="5%" style="text-align:left; padding-left:20px;">ID</th>
+        <th width="6%" style="text-align:left; padding-left:20px;">ID</th>
         <th>所属用户姓名</th>
         <th>所属用户手机</th>
         <th>姓名</th>
@@ -80,27 +58,22 @@
           <td style="text-align:left; padding-left:20px;"><input type="checkbox" name="relative_id[]" value="<?php echo $v['relative_id']; ?>" /><?php echo $v['relative_id']; ?></td>
            <td><?php echo $v['user_name']; ?></td>
           <td><?php echo $v['user_phone']; ?></td>
-          <td><?php echo $v['relative_name']; ?></td>
-          <td><?php echo $v['relative_sex']; ?></td>
-          <td><?php echo $v['relative_age']; ?></td>
-          <td><?php echo $v['relative_city']; ?></td>
-          <td><?php echo $v['relative_relation']; ?></td>
-          <td><?php echo $v['relative_phone']; ?></td>
-          <td><?php echo $v['relative_date']; ?></td>
+          <td><?php echo $v['relative_name']?$v['relative_name']:'<p style="color:#A2A0A0">暂无</p>'; ?></td>
+          <td><?php echo $v['relative_sex']?$v['relative_sex']:'<p style="color:#A2A0A0">暂无</p>'; ?></td>
+          <td><?php echo $v['relative_age']?$v['relative_age']:'<p style="color:#A2A0A0">暂无</p>'; ?></td>
+          <td><?php echo $v['relative_city']?$v['relative_city']:'<p style="color:#A2A0A0">暂无</p>'; ?></td>
+          <td><?php echo $v['relative_relation']?$v['relative_relation']:'<p style="color:#A2A0A0">暂无</p>'; ?></td>
+          <td><?php echo $v['relative_phone']?$v['relative_phone']:'<p style="color:#A2A0A0">暂无</p>';  ?></td>
+          <td><?php echo $v['relative_date']?$v['relative_date']:'<p style="color:#A2A0A0">暂无</p>'; ?></td>
           <td><?php echo $v['create_time']; ?></td>
           <td><div class="button-group">
-          <a href="__MODULE__/Relative/edit/relative_id/<?php echo $v['relative_id']; ?>">修改</a> 
-          <a style="cursor:pointer" onclick="del(<?php echo $v['relative_id']; ?>)">删除</a></br>
-          <a href="__MODULE__/HistoryVis/listHis/user_id/<?php echo $v['user_id']; ?>/relative_id/<?php echo $v['relative_id']; ?>">历史就诊</a>
-          <a href="__MODULE__/DrugDiary/listDiary/user_id/<?php echo $v['user_id']; ?>/relative_id/<?php echo $v['relative_id']; ?>">用药日记</a>
+          <a class="layui-btn layui-btn layui-btn-mini" style="cursor:pointer" href="__MODULE__/Relative/edit/relative_id/<?php echo $v['relative_id']; ?>"><i class="layui-icon">&#xe642;</i>　修　改</a> 
+          <a class="layui-btn layui-btn-danger layui-btn-mini" style="cursor:pointer" style="cursor:pointer" onclick="del(<?php echo $v['relative_id']; ?>)"><i class="layui-icon">&#xe640;</i>　删　除</a></br>
+          <a style="margin-right: 85px;margin-top: 5px" class="layui-btn layui-btn-normal layui-btn-mini" href="__MODULE__/HistoryVis/listHis/user_id/<?php echo $v['user_id']; ?>/relative_id/<?php echo $v['relative_id']; ?>"><i class="layui-icon">&#xe63c;</i>历史就诊</a>
           </div></td>
         </tr>
     <?php endforeach; ?>
-      <tr>
-        <td style="text-align:left; padding:19px 0;padding-left:20px;"><input type="checkbox" id="checkall"/>
-          全选 </td>
-        <td colspan="7" style="text-align:left;padding-left:20px;"><a href="javascript:void(0)" class="button border-red icon-trash-o" style="padding:5px 15px;" onclick="DelSelect()"> 删除</a> <a href="javascript:void(0)" style="padding:5px 15px; margin:0 10px;" class="button border-blue icon-edit" onclick="sorts()"> 排序</a>
-      </tr>
+      
       <tr>
       	<td colspan="8">
       	<div class="pagelist">
@@ -109,6 +82,7 @@
       	</td>
       </tr>
     </table>
+<script src="{$Think.const.ADMIN_LAYUI_URL}lay/dest/layui.all.js"></script>
 <script type="text/javascript">
 
 //搜索

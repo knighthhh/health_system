@@ -5,7 +5,7 @@
 		"iPad"
 	],
 	"id": "H5B6A9DFB",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "掌上健康用户版",/*应用名称，程序桌面图标名称*/
+	"name": "HealthSystem",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0",/*应用版本名称*/
 		"code": ""
@@ -239,8 +239,8 @@
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
 					"hdpi": "C:/Users/eric/Desktop/qidong.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "C:/Users/eric/Documents/Tencent Files/775340093/FileRecv/qidong.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "C:/Users/eric/Documents/Tencent Files/775340093/FileRecv/qidong.png"
+					"xhdpi": "img/qidong.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "img/qidong.png"
 				}
 			}
 		}
@@ -345,7 +345,10 @@
 					"img/hos.jpg",
 					"js/immersed.js",
 					"img/search1.png",
-					"img/jkzx.jpg"
+					"img/jkzx.jpg",
+					"js/mui.picker.min.js",
+					"js/city.data.js",
+					"css/mui.picker.min.css"
 				],
 				"refer": [
 					"main/hosHP.html",
@@ -357,7 +360,9 @@
 					"main/docHP.html",
 					"finddoctor/doclist.html",
 					"finddoctor/findhos.html",
-					"finddoctor/search_hos.html"
+					"finddoctor/search_hos.html",
+					"information/health_information.html",
+					"finddoctor/test.html"
 				],
 				"priority": 0
 			},
@@ -417,7 +422,8 @@
 					"css/mui.min.css",
 					"fonts/iconfont_foot.ttf",
 					"css/iconfont_foot.css",
-					"js/common.js"
+					"js/common.js",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"healthfile/medDiary.html",
@@ -427,7 +433,9 @@
 					"healthfile/Friends_file.html",
 					"healthfile/know_contents.html",
 					"healthfile/medDiary2.html",
-					"healthfile/Family_history.html"
+					"healthfile/Family_history.html",
+					"healthfile/file_all.html",
+					"healthfile/Medicine_remind.html"
 				],
 				"priority": 0
 			},
@@ -448,7 +456,8 @@
 				"refer": [
 					"inquiry/mydoctor.html",
 					"inquiry/select_file.html",
-					"finddoctor/search_doctor.html"
+					"finddoctor/search_doctor.html",
+					"inquiry/fast_question.html"
 				],
 				"priority": 0
 			},
@@ -545,7 +554,10 @@
 				"resources": [
 					"js/mui.min.js",
 					"css/mui.min.css",
-					"css/search_info.css"
+					"css/search_info.css",
+					"js/common.js",
+					"css/iconfont_se.css",
+					"css/iconfont_money.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -554,7 +566,10 @@
 				"resources": [
 					"js/mui.min.js",
 					"css/mui.min.css",
-					"css/search_info.css"
+					"css/search_info.css",
+					"js/common.js",
+					"css/iconfont_se.css",
+					"css/iconfont_money.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -721,13 +736,20 @@
 					"js/mui.previewimage.js",
 					"fonts/iconfont_money.ttf",
 					"fonts/iconfont_foot.ttf",
-					"fonts/iconfont.ttf"
+					"fonts/iconfont.ttf",
+					"img/inquiry.jpg",
+					"css/iconfont_se.css",
+					"fonts/iconfont_se.ttf",
+					"css/iconfont_health_file.css",
+					"fonts/iconfont_health_file.ttf",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"im/im-chat.html",
 					"finddoctor/zixun.html",
 					"finddoctor/doc_brief.html",
-					"finddoctor/pay.html"
+					"finddoctor/pay.html",
+					"login/login.html"
 				],
 				"priority": 0
 			},
@@ -858,7 +880,8 @@
 					"css/mui.calendar.css",
 					"js/mui.picker.min.js",
 					"css/iconfont_account.css",
-					"js/common.js"
+					"js/common.js",
+					"css/app.css"
 				],
 				"refer": [
 					"healthfile/write_diary.html",
@@ -880,7 +903,8 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"fonts/iconfont_account.ttf",
-					"css/iconfont_account.css"
+					"css/iconfont_account.css",
+					"js/common.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1096,7 +1120,8 @@
 					"css/app.css",
 					"fonts/mui.ttf",
 					"css/mui.min.css",
-					"js/common.js"
+					"js/common.js",
+					"js/vue.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1109,7 +1134,10 @@
 					"fonts/mui.ttf",
 					"js/common.js"
 				],
-				"refer": [],
+				"refer": [
+					"healthfile/Family_add.html",
+					"healthfile/Family_edit.html"
+				],
 				"priority": 0
 			},
 			"finddoctor/doclist.html": {
@@ -1155,7 +1183,8 @@
 					"finddoctor/docHP.html",
 					"finddoctor/article_brief.html",
 					"finddoctor/doclist.html",
-					"finddoctor/search_doctor_yy.html"
+					"finddoctor/search_doctor_yy.html",
+					"healthfile/know_contents.html"
 				],
 				"priority": 0
 			},
@@ -1180,7 +1209,9 @@
 					"css/mui.min.css",
 					"css/health_file.css",
 					"css/search_info.css",
-					"css/iconfont_money.css"
+					"css/iconfont_money.css",
+					"css/iconfont_se.css",
+					"fonts/iconfont_se.ttf"
 				],
 				"refer": [
 					"finddoctor/article_brief.html",
@@ -1290,9 +1321,13 @@
 					"js/mui.min.js",
 					"fonts/mui.ttf",
 					"css/mui.min.css",
-					"css/fast_question.css"
+					"css/fast_question.css",
+					"js/common.js",
+					"css/zixun.css"
 				],
-				"refer": [],
+				"refer": [
+					"inquiry/question_over.html"
+				],
 				"priority": 0
 			},
 			"inquiry/basic_text.html": {
@@ -1425,7 +1460,9 @@
 					"css/mui.picker.min.css",
 					"css/iconfont_se.css",
 					"css/search_info.css",
-					"js/immersed.js"
+					"js/immersed.js",
+					"fonts/mui.ttf",
+					"fonts/iconfont_se.ttf"
 				],
 				"refer": [],
 				"priority": 0
@@ -1452,6 +1489,126 @@
 				"refer": [
 					"finddoctor/zixun.html"
 				],
+				"priority": 0
+			},
+			"healthfile/file_all.html": {
+				"resources": [
+					"img/person_background.png",
+					"js/mui.zoom.js",
+					"js/common.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/mui.previewimage.js",
+					"img/inquiry.jpg",
+					"js/vue.min.js",
+					"css/heathfile.css"
+				],
+				"refer": [
+					"login/login.html",
+					"healthfile/myfile_person_edit.html",
+					"healthfile/Friend_file_detail.html",
+					"healthfile/Friend_file_add.html"
+				],
+				"priority": 0
+			},
+			"healthfile/Family_add.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/heathfile.css",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"healthfile/Family_edit.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/heathfile.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"information/health_information.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.min.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/health_file.css"
+				],
+				"refer": [
+					"healthfile/know_contents.html"
+				],
+				"priority": 0
+			},
+			"healthfile/Medicine_remind.html": {
+				"resources": [
+					"js/common.js",
+					"img/add.png",
+					"js/mui.min.js",
+					"css/app.css",
+					"css/iconfont_health_file.css",
+					"css/mui.min.css",
+					"css/heathfile.css",
+					"fonts/iconfont_health_file.ttf",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"healthfile/Medicine_add_remind.html",
+					"finddoctor/test.html",
+					"healthfile/Medicine_detail.html"
+				],
+				"priority": 0
+			},
+			"healthfile/Medicine_add_remind.html": {
+				"resources": [
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"css/app.css",
+					"css/mui.min.css",
+					"css/mui.picker.min.css",
+					"css/heathfile.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"finddoctor/test.html": {
+				"resources": [
+					"css/find_doctor.css",
+					"js/common.js",
+					"js/mui.min.js",
+					"css/app.css",
+					"css/mui.min.css",
+					"css/health_file.css",
+					"css/iconfont_se.css",
+					"css/search_info.css",
+					"css/iconfont_money.css",
+					"fonts/mui.ttf",
+					"fonts/iconfont_money.ttf",
+					"fonts/iconfont_se.ttf"
+				],
+				"refer": [
+					"finddoctor/docHP.html"
+				],
+				"priority": 0
+			},
+			"healthfile/Medicine_detail.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/app.css",
+					"css/mui.min.css",
+					"css/heathfile.css",
+					"js/common.js",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

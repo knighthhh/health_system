@@ -15,9 +15,9 @@ class RelativeInfoModel extends Model
         $orderway = "desc";
         /*搜索处理*/
         $where = array();
-        $userPhone = I('get.userPhone');
-        if($userPhone){
-            $where['b.user_phone'] = array('eq', "$userPhone");
+        $searchValue = I('get.searchValue');
+        if($searchValue){
+            $where['b.user_phone'] = array('like', "%$searchValue%");
         }
         $user_id = I('get.user_id');
         if($user_id){

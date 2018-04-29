@@ -385,7 +385,7 @@
 								'</span><div class="mui-pull-right" style="width: 50%; "><span id="">医生诊断：</span><span id="">' + data[i].seecase_info +
 								'</span></div></li><li class="mui-table-view-cell "><span id="">医生建议：</span><span id="">' + data[i].seecase_sgs +
 								'</span></li><li class="mui-table-view-cell "><span id="">处方信息：</span><span id="">' + data[i].page_info +
-								'</span></li><li class="mui-table-view-cell "><span id="">就诊时间：</span><span id="">' + data[i].seecase_time +
+								'</span></li ><li class="mui-table-view-cell "><span id="">就诊时间：</span><span id="">' + data[i].seecase_time +
 								' </span></li><li class="mui-table-view-cell"><p><button seecaseID="' + data[i].seecase_id + '" id="detail_outline" type="button" class="mui-btn mui-btn-success mui-btn-outlined mui-pull-right history_button detail_outline">查看详情</button></p></li></ul>';
 						}
 						outline.innerHTML = item2;
@@ -462,17 +462,19 @@
 	      				type:'POST',
 	      				timeout:10000,
 	      				success:function(data){
-	      					var s="";
-	      					for(var i=0;i<data.length;++i){
-	      						s+="<ul class='mui-table-view mui-card'><li class='mui-table-view-cell'><span >问诊医生：</span>";
-	      						s+="<span id='doc_name'>"+data[i].doc_name+"</span><div class='mui-pull-right' style='width: 50%;'><span >问诊医院：</span>";
-	      						s+="<span id='hos_name'>"+data[i].hos_name+"</span></div></li><li class='mui-table-view-cell'><span >问诊科室： </span>";
-	      						s+="<span id='dep_name'>"+data[i].dep_name+"</span><div class='mui-pull-right' style='width: 50%; '><span >问诊疾病：</span>";
-	      						s+="<span id='zixun_illness'>"+data[i].zixun_illness+" </span></div></li><li class='mui-table-view-cell'><span >问诊内容：</span>";
-	      						s+="<span id='zixun_text'>"+data[i].zixun_text+"</span></li><li class='mui-table-view-cell'><span >问诊日期：</span>";
-	      						s+="<span id='time'>"+data[i].time+"</span></li></ul>";
+	      					if(data){
+	      						var s="";
+		      					for(var i=0;i<data.length;++i){
+		      						s+="<ul class='mui-table-view mui-card'><li class='mui-table-view-cell'><span >问诊医生：</span>";
+		      						s+="<span id='doc_name'>"+data[i].doc_name+"</span><div class='mui-pull-right' style='width: 50%;'><span >问诊医院：</span>";
+		      						s+="<span id='hos_name'>"+data[i].hos_name+"</span></div></li><li class='mui-table-view-cell'><span >问诊科室： </span>";
+		      						s+="<span id='dep_name'>"+data[i].dep_name+"</span><div class='mui-pull-right' style='width: 50%; '><span >问诊疾病：</span>";
+		      						s+="<span id='zixun_illness'>"+data[i].zixun_illness+" </span></div></li><li class='mui-table-view-cell'><span >问诊内容：</span>";
+		      						s+="<span id='zixun_text'>"+data[i].zixun_text+"</span></li><li class='mui-table-view-cell'><span >问诊日期：</span>";
+		      						s+="<span id='time'>"+data[i].time+"</span></li></ul>";
+		      					}
+		      					document.getElementById("online_vis").innerHTML = s;
 	      					}
-	      					document.getElementById("online_vis").innerHTML = s;
 	      				},
 	      				error:function(){
 	      					plus.nativeUI.toast("请检查您的网络");
@@ -524,6 +526,7 @@
 				}
 				var relative_id = 0;
 				var detailPage = null;
+				//线下就诊记录详情
 				mui(".outline_history").on('tap', '.detail_outline', function(event) {
 					var seecaseID = this.getAttribute('seecaseID');
 					mui.openWindow({
@@ -540,6 +543,7 @@
 				});
 				
 				//console.log(relative_id);
+				//添加线下就诊记录
 				add_outline.addEventListener('tap', function(event) {
 					mui.openWindow({
 						url: 'outline_add.html',

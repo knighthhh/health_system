@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">设置用药提醒</h1>
+		</header>
+
+		<div class="mui-content">
+			<form action="" method="post">
+				<ul class="mui-table-view box-dairy">
+					<li id="use_time" class="mui-table-view-cell">
+			 	            <a class="mui-navigate-right">
+			 	            	提醒时间：
+			 	               	<span id="show_time" style="color: #6C6C6C;"></span> 
+			 	            </a>
+			 	    </li>
+					<li id="use_number" class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							重复：
+							<span id="show_number" style="color: #6C6C6C;"></span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<p>填写该吃的药物:</p>
+						<textarea id="textarea3" rows="5" placeholder="填写药物详情....."></textarea>
+					</li>
+					<li class="mui-table-view-cell">
+						<p>所用药物注意事项(医生建议)</p>
+						<textarea id="textarea3" rows="5" placeholder="填写注意事项....."></textarea>
+					</li>
+			</form>
+			
+		</div>
+		<div class="submit" id="quickask">
+					<span class="mui-btn mui-btn-success ">
+					  确定设置
+					</span>
+		</div>
+
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+
+		<script src="../js/mui.picker.min.js"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				var show_time=document.getElementById('show_time');
+				document.getElementById("use_time").addEventListener('tap', function() {
+				  var dTime = new Date();
+				  //设置默认时间
+				  dTime.setHours(6, 0);
+				  plus.nativeUI.pickTime(function(e) {
+				      var d = e.date;
+				      var min = null;
+				      if(d.getMinutes()<10){
+				      	min = '0' + d.getMinutes();
+				      }else{
+				      	min = d.getMinutes();
+				      }
+				      show_time.innerText = d.getHours() + ":" + min;
+				  }, function(e) {
+				      mui.toast("您没有选择时间");
+				  }, {
+				      title: "请选择时间",
+				      is24Hour: true,
+				      time: dTime
+				  });
+				});
+				$.ready(function() {
+					//普通示例
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'ywj',
+						text: '每天'
+					}, {
+						value: 'aaa',
+						text: '周末'
+					}, {
+						value: 'lj',
+						text: '周一至周五'
+					}]);
+					var showUserPickerButton = doc.getElementById('use_number');
+					var show_number = doc.getElementById('show_number');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+
+							show_number.innerText = items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+
+				});
+			})(mui, document);
+		</script>
+
+		<script type="text/javascript">
+			
+		</script>
+	</body>
+
+</html>

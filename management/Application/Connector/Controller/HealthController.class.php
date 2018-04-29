@@ -425,7 +425,7 @@ class HealthController extends Controller
     //查找家族史记录
     public function getFamily(){
         $user_phone = I('get.user_phone');
-        //$user_phone = ;
+        //$user_phone = 15768650568;
          //先根据用户手机获得用户ID
         $model   = D('user_info');
         $user_id = $model->field("user_id")->where(array(

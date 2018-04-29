@@ -15,8 +15,58 @@
 
 	<body>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			
+			mui.plusReady(function(){
+				var user_phone = plus.storage.getItem('user_phone');
+				document.getElementById("myswitch").addEventListener("toggle",function(event){
+				  if(event.detail.isActive){
+				    	mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/dangan_on',{
+		      				data:{
+		      					user_phone:user_phone,
+		      					dangan_switch:1
+		      				},
+		      				dataType:'json',
+		      				type:'POST',
+		      				timeout:10000,
+		      				success:function(data){
+		      					//{"reslut":1}表示请求数据成功
+		      					if(data.result==1){
+		      						plus.nativeUI.toast("开启成功");
+		      					}else{ 
+		      						plus.nativeUI.toast("开始失败");
+		      					}
+		      				},
+		      				error:function(){
+		      					plus.nativeUI.toast("请检查您的网络");
+		      				}
+		      			})
+				  }else{
+				  	mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/dangan_on',{
+	      				data:{
+	      					user_phone:user_phone,
+	      					dangan_switch:0
+	      				},
+	      				dataType:'json',
+	      				type:'POST',
+	      				timeout:10000,
+	      				success:function(data){
+	      					//{"reslut":1}表示请求数据成功
+	      					if(data.result==1){
+	      						plus.nativeUI.toast("关闭成功");
+	      					}else{ 
+	      						plus.nativeUI.toast("关闭失败");
+	      					}
+	      				},
+	      				error:function(){
+	      					plus.nativeUI.toast("请检查您的网络");
+	      				}
+	      			})
+				  }
+				})
+			})
 		</script>
 		<header class="mui-bar mui-bar-nav">
 		   <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
@@ -34,7 +84,7 @@
 						<ul class="mui-table-view">
 							<li class="mui-table-view-cell">
 								允许医生查看健康档案信息
-								<div class="mui-switch mui-active mui-switch-mini">
+								<div id="myswitch" class="mui-switch mui-active mui-switch-mini">
 									<div class="mui-switch-handle"></div>
 								</div>
 							</li>

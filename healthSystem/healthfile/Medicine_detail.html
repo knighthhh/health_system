@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">用药详情</h1>
+		</header>
+		<div class="mui-content">
+				<div class="public-detail">
+					<ul id="txlist" class='mui-table-view mui-card'>
+				        <li class='mui-table-view-cell'><span >用药时间：</span><span id='time'>12:00</span></li>
+				         <li class='mui-table-view-cell'><div class='mui-row'><div class='mui-col-xs-3'><span>所用药物：</span></div><div class='mui-col-xs-9'><span id='content'>阿司匹林 双黄连口服液 感冒灵  </span></div></div></li>
+				         <li class='mui-table-view-cell'><div class='mui-row'><div class='mui-col-xs-3'><span >注意事项:</span></div><div class='mui-col-xs-9'><span id='zhuyi'>饭后使用，一日两次</span></div></div></li> 
+				    </ul>
+				</div>	
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				var tx_id = self.tx_id;
+				mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/User/get_tixing',{
+	  				data:{
+	  					tx_id:tx_id
+	  				},
+	  				dataType:'json',
+	  				type:'POST',
+	  				timeout:10000,
+	  				success:function(data){
+	  					//return false;
+	  					if(data.result!=0){
+	  						var s="";
+							s+="<li class='mui-table-view-cell'><span >用药时间：</span><span id='time'>"+data.tixing_time+"</span></li>";
+							s+="<li class='mui-table-view-cell'><div class='mui-row'><div class='mui-col-xs-3'><span>所用药物：</span></div><div class='mui-col-xs-9'><span id='content'>"+data.content+"  </span></div></div></li>";
+							s+="<li class='mui-table-view-cell'><div class='mui-row'><div class='mui-col-xs-3'><span >注意事项:</span></div><div class='mui-col-xs-9'><span id='zhuyi'>"+data.zhuyi+"</span></div></div></li> ";
+							
+							var txlist =document.getElementById("txlist");
+							txlist.innerHTML = s;
+	  					}else{
+	  						plus.ui.toast(data.data);
+	  					}
+	  				},
+	  				error:function(){
+	  					plus.nativeUI.toast("请检查您的网络");
+	  				}
+	  			})
+			})
+		</script>
+	</body>
+
+</html>

@@ -21,10 +21,10 @@ define('MASTERSECRET','');
 $doc_phone = $_POST['doc_phone'];
 $user_phone = $_POST['user_phone'];
 $zixun_id = $_POST['zixun_id'];
-$mysql_server_name=""; //数据库服务器名称
-$mysql_username=""; // 连接数据库用户名
-$mysql_password=""; // 连接数据库密码
-$mysql_database=""; // 数据库的名字
+$mysql_server_name="127.0.0.1"; //数据库服务器名称
+$mysql_username="gaa"; // 连接数据库用户名
+$mysql_password="rohaot"; // 连接数据库密码
+$mysql_database="healthsystem"; // 数据库的名字
 
 // 连接到数据库
 $conn=mysql_connect($mysql_server_name, $mysql_username,$mysql_password);
@@ -88,7 +88,7 @@ function getUserCountByTagsDemo() {
 function getPushMessageResultDemo(){
 
 
-//    
+//    putenv("gexin_default_domainurl=http://183.129.161.174:8006/apiex.htm");
 
     $igt = new IGeTui(HOST,APPKEY,MASTERSECRET);
 
@@ -206,6 +206,7 @@ function pushAPNL(){
     $listmessage = new IGtListMessage();
     $listmessage->set_data($template);
     $contentId = $igt->getAPNContentId(APPID, $listmessage);
+    //$deviceTokenList = array("3337de7aa297065657c087a041d28b3c90c9ed51bdc37c58e8d13ced523f5f5f");
     $deviceTokenList = array(DEVICETOKEN);
     $ret = $igt->pushAPNMessageToList(APPID, $contentId, $deviceTokenList);
     var_dump($ret);

@@ -18,8 +18,8 @@ input[type=search]{
 	font-size: 14px;
 	}
 .search{
-	padding-left: 10%; 
-	width: 85%; 
+	padding-left: 15%; 
+	width: 90%; 
 	position: absolute;
 	
 }
@@ -211,6 +211,7 @@ height: 100%;
 .box-c-a-r{
 	width: 75%;
 	float: left;
+	
 }
 .box-c-a-r h4{
 	color: #6D6D72;

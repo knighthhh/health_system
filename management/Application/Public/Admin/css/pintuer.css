@@ -634,7 +634,7 @@ textarea.input{height:auto;}
 .fixed-top-right{position:fixed;top:0;right:0;}
 .fixed-bottom-left{position:fixed;bottom:0;left:0;}
 .fixed-bottom-right{position:fixed;bottom:0;right:0;}
-.bread{border-radius:4px;padding:8px 15px;font-size:13px;margin-bottom:15px;color:#999;}
+.bread{border-radius:8px;font-size:15px;color:#999;}
 .bread li{display:inline-block;}
 .bread li:after{content:"\002f";padding:0 8px;color:#ddd;}
 .bread li:last-child:after{content:"";}
@@ -748,7 +748,7 @@ dd{padding:8px 0 15px 0;}
 }
 .table{width:100%;max-width:100%;border-collapse:collapse;border-spacing:0;}
 .table th{border-bottom:2px solid #ddd;vertical-align:bottom;padding:8px;text-align:left;}
-.table td{border-top:1px solid #ddd;padding:8px;vertical-align:top;}
+.table td{border-top:1px solid #ddd;padding:5px;vertical-align:top;}
 .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th{background-color:#f9f9f9;}/*条纹-IE9以下无效果*/
 .table-bordered th,.table-bordered td{border:solid 1px #ddd;}
 .table-bordered th{border-bottom:2px solid #ddd;}

@@ -33,6 +33,17 @@
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/mui.indexedlist.js"></script>
 		<script type="text/javascript" charset="utf-8">
+			
+//			var titleNView = { //配置原生标题
+//			    'backgroundColor': '#f7f7f7',//导航栏背景色
+//		        'titleText': '透明渐变(native模式)',//导航栏标题
+//		        'titleColor': '#000000',//文字颜色
+//		        type:'transparent',//透明渐变样式
+//		        autoBackButton: true,//自动绘制返回箭头
+//		        splitLine:{//底部分割线
+//		            color:'#cccccc'
+//		        }
+//			};
 			mui.init({
 				preloadPages:[
 				{
@@ -42,6 +53,24 @@
 				],
 			});
 			mui.plusReady(function(){
+				/*//预加载详情页
+				hos_detail = mui.preload({
+					url: 'hosHP.html',
+					id: 'hosHP.html',
+					styles: {
+						"titleNView": { //配置原生标题
+						    'backgroundColor': '#f7f7f7',//导航栏背景色
+					        'titleText': '透明渐变(native模式)',//导航栏标题
+					        'titleColor': '#000000',//文字颜色
+					        type:'transparent',//透明渐变样式
+					        autoBackButton: true,//自动绘制返回箭头
+					        splitLine:{//底部分割线
+					            color:'#cccccc'
+					        }
+						}
+					}
+				});*/
+
 				mui.get('http://'+serverName+'/health/management/Application/index.php/Connector/Hos/getHotHos',{
 					
 				},function(data){
@@ -80,10 +109,18 @@
 					mui.openWindow({
 						id: 'hosHP.html',
 						show: {
-							aniShow: 'pop-in'
+							aniShow: 'pop-in',
+							duration:100
 						}
 					});
-				});
+//				//更改详情页原生导航条信息
+//				hos_detail.setStyle({
+//					"titleNView": titleNView
+//				});
+//				setTimeout(function () {
+//					hos_detail.show("pop-in", 50);
+//				},50);
+			});
 			});
 		</script>
 	</head>

@@ -1,8 +1,7 @@
 
+//document.write('<script language="javascript" src="./vue.min.js"></script>');
 
-
-var serverName = '';
-
+var serverName = '127.0.0.1:80';
 
 //判断是否登录了
 function islogin(){

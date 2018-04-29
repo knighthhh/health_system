@@ -14,13 +14,21 @@ define('HOST','http://sdk.open.api.igexin.com/apiex.htm');
 
 //https的域名
 //define('HOST','https://api.getui.com/apiex.htm');
-     
+               
+
+//define('APPKEY','lf8CebyLAi7opENTlEcTn3');
+//define('APPID','gzPLphUmCU7OSauSN4bRP3');
+//define('MASTERSECRET','q7vGpj6QPr7uWg2G6Pked1');
 //我的
-define('APPKEY','');
-define('APPID','');
-define('MASTERSECRET','');
+define('APPKEY','SsoewVDYzC7wCldNX6Gz1');
+define('APPID','rGeSOxPwgN6Ue2iIunDtKA');
+define('MASTERSECRET','ztLAA3yBp86MVqiWI3lYN9');
 
-
+//define('CID','f18d226202d1199f5ea6b79a8d5a2992');
+//define('DEVICETOKEN','');
+//define('Alias','请输入别名');
+//define('BEGINTIME','2015-03-06 13:18:00');
+//define('ENDTIME','2015-03-06 13:24:00');
 
 //getUserStatus();
 
@@ -66,6 +74,7 @@ function getUserCountByTagsDemo() {
 function getPushMessageResultDemo(){
 
 
+//    putenv("gexin_default_domainurl=http://183.129.161.174:8006/apiex.htm");
 
     $igt = new IGeTui(HOST,APPKEY,MASTERSECRET);
 

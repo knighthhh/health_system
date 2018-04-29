@@ -8,8 +8,8 @@ class SmsController extends Controller{
 		$funAndOperate = "industrySMS/sendSMS";
 		$body = $this->createBasicAuthData();
 		// 在基本认证参数的基础上添加短信内容和发送目标号码的参数
-		$phone=$_POST['user_phone'];
-		//$phone='';
+//		$phone=$_POST['user_phone'];
+		$phone='17727217225';
 		$yzm=rand('100000','999999') ;
 		$time='5';
 		$body['smsContent'] = "【健康系统】您的验证码为:".$yzm."，请于".$time."分钟内正确输入，如非本人操作，请忽略此短信。";

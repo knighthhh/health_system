@@ -7,6 +7,14 @@ class UserInfoModel extends Model{
 	{
 		/* 分页 */
         $count = $this->count();
+         /*搜索*/
+        $where = array();
+        $searchValue = I('post.searchValue');
+        if($searchValue){
+            $where['user_phone'] = array('like',"%$searchValue%");
+            $where['user_name'] = array('like',"%$searchValue%");
+            $where['_logic'] = 'or';
+        }
         //实例化翻页类对象
         $pageObj = new \Think\Page($count, $perPage);
         //设置翻页样式
@@ -15,6 +23,7 @@ class UserInfoModel extends Model{
         //生成翻页按钮（上一页，下一页）
         $pageButton = $pageObj->show();
         $data       = $this
+            ->where($where)
             ->limit($pageObj->firstRow . "," . $pageObj->listRows)
             ->select();
         return array(

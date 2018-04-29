@@ -18,6 +18,17 @@
 					var fastask= document.getElementById('fastquestion');
 					var finddoctor = document.getElementById('finddoctor');
 					var mydoctor = document.getElementById('mydoctor');
+					var diqu = null;
+					//获取定位
+					function geoInf( position ) {
+						var address = position.address;
+						var city = address.province.substring(0,address.city.length-1);
+						diqu = city;
+					}
+					plus.geolocation.getCurrentPosition( geoInf, function ( e ) {
+						plus.nativeUI.alert( "获取位置信息失败："+e.message );
+					}, {geocode:true} );
+					
 					fastask.addEventListener('tap',function(event){
 						if(islogin()){
 							mui.openWindow({
@@ -51,6 +62,9 @@
 							url: '../finddoctor/search_doctor.html',
 							id: 'findoctor',
 							preload: true,
+							extras:{
+						    	diqu:diqu
+						    },
 							show: {
 								aniShow: 'pop-in'
 							},

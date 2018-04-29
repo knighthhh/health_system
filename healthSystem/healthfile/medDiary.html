@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<!--标准mui.css-->
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/iconfont_account.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
 	</head>
@@ -16,20 +17,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav public-color">
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <div class="chose">
-		    	<span id="">
-		    	患者:
-		    </span>
-		    <span class="mui-select">
-		    	<select class="chose_man">
-		    		
-					<option value="item-1">张三</option>
-					<option value="item-2">李四</option>
-					<option value="item-3">陈海啸</option>
-					<option value="item-4">张多少</option>
-					<option value="item-5">李东旭</option>
-				</select>
-			</span>	
+		  	<h1 class="mui-title">用药日记</h1>
 		    </div>
 		    
 				
@@ -105,11 +93,11 @@
 								</li>
 							</ul>
 						</li>
-						<li class="mui-table-view-cell">
+						<!--<li class="mui-table-view-cell">
 							<p>
 								<button  type="button" id="edit_outline" class="mui-btn mui-btn-success mui-btn-outlined mui-pull-right history_button edit_outline">修改记录</button>
 							</p>
-						</li>
+						</li>-->
 					</ul>
 				</div>
 				
@@ -124,27 +112,6 @@
 	
 	</body>
 	<script src="../js/mui.min.js"></script>
-	    <script type="text/javascript">
-	    	mui.init();
-			mui.plusReady(function() {
-					var write= document.getElementById('write');	
-					write.addEventListener('tap',function(event){
-						mui.openWindow({
-							url: 'write_diary2.html',
-							id: 'write_diary2',
-							preload: true,
-							show: {
-								aniShow: 'pop-in'
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
-					},false);
-		
-				});
-
-	</script>
 	<script src="../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">

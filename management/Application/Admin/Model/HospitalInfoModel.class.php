@@ -16,6 +16,14 @@ class HospitalInfoModel extends Model
         /*默认降序*/
         $orderby  = "hos_id";
         $orderway = "desc";
+        /*搜索*/
+        $where = array();
+        $searchValue = I('post.searchValue');
+        if($searchValue){
+            $where['hos_name'] = array('like',"%$searchValue%");
+            $where['hos_address'] = array('like',"%$searchValue%");
+            $where['_logic'] = 'or';
+        }
         /* 分页 */
         $count = $this->count();
         //实例化翻页类对象

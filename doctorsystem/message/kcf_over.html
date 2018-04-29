@@ -68,7 +68,22 @@
   				}
   			})
 			
-			
+			//开处方数量加1，绩效改变
+			mui.ajax('http://'+serverName+'/health/management/Application/index.php/Connector/Tuijian/chufang_num',{
+  				data:{
+					doc_phone:doc_phone
+  				},
+  				dataType:'json',
+  				type:'POST',
+  				timeout:10000,
+  				success:function(data){
+  					//{"reslut":1}表示成功
+  					
+  				},
+  				error:function(){
+//					plus.nativeUI.toast("请检查您的网络");
+  				}
+  			})
 			
 			//返回按钮监听
 			var over = document.getElementById("over");

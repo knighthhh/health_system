@@ -55,7 +55,7 @@ function showImage($url, $width = '', $height = '')
         $height = "height='$height'";
     }
 
-    echo "<img $width $height src='{$ic['viewPath']}$url' />";
+    echo "<img $width $height layer-src='{$ic['viewPath']}$url' src='{$ic['viewPath']}$url' />";
 
 }
 
@@ -192,6 +192,14 @@ function uploadExcel($excelName, $dirName)
     }
 }
 
+/**
+ * 导入excel表格
+ * @Author   王哲
+ * @DateTime 2017-07-06
+ * @param    [type]     $filename [description]
+ * @param    string     $exts     [description]
+ * @return   [type]               [description]
+ */
 function import_excel($filename, $exts = 'xls')
 {
     //导入PHPExcel类库，因为PHPExcel没有用命名空间，只能inport导入
@@ -271,3 +279,21 @@ function getAround($lat, $lon, $raidus)
     $data['maxLng'] = $maxLng;
     return $data;
 }
+
+/**
+ * 用户权限验证
+ * @Author   王哲
+ * @DateTime 2017-07-06
+ * @param    string     $name 规则名称
+ * @param    int        $uid  用户ID
+ * @param    string     $t    返回true后执行的语句
+ * @return   string           若验证正确则执行语句，否则返回错误信息
+ */
+function authCheck($name,$uid,$t){
+    $f="";
+    $auth = new \Think\auth();
+    return $auth->check($name,$uid)?$t:$f;
+}
+
+
+

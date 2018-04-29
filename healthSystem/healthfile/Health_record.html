@@ -38,7 +38,7 @@
 			 	</p>
 			 	<ul class="mui-table-view">
 			 	        <li id="health_height" class="mui-table-view-cell">
-			 	            <a class="mui-navigate-right">
+			 	            <a class="mui-navigate">
 			 	               	<span class="mui-icon iconfont icon-shengao ul_t1"></span>
 			 	               	身高:
 			 	               	<span id="info_height">
@@ -47,7 +47,7 @@
 			 	            </a>
 			 	        </li>
 			 	        <li id="health_weight" class="mui-table-view-cell">
-			 	            <a class="mui-navigate-right">
+			 	            <a class="mui-navigate">
 			 	                <span class="mui-icon iconfont icon-ccgl-chengzhongsaomiao-5 ul_t2"></span>
 			 	                	体重:
 			 	                <span id="info_weight">
@@ -56,7 +56,7 @@
 			 	            </a>
 			 	        </li>
 			 	        <li id="health_vision" class="mui-table-view-cell">
-			 	            <a class="mui-navigate-right">
+			 	            <a class="mui-navigate">
 			 	                <span class="mui-icon iconfont icon-shiliceping ul_t3"></span>
 			 	                
 			 	                	视力:
@@ -66,7 +66,7 @@
 			 	            </a>
 			 	        </li>
 			 	          <li id="health_glucose" class="mui-table-view-cell">
-			 	            <a class="mui-navigate-right">
+			 	            <a class="mui-navigate">
 			 	                 <span class="mui-icon iconfont icon-xueya ul_t4"></span>
 			 	                 	血糖:
 			 	                <span id="info_glucose">
@@ -75,7 +75,7 @@
 			 	            </a>
 			 	        </li>
 			 	          <li id="health_blood" class="mui-table-view-cell">
-			 	            <a class="mui-navigate-right">
+			 	            <a class="mui-navigate">
 			 	                 <span class="mui-icon iconfont icon-iconxt ul_t5"></span>
 			 	                 	血压:
 			 	                 <span id="info_blood">
@@ -84,7 +84,7 @@
 			 	            </a>
 			 	        </li>
 			 	          <li id="health_heart" class="mui-table-view-cell">
-			 	            <a class="mui-navigate-right">
+			 	            <a class="mui-navigate">
 			 	                 <span class="mui-icon iconfont icon-icon ul_t6"></span>
 			 	                	心率: 
 			 	                <span id="info_heart">
@@ -103,14 +103,6 @@
 				</div>
 			</div>
 				
-			
-			
-			<!--<div style=" width:50px; height:50px; background-color:#F00; border-radius:25px;">
-         <span style="height:50px; line-height:50px; display:block; color:#FFF; text-align:center">65KG</span>
-		</div>-->
-		
-		<!--<div id="test"><span>65KG</span></div>-->
-			
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
@@ -258,100 +250,7 @@
 				});
 			});
 		});
-			</script>
-			<script type="text/javascript" charset="utf-8">
-			//mui初始化
-			var info_height = document.getElementById("info_height");
-			document.getElementById("health_height").addEventListener('tap', function(e) {
-				e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
-				var btnArray = ['取消', '确定'];
-				mui.prompt('请输入您的身高：', '单位：cm', '身高', btnArray, function(e) {
-					if (e.index == 1) {
-						info_height.innerText = e.value  +  'cm';
-					} 
-				})
-			});
-			
-			var info_weight = document.getElementById("info_weight");
-			
-			document.getElementById("health_weight").addEventListener('tap', function(e) {
-				e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
-				var btnArray = ['取消', '确定'];
-				mui.prompt('请输入您的体重：', '单位：KG', '体重', btnArray, function(e) {
-					if (e.index == 1) {
-						info_weight.innerText =e.value  +  'KG';
-					} else {
-						info_weight.innerText = '无记录';
-					}
-				})
-			});
-			
-			
-			var info_vision = document.getElementById("info_vision");
-			
-			document.getElementById("health_vision").addEventListener('tap', function(e) {
-				e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
-				var btnArray = ['取消', '确定'];
-				mui.prompt('请输入您的视力：', '4.0~5.3', '视力', btnArray, function(e) {
-					if (e.index == 1) {
-						info_vision.innerText =e.value  +  'cm';
-					} else {
-						info_vision.innerText = '无记录';
-					}
-				})
-			});
-			
-			
-			var info_glucose = document.getElementById("info_glucose");
-			
-			document.getElementById("health_glucose").addEventListener('tap', function(e) {
-				e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
-				var btnArray = ['取消', '确定'];
-				mui.prompt('请输入您的血糖：', '单位：nmol/L', '血糖', btnArray, function(e) {
-					if (e.index == 1) {
-						info_glucose.innerText =e.value  +  'nmol/L';
-					} else {
-						info_glucose.innerText = '无记录';
-					}
-				})
-			});
-			
-			
-			
-			var info_blood = document.getElementById("info_blood");
-			
-			document.getElementById("health_blood").addEventListener('tap', function(e) {
-				e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
-				var btnArray = ['取消', '确定'];
-				mui.prompt('请输入您的血压：', '单位：mmHg', '血压', btnArray, function(e) {
-					if (e.index == 1) {
-						info_blood.innerText =e.value  +  'mmHg';
-					} else {
-						info_blood.innerText = '无记录';
-					}
-				})
-			});
-			
-			
-			var info_heart = document.getElementById("info_heart");
-			
-			document.getElementById("health_heart").addEventListener('tap', function(e) {
-				e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
-				var btnArray = ['取消', '确定'];
-				mui.prompt('请输入您的心率：', '单位：BPM', '心率', btnArray, function(e) {
-					if (e.index == 1) {
-						info_heart.innerText =e.value  +  'BPM';
-					} else {
-						info_heart.innerText = '无记录';
-					}
-				})
-			});
-//			console.log(d.getDate());
-//			var year = d.getFullYear();
-//			var month = d.getMonth();
-//			var day = d.getDate();
-			
-		</script>
+	</script>
 	</body>
 
 </html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="{$Think.const.ADMIN_CSS_URL}pintuer.css">
+<link rel="stylesheet" href="{$Think.const.ADMIN_CSS_URL}admin.css">
+<link rel="stylesheet" href="{$Think.const.ADMIN_CSS_URL}jquery-ui.min.css">
+<script src="{$Think.const.ADMIN_JS_URL}jquery.js"></script>
+<script src="{$Think.const.ADMIN_JS_URL}jquery-ui.min.js"></script>
+<script src="{$Think.const.ADMIN_JS_URL}pintuer.js"></script>
+<script src="{$Think.const.ADMIN_LAYUI_URL}lay/dest/layui.all.js"></script>
+<link rel="stylesheet" href="{$Think.const.ADMIN_LAYUI_URL}css/layui.css">
+<link rel="stylesheet" href="{$Think.const.ADMIN_CSS_URL}font-awesome.min.css">
+
+<style type="text/css">
+	
+
+</style>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="tab-content">
+				<h1 class="text-center">为<span style="color:red">{$group_data['title']}</span>分配权限</h1>
+				<form action="__MODULE__/Auth/rule_group" method="post">
+					<input type="hidden" name="id" value="{$group_data['id']}">
+					<table class="layui-table">
+						<foreach name="rule_data" item="v">
+							<empty name="v['_data']">
+								<tr class="b-group">
+									<td width="10%">
+										<label>
+											{$v['title']}
+											<input type="checkbox" name="rule_ids[]" value="{$v['id']}" <if condition="in_array($v['id'],$group_data['rules'])">	checked="checked"</if> onclick="checkAll(this)" >
+										</label>
+									</td>
+									<td></td>
+								</tr>
+							<else />
+								<tr class="b-group">
+									<td width="10%">
+										<label>
+											{$v['title']} <input type="checkbox" name="rule_ids[]" value="{$v['id']}" <if condition="in_array($v['id'],$group_data['rules'])">	checked="checked"</if> onclick="checkAll(this)">
+										</label>
+									</td>
+									<td class="b-child">
+										<foreach name="v['_data']" item="n">
+											<table class="layui-table">
+												<tr class="b-group">
+													<td width="10%">
+														<label>
+															{$n['title']} <input type="checkbox" name="rule_ids[]" value="{$n['id']}" <if condition="in_array($n['id'],$group_data['rules'])">	checked="checked"</if> onclick="checkAll(this)">
+														</label>
+													</td>
+													<td>
+														<notempty name="n['_data']">
+															<volist name="n['_data']" id="c">
+																<label>
+																	&emsp;{$c['title']} <input type="checkbox" name="rule_ids[]" value="{$c['id']}" <if condition="in_array($c['id'],$group_data['rules'])">	checked="checked"</if> >
+																</label>
+															</volist>							
+														</notempty>
+													</td>
+												</tr>
+											</table>
+										</foreach>
+									</td>
+								</tr>
+							</empty>
+						</foreach>
+						<tr>
+							<th></th>
+							<td>
+								<input class="btn btn-success" type="submit" value="提交">
+							</td>
+						</tr>
+					</table>
+				</form>
+</div>
+</div>
+<script type="text/javascript">
+function checkAll(obj){
+	    $(obj).parents('.b-group').eq(0).find("input[type='checkbox']").prop('checked', $(obj).prop('checked'));
+	}
+
+</script>
+</body>
+</html>

@@ -383,3 +383,15 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
 .ul_t6{
 	color:#CF2D28;
 }
+
+
+/*Medicine_remind*/
+.add_img img{
+	height: 100px;
+	width: 100px;
+	margin-left:10px ;
+}
+.add_img p{
+text-align: center;
+font-size:medium;
+}

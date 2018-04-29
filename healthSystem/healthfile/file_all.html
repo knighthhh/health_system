@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/heathfile.css"/>
+		<style type="text/css">
+			.mui-segmented-control .mui-control-item.mui-active{
+				background-color:#06BFAC ;
+			}
+			.mui-segmented-control .mui-control-item{
+				color: #06BFAC ;
+				border-color:#06BFAC ;
+				border-left:1px solid #06BFAC;
+			}
+			.mui-segmented-control{
+				border:1px solid #06BFAC;
+			}
+		</style>
+		<style type="text/css">
+			.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			img {
+				height: 200px;
+				width: 150px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav public-color">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">档案管理</h1>
+		</header>
+		<div class="mui-content">
+			<div style="padding: 5px 0px;">
+				<div id="segmentedControl" class="mui-segmented-control">
+					<a class="mui-control-item mui-active" href="#item1">我的档案</a>
+					<a class="mui-control-item" href="#item2">亲友档案</a>
+					
+				</div>
+			</div>	
+			<div id="item1" class="mui-control-content mui-active">
+						<div class="person_info">
+					
+						<ul class="mui-table-view">
+						    <li class="mui-table-view-cell mui-media">
+						        <a href="javascript:;">
+						            <img data-preview-src="" data-preview-group="1" id="user_img" class="mui-pull-left" src="../img/inquiry.jpg">
+						            <div class="mui-media-body">
+						              		<span id="name" class="name">张三丰</span> 
+						              	<hr style="border:1px dashed #CCCCCC ">
+						                <p class='mui-ellipsis'>性别：<span id="sex">男</span></p>
+						                <p class='mui-ellipsis' id="sex">本人电话：<span id="phone">15768651511</span></p>
+						                <p class='mui-ellipsis'>出生日期：<span id="date">2010-10-10</span></p>
+						                
+						            </div>
+						        </a>
+						    </li> 
+						</ul>
+					
+				</div>
+				
+				<div class="other_info">
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell mui-collapse mui-active">
+							<a class="mui-navigate-right" href="#">
+								<p class="headline">个人信息
+									<span class="mui-pull-right detial">详情</span>
+								</p>
+							</a>
+							<ul class="mui-table-view mui-table-view-chevron other_info_res">
+								<li class="mui-table-view-cell">
+									<p>昵　　称：</p>
+									<span id="nickname">暂无</span>
+								</li>
+								<li class="mui-table-view-cell">
+									<p>年　　龄：</p>
+									<span id="age">暂无</span>
+								</li>
+								<li class="mui-table-view-cell">
+									<p>民　　族：</p>
+									<span id="nation">暂无</span>
+								</li>
+								<li class="mui-table-view-cell">
+									<p>证件类型：</p>
+									<span id="paper">暂无</span>
+								</li>
+								<li class="mui-table-view-cell">
+									<p>证件号码：</p>
+									<span id="number">暂无</span>
+								</li>
+								<li class="mui-table-view-cell">
+									<p>所在城市：</p>
+									<span id="city">暂无</span>
+								</li>
+								<li class="mui-table-view-cell">
+									<p>职　　业：</p>
+									<span id="job">暂无</span>
+								</li>
+								<li class="mui-table-view-cell">
+									<p>婚姻状况：</p>
+									<span id="marriage">暂无</span>
+								</li>
+								<li class="mui-table-view-cell">
+									<p>文化程度：</p>
+									<span id="edu">暂无</span>
+								</li>
+								<li class="mui-table-view-cell">
+									<p>QQ：</p>
+									<span id="qq">暂无</span>
+								</li>
+								<li class="mui-table-view-cell">
+									<p>微信：</p>
+									<span id="wechat">暂无</span>
+								</li>
+								<li class="mui-table-view-cell">
+					        		<p>
+					        		<button id="edit_person" type="button" class="mui-btn mui-btn-success mui-btn-outlined mui-pull-right">
+																修改/填写
+									</button>
+									</p>
+					        	</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div id="item2" class="mui-control-content">
+					<div class="friend_file">
+				<!--<p class="box">--我关联的亲友--</p>
+					<ul class="mui-table-view">
+					         <li id="friendfile_detail" class="mui-table-view-cell mui-media">
+							        <a class="mui-navigate-right">
+							            <img class="mui-media-object mui-pull-left" src="../img/inquiry.jpg">
+							            <div class="mui-media-body">
+							                <p>张三</p>
+							                <p>与本人关系:<span>父子</span></p>
+							            </div>
+							        </a>
+							
+					    </ul>
+					    <div class="submit" id="add_outline">
+							<span class="mui-btn mui-btn-success ">
+									关联更多亲友
+							</span>
+						</div>		-->
+					
+				<p class="box">--我添加的亲友--</p>
+						<ul id="relative" class="mui-table-view">
+					        <!--<li id="friendfile_detail" class="mui-table-view-cell mui-media">
+						        <a class="mui-navigate-right">
+						            <img class="mui-media-object mui-pull-left" src="../img/inquiry.jpg">
+						            <div class="mui-media-body">
+						                <p>张三</p>
+						                <p>与本人关系:<span>父子</span></p>
+						            </div>
+						        </a>
+							</li>-->
+					    </ul>
+				<div id="friendfile_add" class="submit">
+					<span class="mui-btn mui-btn-success ">
+							添加亲友档案
+					</span>
+				</div>				
+			</div>
+			</div>
+			</div>
+		</div>
+	</body>
+	
+			
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.previewimage.js"></script>
+		<script src="../js/mui.zoom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+	    	mui.init();
+	    	mui.previewImage();
+			mui.plusReady(function() {
+				if(islogin()){
+					var user_phone = plus.storage.getItem('user_phone');
+					//获取用户个人信息
+					mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/User/getUserData',{
+							user_phone:user_phone
+					},function(data){
+							document.getElementById("user_img").src = data.user_img;
+							document.getElementById("name").innerHTML = data.user_name;
+							document.getElementById("sex").innerHTML = data.user_sex;
+							document.getElementById("phone").innerHTML = data.user_phone;
+							document.getElementById("date").innerHTML = data.user_date;
+							document.getElementById("nickname").innerHTML = data.user_nickname;
+							document.getElementById("age").innerHTML = data.user_age;
+							document.getElementById("nation").innerHTML = data.nation;
+							document.getElementById("paper").innerHTML = data.papers_type;
+							document.getElementById("number").innerHTML = data.papers_num;
+							document.getElementById("city").innerHTML = data.user_city;
+							document.getElementById("job").innerHTML = data.profession;
+							document.getElementById("marriage").innerHTML = data.marriage;
+							document.getElementById("edu").innerHTML = data.education;
+							document.getElementById("qq").innerHTML = data.user_qq;
+							document.getElementById("wechat").innerHTML = data.user_weixin;
+						},'json'
+					);
+				}
+					var edit_person= document.getElementById('edit_person');
+					edit_person.addEventListener('tap',function(event){
+						mui.openWindow({
+							url: 'myfile_person_edit.html',
+							id: 'myfile_person_edit',
+							extras:{
+								user_phone:user_phone
+							},
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},false);
+					
+				});
+
+	</script>
+		<script type="text/javascript">
+	    	mui.init();
+	    		mui.plusReady(function() {
+	    			if(islogin()){
+		    			var user_phone = plus.storage.getItem('user_phone');
+		    			mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/User/getRelaData',{
+		    					user_phone:user_phone
+		    				},function(data){
+		    					var relative = document.getElementById("relative");
+		    					var r = '';
+		    					for(var i=0;i<data.length;i++){
+		    						r = r + '<li relaID="'+data[i].relative_id+'" class="mui-table-view-cell mui-media">';
+							        r = r + '<a class="mui-navigate-right"><img class="mui-media-object mui-pull-left" src="../img/inquiry.jpg">';
+							        r = r + '<div class="mui-media-body"><p>'+data[i].relative_name+'</p><p>与本人关系:<span>'+data[i].relative_relation+'</span></p></div></a></li>';
+		    					}
+		    					relative.innerHTML = r;
+		    				},'json'
+		    			);
+						//var friendfile_detail= document.getElementById('relative');	
+						var friendfile_add= document.getElementById('friendfile_add');	
+						mui('#relative').on('tap','li',function(e){
+							var relative_id = this.getAttribute('relaID');
+							mui.openWindow({
+								url: 'Friend_file_detail.html',
+								id: 'Friend_file_detail',
+								extras:{
+									relative_id:relative_id
+								},
+								show: {
+									aniShow: 'pop-in'
+								},
+								waiting: {
+									autoShow: false
+								}
+							});
+						});
+					
+						friendfile_add.addEventListener('tap',function(event){
+							//console.log("asas");
+							mui.openWindow({
+								url: 'Friend_file_add.html',
+								id: 'Friend_file_add',
+								extras:{
+									user_phone:user_phone
+								},
+								show: {
+									aniShow: 'pop-in'
+								},
+								waiting: {
+									autoShow: false
+								}
+							});
+						},false);
+					}else{
+						mui.openWindow({
+							url: '/login/login.html',
+							id: 'login',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+						plus.nativeUI.toast("请先登录");
+					}
+				});
+
+	</script>
+</html>

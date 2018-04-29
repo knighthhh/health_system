@@ -22,6 +22,8 @@
 					var seayy= document.getElementById('yy');
 					var seaxm = document.getElementById('xm');
 					var seajb = document.getElementById('jb');
+					var self = plus.webview.currentWebview();
+					var diqu = self.diqu;
 					seayy.addEventListener('tap',function(event){
 						mui.openWindow({
 							url: 'search_doctor_yy.html',
@@ -68,7 +70,8 @@
 							url:'/finddoctor/doclist.html',   
 						    id:'doclist',
 						    extras:{
-						    	dep_id:dep_id
+						    	dep_id:dep_id,
+						    	diqu:diqu
 						    },
 						    show:{
 						    	aniShow: 'pop-in'

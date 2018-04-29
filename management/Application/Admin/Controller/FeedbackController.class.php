@@ -86,4 +86,8 @@ class FeedbackController extends BaseController
 		$error = $model->getError();
         $this->error($error);
 	}
+	
+	public function math(){
+		$this->display();
+	}
 }

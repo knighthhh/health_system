@@ -68,4 +68,6 @@ class KnowledgeController extends BaseController
 		$error = $model->getError();
         $this->error($error);
 	}
+
+
 }

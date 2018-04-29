@@ -14,15 +14,18 @@
 	</head>
 	<script type="text/javascript" src="../js/mui.min.js"></script>
 	<script src="../js/common.js"></script>
+	<script src="../js/mui.pullToRefresh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/mui.pullToRefresh.material.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/immersed.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		mui.init({
 			preloadPages: [{
 				url: 'hosHP.html',
 				id: 'hosHP.html'
-			}],
+			}]
 		});
 		mui.plusReady(function() {
+			
 			var self = plus.webview.currentWebview();
 			var depID = self.depID;
 			//从疾病详情页面跳转过来
@@ -83,6 +86,7 @@
 								var showCityPickerButton = doc.getElementById('showUserPicker');
 				
 								showCityPickerButton.addEventListener('tap', function(event) {
+								
 									cityPicker.show(function(items) {
 										if(items[1].text=='全部'){
 											showCityPickerButton.innerText = items[1].text;
@@ -162,7 +166,7 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">按医院找</h1>
 		</header>
-		<div class="mui-content">
+		<div id="mui-content" class="mui-content">
 			<div class="select_p">
 				<button id="showUserPicker" type="button" class="mui-btn mui-btn-block">选择地区<span id="" class="mui-icon mui-icon-list"></button>
 			</div>

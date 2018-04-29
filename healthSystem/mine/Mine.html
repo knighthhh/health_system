@@ -55,6 +55,9 @@
 					url: 'account.html',
 					id: 'account',
 					preload: true,
+//					extras:{
+//				    	searchtext:searchtext
+//				    },
 					show: {
 						aniShow: 'pop-in'
 					},
@@ -63,19 +66,19 @@
 					}
 				}); 
 			},false);
-			recharge.addEventListener ('tap',function(event){
-				mui.openWindow({
-					url: 'recharge.html',
-					id: 'recharge',
-					preload: true,
-					show: {
-						aniShow: 'pop-in'
-					},
-					waiting: {
-						autoShow: false
-					}
-				});
-			},false);
+//			recharge.addEventListener ('tap',function(event){
+//				mui.openWindow({
+//					url: 'recharge.html',
+//					id: 'recharge',
+//					preload: true,
+//					show: {
+//						aniShow: 'pop-in'
+//					},
+//					waiting: {
+//						autoShow: false
+//					}
+//				});
+//			},false);
 			follow.addEventListener('tap',function(event){
 				mui.openWindow({
 					url: 'follow.html',
@@ -182,9 +185,9 @@
 		});
 	</script>
 	<body>	
-		<header class="mui-bar mui-bar-nav public-color">
+		<!--<header class="mui-bar mui-bar-nav public-color">
 		    <h1 class="mui-title"></h1>
-		</header>
+		</header>-->
 	
 			<!--页面主内容区开始-->
 			<div class="mui-content">	
@@ -206,11 +209,11 @@
 							</li>
 						</ul>
 						<ul class="mui-table-view mui-table-view-chevron">
-							<li class="mui-table-view-cell">
+							<!--<li class="mui-table-view-cell">
 								<a id="recharge" class="mui-navigate-right">
 									<table><td><span class="iconfont icon-qianbao m1"></span>
 									账户余额</td></table></a>
-							</li>
+							</li>-->
 							<li class="mui-table-view-cell">
 								<a id="follow" class="mui-navigate-right">
 									<table><td><span class="iconfont icon-guanzhu m2"></span>

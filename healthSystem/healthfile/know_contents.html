@@ -20,13 +20,13 @@
 			<div class="know_contents">
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell ">
-						<h4 id="title" class="article_h4">加载中</h4>
+						<h4 id="title" class="article_h4">{{title}}</h4>
 
 						<div class="know_contents_h">
 							<p>
-								<span class="know_contents_h_test">发布时间：<span id="time">2017-10-10</span></span>
+								<span class="know_contents_h_test">发布时间：<span id="time">{{time}}</span></span>
 								<!--<span class="know_contents_h_test">作者:	<span>张三</span></span>-->
-								<span id="reading" class="know_contents_h_test">1000 </span><span> 已读</span>
+								<span id="reading" class="know_contents_h_test">{{knowSee}} </span><span> 已读</span>
 
 							</p>
 						</div>
@@ -34,7 +34,7 @@
 					</li>
 					<ul class="mui-table-view mui-table-view-chevron">
 						<li id="text"  class="mui-table-view-cell">
-							<p class="article_paragraph">加载中</p>
+							<p class="article_paragraph" v-html="content"></p>
 						</li>
 					</ul>
 				</ul>
@@ -44,24 +44,57 @@
 		</div>
 
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
+			mui.plusReady(function(){});
+			function getDefaultData() {
+				return {
+					title: '',
+					knowSee:'',
+					time: '',
+					content: ''
+				}
+			}
+			
+			var vm = new Vue({
+				el: '.mui-content',
+				data: getDefaultData(),
+				methods: {
+					resetData: function() {//重置数据
+						Object.assign(this.$data, getDefaultData());
+					}
+				}
+			});
 			window.addEventListener('knowID',function(event){
+				plus.nativeUI.showWaiting();
 				//获取知识ID
 				var knowID = event.detail.knowID;
+				vm.knowSee = event.detail.knowSee;
+				vm.title = event.detail.title;
+				vm.time = event.detail.time;
 				//console.log(knowID);
 				//ajax向服务器获取数据
 				mui.get('http://' + serverName + '/health/management/Application/index.php/Connector/User/getKnowDetail',{
 						knowID:knowID
 				},function(data){
-						document.getElementById("title").innerHTML = data.know_title;
-						document.getElementById("time").innerHTML = data.time;
-						document.getElementById("reading").innerHTML = data.know_see;
-						document.getElementById("text").innerHTML = data.know_content;
+						vm.content = data.know_content;
+						plus.nativeUI.closeWaiting();
 					},'json'
 				);
+				
 			});
+			
+			//重写返回逻辑
+			mui.back = function() {
+				plus.webview.currentWebview().hide("auto", 200);
+				//动画结束后，恢复默认值
+				setTimeout(function() {
+					window.scrollTo(0, 0);
+					vm.resetData();
+				}, 300);
+			}
 		</script>
 	</body>
 
