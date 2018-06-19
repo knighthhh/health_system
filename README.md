@@ -16,3 +16,4 @@ Web APP for palm health
 12.Connector/push/push_doc.php 设置个推APPKEY,数据库连接信息<br/>
 
 使用方法
+1.安装apk文件
