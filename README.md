@@ -17,4 +17,4 @@ Web APP for palm health
 
 使用方法<br/>
 1.安装apk文件<br/>
-2.分为医生版和用户版<br/>
+2.分为医生版和用户版,doc0905.apk为医生版，user0905.apk为用户版<br/>
