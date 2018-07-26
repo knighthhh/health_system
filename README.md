@@ -56,7 +56,9 @@
 
 #
 ### <div id="example"/>5. 使用注意事项</div>
-> 1）目前打包发行只支持安卓版，安装患者版APP（user20180723.apk），医生版APP（doc20180723.apk）
+> 1）目前打包发行只支持安卓版，IOS需要相关开发者证书，可以体验我打包好的患者版APP（user20180723.apk），医生版APP（doc20180723.apk）<br/>
+
+> 2）后台访问 http://你的IP地址/health_system/management/Application/index.php 输入账号密码即可(manager表)
 
 
 
