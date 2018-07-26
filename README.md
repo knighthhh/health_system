@@ -4,7 +4,7 @@
   <li><a href="#introduce">系统介绍</a></li>
   <li><a href="#system">环境要求</a></li>
   <li><a href="#use">相关配置</a></li>
-  <li><a href="#theory">实现原理</a></li>
+  <li><a href="#theory">相关讲解</a></li>
   <li><a href="#example">使用注意事项</a></li>
   <li><a href="#other">其他</a></li>
 </ul>
@@ -44,17 +44,18 @@
 >> doctorsystem/js/common.js 设置为你的ip地址<br/>
 
 #
-### <div id="theory"/>4. 实现原理</div>
-> 1） 全用户爬取原理：根据微博用户的粉丝数和关注数，来一直递归循环获取所有的用户（起始用户的粉丝又有本身自己的粉丝，所以可以一直获取，0关注的用户则爬取不到）
+### <div id="theory"/>4. 相关讲解</div>
+> 1） 推荐算法：使用的是基于用户的协同过滤推荐算法，对不同的患者进行个性化的推荐医生，为患者提供更符合他需求的医生（参考https://blog.csdn.net/moakun/article/details/80704562 ）
 
-> 2） 架构原理图如图2-1：<br/>
+
+> 2） 患者版APP首页如图4-1：<br/>
 <p align="center">
-      <img src="https://github.com/knighthhh/outil/blob/master/images/weibo_user_info/theory.png"/><p align="center">2-1 架构图</p>
+      <img src="https://github.com/knighthhh/outil/blob/master/images/health_system/shouye.jpg"/><p align="center">4-1 首页</p>
 </p>
       
-> 3） 分析原理：对应的微博分析图如下：
+> 3） 后台管理系统如图4-2：<br/>
 <p align="center">
-  <img src="https://github.com/knighthhh/outil/blob/master/images/weibo_user_info/profile.jpg"/><p align="center">3-1 用户主页</p><br/>
+  <img src="https://github.com/knighthhh/outil/blob/master/images/health_system/houtai.png"/><p align="center">4-2 后台管理系统</p>
 </p>
 
 #
